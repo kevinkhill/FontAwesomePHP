@@ -1,4 +1,4 @@
-<?php namespace Khill\FontAwesome;
+<?php namespace Khill\Fontawesome;
 
 use Illuminate\Support\Facades\Facade;
 

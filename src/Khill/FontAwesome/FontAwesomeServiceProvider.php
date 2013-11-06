@@ -1,4 +1,4 @@
-<?php namespace Khill\FontAwesome;
+<?php namespace Khill\Fontawesome;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
@@ -24,7 +24,7 @@ class FontAwesomeServiceProvider extends ServiceProvider
         $this->app->booting(function()
         {
             $loader = AliasLoader::getInstance();
-            $loader->alias('FontAwesome', 'Khill\FontAwesome\FontAwesomeFacade');
+            $loader->alias('FontAwesome', 'Khill\Fontawesome\FontAwesomeFacade');
         });
     }
 

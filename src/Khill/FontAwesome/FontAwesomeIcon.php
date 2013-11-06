@@ -1,4 +1,4 @@
-<?php namespace Khill\FontAwesome;
+<?php namespace Khill\Fontawesome;
 
 class FontAwesomeIcon {
 
