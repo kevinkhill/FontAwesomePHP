@@ -1,6 +1,6 @@
 {
     "name": "khill/fontawesome",
-    "description": "PHP Wrapper for Font Awesome",
+    "description": "",
     "authors": [
         {
             "name": "Kevin Hill",
@@ -11,9 +11,12 @@
         "php": ">=5.3.0",
         "illuminate/support": "4.0.x"
     },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
     "autoload": {
         "psr-0": {
-            "Khill\\FontAwesome": "src/"
+            "Khill\\Fontawesome": "src/"
         }
     },
     "minimum-stability": "dev"

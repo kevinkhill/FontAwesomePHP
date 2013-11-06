@@ -4,8 +4,6 @@ class FontAwesome {
 
     const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">';
 
-    const CSS_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">';
-
     protected $extra = '';
 
     protected $iconHtml = '<i class="fa %s"></i>';
@@ -15,11 +13,6 @@ class FontAwesome {
     public function cdnLink()
     {
         return self::CDN_LINK;
-    }
-
-    public function cssLink()
-    {
-        return self::CSS_LINK;
     }
 
     public function icon($icon)
