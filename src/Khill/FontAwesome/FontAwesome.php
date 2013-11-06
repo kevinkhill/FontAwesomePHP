@@ -43,11 +43,21 @@ class FontAwesome {
         return $this->_setIcon($icon);
     }
 
+    /**
+     * HTML link to the FontAwesome CSS file through the bootstrapcdn
+     *
+     * @return string HTML link element
+     */
     public static function cdnLink()
     {
         return self::CDN_LINK;
     }
 
+    /**
+     * Outputs the FontAwesome object as an HTML string
+     *
+     * @return string HTML string
+     */
     public function __toString()
     {
         $classes = 'fa-' . $this->iconLabel;
@@ -127,7 +137,7 @@ class FontAwesome {
         return $this;
     }
 
-    public function inverted($icon = '')
+    public function inverse($icon = '')
     {
         $this->_setIcon($icon);
         $this->classes[] = 'fa-inverse';
