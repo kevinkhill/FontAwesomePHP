@@ -114,6 +114,20 @@ class FontAwesomeStandardTest extends \PHPUnit_Framework_TestCase {
         echo $this->fa->icon('star')->x5();
     }
 
+    public function test6xIconOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-star fa-6x"></i>');
+
+        echo $this->fa->x6('star');
+    }
+
+    public function test6xIconOutputThroughInstanceChain()
+    {
+        $this->expectOutputString('<i class="fa fa-star fa-6x"></i>');
+
+        echo $this->fa->icon('star')->x6();
+    }
+
     public function testInverseIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-star fa-inverse"></i>');
@@ -196,6 +210,13 @@ class FontAwesomeStandardTest extends \PHPUnit_Framework_TestCase {
         $this->expectOutputString('<i class="fa fa-star fa-flip-vertical"></i>');
 
         echo $this->fa->icon('star')->flipVertical();
+    }
+
+    public function testBasicStackedIconsOutput()
+    {
+        $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
+
+        echo $this->fa->stack('ban')->on('magic');
     }
 
 }

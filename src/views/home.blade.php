@@ -185,8 +185,16 @@ flipVertical($iconLabel);   \\ Vertically Flipped</pre>
 
                 <h3>Chaining</h3>
                 <h4>The methods can be chained together to create dynamic icons</h4>
-                <pre class="prettyprint">fixedWidth()->x2()->rotate90('fighter-jet');</pre>
-                <p class="icon">{{ FA::fixedWidth()->x4()->rotate90('fighter-jet') }}</p>
+                <pre class="prettyprint">inverse()->x2()->rotate90('fighter-jet');</pre>
+                <p class="icon">{{ FA::inverse()->x2()->rotate90('fighter-jet') }}</p>
+
+                <h3>Stacks</h3>
+                <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>
+                <pre class="prettyprint">stack('ban')->on('scissors');</pre>
+                <p class="icon">{{ FA::stack('ban')->on('scissors') }}</p>
+                <h4>You can also chain modification methods inbetween to make fancy stacks</h4>
+                <pre class="prettyprint">stack('ban')->x3()->on('scissors')->inverse();</pre>
+                <p class="icon">{{ FA::stack('ban')->x3()->on('scissors')->inverse() }}</p>
         </div><!--/container-->
     </body>
 </html>
