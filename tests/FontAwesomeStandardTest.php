@@ -6,7 +6,7 @@ class FontAwesomeStandardTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp()
     {
-        $this->fa = new FontAwesome;
+        $this->fa = new FontAwesome();
     }
 
     public function testCdnLinkOutput()
