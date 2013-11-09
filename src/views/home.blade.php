@@ -32,6 +32,13 @@
             }
             .underline {
                 border-bottom:2px solid #2c3e50;
+                margin-bottom: 5px;
+            }
+            .example p {
+                float:left;
+            }
+            .example pre {
+                margin-left: 50px;
             }
         </style>
     </head>
@@ -57,7 +64,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="#usage">
-                            {{ FA::fixedWidth('fighter-jet') }} Usage
+                            {{ FA::fixedWidth('flash') }} Usage
                         </a>
                     </li>
                     <li class="dropdown">
@@ -87,7 +94,7 @@
             <div class="jumbotron">
                 <h1>FontAwesome for PHP</h1>
                 <p>A composer ready package designed to integrate the fantastic <a href="http://fontawesome.io/">FontAwesome</a> icon set into your PHP project.</p>
-                <p>Designed with Laravel in mind, a ServiceProvider and Facade have been included as well.</p>
+                <p>Created with Laravel in mind, a ServiceProvider and Facade have been included as well.</p>
             </div>
 
             <br /><br />
@@ -97,7 +104,7 @@
                 <h1>Installation</h1>
             </div>
                 <ul class="nav nav-pills">
-                    <li class="active"><a href="#composer-install" data-toggle="tab">Composer (Laravel)</a></li>
+                    <li class="active"><a href="#composer-install" data-toggle="tab">Composer / Laravel</a></li>
                     <li><a href="#manual-install" data-toggle="tab">Manual</a></li>
                 </ul>
                 <div class="tab-content">
@@ -147,12 +154,12 @@ assets/fonts/FontAwesome.otf</pre>
                     <div class="tab-pane fade in active" id="laravel-usage">
                         <h1><small>The Laravel Way</small></h1>
                         <h4>Since we love Laravel, and making life easy, we took care of aliasing the library with a facade, so calls are simple:</h4>
-                        <pre class="prettyprint">echo FA::icon('star');</pre>
+                        {{ FA::icon('star') }}<pre class="prettyprint">echo FA::icon('star');</pre>
                     </div>
                     <div class="tab-pane fade in" id="generic-usage">
                         <h1><small>Generic PHP</small></h1>
                         <h4>If you are using this library in a different framework, then create a new instance of FontAwesome, and call from the object:</h4>
-                <pre class="prettyprint">$fa = new FontAwesome;
+                {{ FA::icon('star') }}<pre class="prettyprint">$fa = new FontAwesome;
 echo $fa->icon('star');</pre>
                     </div>
                 </div>
@@ -176,7 +183,7 @@ x3($iconLabel);             \\ 3x Icon
 x4($iconLabel);             \\ 4x Icon
 x5($iconLabel);             \\ 5x Icon
 fixedWidth($iconLabel);     \\ Vertically Flipped
-inverted($iconLabel);       \\ Inverted Icon
+inverse($iconLabel);        \\ Inverted Color Icon
 rotate90($iconLabel);       \\ 90 Degree Rotated Icon
 rotate180($iconLabel);      \\ 180 Degree Rotated Icon
 rotate270($iconLabel);      \\ 270 Degree Rotated Icon
@@ -185,8 +192,19 @@ flipVertical($iconLabel);   \\ Vertically Flipped</pre>
 
                 <h3>Chaining</h3>
                 <h4>The methods can be chained together to create dynamic icons</h4>
-                <pre class="prettyprint">inverse()->x2()->rotate90('fighter-jet');</pre>
-                <p class="icon">{{ FA::inverse()->x2()->rotate90('fighter-jet') }}</p>
+                <div class="example">
+                    <p class="icon">{{ FA::icon('shopping-cart')->flipVertical()->x3() }}</p>
+                    <pre class="prettyprint">icon('shopping-cart')->flipVertical()->x3();</pre>
+                </div>
+                <div class="example">
+                    <p class="icon">{{ FA::icon('cutlery')->rotate270()->x5() }}</p>
+                    <pre class="prettyprint">icon('cutlery')->rotate270()->x5();</pre>
+                </div>
+                <div class="example">
+                    <p class="icon" style="background-color:#ccc;">{{ FA::icon('truck')->inverse()->x4() }}</p>
+                    <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
+                    <p>(the grey background is just so you can see the inverse effect)</p>
+                </div>
 
                 <h3>Stacks</h3>
                 <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>

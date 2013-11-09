@@ -1,6 +1,7 @@
 <?php namespace Khill\Fontawesome;
 
-use Khill\Fontawesome\Exceptions;
+use Khill\Fontawesome\Exceptions\BadLabelException;
+use Khill\Fontawesome\Exceptions\CollectionIconException;
 
 class FontAwesome {
 
@@ -59,7 +60,7 @@ class FontAwesome {
      */
     public function __construct($icon = '')
     {
-        return $this->_setIcon($icon);
+        $this->_setIcon($icon);
     }
 
     /**
@@ -91,7 +92,27 @@ class FontAwesome {
     {
         if(is_string($label))
         {
-            $this->collection[$label];
+            if( ! empty($label))
+            {
+                $this->collection[$label] = $this->_buildIcon();
+            } else {
+                throw new BadLabelException('Error: Cannot store icon into collection with an empty label.');
+            }
+        } else {
+            throw new BadLabelException('Error: Collection icon label must be a string.');
+        }
+    }
+
+    public function collection($label)
+    {
+        if(is_string($label))
+        {
+            if(isset($this->collection[$label]))
+            {
+                return $this->collection[$label];
+            } else {
+                throw new CollectionIconException('Error: Collection icon "$label" does not exist.');
+            }
         } else {
             throw new BadLabelException('Error: Collection icon label must be a string.');
         }
@@ -99,7 +120,9 @@ class FontAwesome {
 
     public function icon($icon)
     {
-        return $this->_setIcon($icon);
+        $this->_setIcon($icon);
+        
+        return $this;
     }
 
     public function addClass($class)
@@ -233,19 +256,18 @@ class FontAwesome {
         return $this;
     }
 
+
     private function _setIcon($icon)
     {
-        if( ! empty($icon))
+        if(is_string($icon))
         {
-            if(is_string($icon))
+            if( ! empty($icon))
             {
                 $this->iconLabel = $icon;
-            } else {
-                throw new BadLabelException('Error: Icon label must be a string.');
             }
+        } else {
+            throw new BadLabelException('Error: Icon label must be a string.');
         }
-
-        return $this;
     }
 
     private function _buildIcon()

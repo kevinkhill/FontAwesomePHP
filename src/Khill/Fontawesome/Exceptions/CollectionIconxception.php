@@ -1,6 +1,6 @@
 <?php namespace Khill\Fontawesome\Exceptions;
 
-class BadLabelException extends Exception
+class CollectionIconException extends \Exception
 {
     public function __construct($message, $code = 1, Exception $previous = null)
     {
