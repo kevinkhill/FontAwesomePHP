@@ -5,6 +5,7 @@ A PHP wrapper library for the fantastic FontAwesome icon set. Designed for Larav
 
 #This is a work in progress
 ##Most features work, but might change
+###API and examples page coming soon!
 
   
 
