@@ -1,6 +1,6 @@
 {
-    "name": "khill/fontawesome",
-    "description": "",
+    "name": "khill/fontawesomephp",
+    "description": "PHP wrapper library for the fantastic FontAwesome icon set.",
     "authors": [
         {
             "name": "Kevin Hill",
