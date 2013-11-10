@@ -8,7 +8,6 @@
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" />
         <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet" />
         {{ FA::css() }}
-        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=php&skin=sunburst"></script>
         <style type="text/css" rel="stylesheet">
             #wrap {
                 padding-top: 100px;
@@ -25,6 +24,13 @@
             }
             strong {
                 color:#E28964;
+            }
+            .inline {
+                display:inline;
+            }
+            .note {
+                color:#b4bcc2;
+                font-size:smaller;
             }
             .anchor {
                 position: reletive;
@@ -92,8 +98,8 @@
 
         <div class="container" id="wrap">
             <div class="jumbotron">
-                <h1>FontAwesome for PHP</h1>
-                <p>A composer ready package designed to integrate the fantastic <a href="http://fontawesome.io/">FontAwesome</a> icon set into your PHP project.</p>
+                <h1>Font Awesome for PHP</h1>
+                <p>A composer ready package designed to integrate the fantastic <a href="http://fontawesome.io/">Font Awesome</a> icon set into your PHP project.</p>
                 <p>Created with Laravel in mind, a ServiceProvider and Facade have been included as well.</p>
             </div>
 
@@ -134,7 +140,7 @@ assets/fonts/fontawesome-webfont.svg
 assets/fonts/fontawesome-webfont.ttf
 assets/fonts/fontawesome-webfont.wof
 assets/fonts/FontAwesome.otf</pre>
-                    <h4>Last, add the link to the FontAwesome CSS file in your page header:</h4>
+                    <h4>Last, add the link to the Font Awesome CSS file in your page header:</h4>
                     <pre class="prettyprint">&lt;link href="[ASSET_DIR]/css/bootstrap.min.css" rel="stylesheet" /&gt;</pre>
                     </div>
                 </div><!--/install tabs-->
@@ -166,29 +172,71 @@ echo $fa->icon('star');</pre>
 
             <br /><br /><br />
 
-            <a name="api"></a>
+            <a name="api">&nbsp;</a>
             <div class="underline">
                 <h1>Api</h1>
             </div>
-                <h4>All of the methods of the API can be called from the FontAwesome class, either through the facade in Laravel, or from the instansiated class if not using Laravel</h4>
+                <h4>All of the methods of the API correspond with how Font Awesome  is used, to make FontAwesomePHP intuitive and easy to use. We've also thrown in a few extra features.</h4><br />
 
-                <h3>Inline, Sized, Fixed Width, Rotated and Flipped Icons:</h3>
-                <h4>The following methods all follow this signature:</h4>
-                <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display (omit the prefix "fa-")</h4>
-                <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
-                <pre class="prettyprint">icon($iconLabel);           \\ Standard Icon
-lg($iconLabel);             \\ Large Icon
-x2($iconLabel);             \\ 2x Icon
-x3($iconLabel);             \\ 3x Icon
-x4($iconLabel);             \\ 4x Icon
-x5($iconLabel);             \\ 5x Icon
-fixedWidth($iconLabel);     \\ Vertically Flipped
-inverse($iconLabel);        \\ Inverted Color Icon
-rotate90($iconLabel);       \\ 90 Degree Rotated Icon
-rotate180($iconLabel);      \\ 180 Degree Rotated Icon
-rotate270($iconLabel);      \\ 270 Degree Rotated Icon
-flipHorizontal($iconLabel); \\ Horizontally Flipped
-flipVertical($iconLabel);   \\ Vertically Flipped</pre>
+                <h3>Inline Icons:</h3>
+                <h4>Add icons anywhere with this simple syntax.</h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        {{ FA::icon('home') }} icon('home');
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                        <pre>icon($iconLabel);</pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
+                    </div>
+                </div><br />
+
+                <h3>Sizing Icons:</h3>
+                <h4>Increase an icon's size with the following methods.</h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        {{ FA::lg('rocket') }} lg('rocket');<br />
+                        {{ FA::x2('rocket') }} x2('rocket');<br />
+                        {{ FA::x3('rocket') }} x3('rocket');<br />
+                        {{ FA::x4('rocket') }} x4('rocket');<br />
+                        {{ FA::x5('rocket') }} x5('rocket');
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                        <pre>lg($iconLabel);
+x2($iconLabel);
+x3($iconLabel);
+x4($iconLabel);
+x5($iconLabel);
+</pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
+                    </div>
+                </div><br />
+
+                <h3>Fixed Width Icons:</h3>
+                <h4>Set icons to have a fixed width, perfect for menus or buttons.</h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a href="#"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                            <li><a href="#"><i class="fa fa-flask fa-fw"></i> Science</a></li>
+                            <li><a href="#"><i class="fa fa-group fa-fw"></i> Connect</a></li>
+                            <li><a href="#"><i class="fa fa-upload fa-fw"></i> Upload</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                        <pre>fixedWidth($iconLabel);</pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
+                        <p>Example: <span class="note">(Laravel alias in blade template show, but can be called from instansiated FontAwesome object</span></p>
+                        <pre>&lt;ul class="nav nav-pills nav-stacked"&gt;
+    &lt;li class="active"&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('home') &#125;&#125; Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('flask') &#125;&#125; Science&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('group') &#125;&#125; Connect&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('upload') &#125;&#125; Upload&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre>
+                    </div>
+                </div><br />
 
                 <h3>Chaining</h3>
                 <h4>The methods can be chained together to create dynamic icons</h4>
@@ -219,6 +267,55 @@ flipVertical($iconLabel);   \\ Vertically Flipped</pre>
                 <pre class="prettyprint">icon('cog')->store('savedIcon1'); //Store Icons
 echo collection('savedIcon1'); //Retrieve within template or HTML</pre>
                 <p class="icon">{{ FA::icon('cog') }}</p>
+            </div>
+
+            <a name="examples">&nbsp;</a>
+            <div class="underline">
+                <h1>Examples</h1>
+            </div>
+            <ul class="nav nav-pills">
+                <li class="active"><a href="#laravel-examples" data-toggle="tab">Laravel</a></li>
+                <li><a href="#generic-examples" data-toggle="tab">Generic</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="laravel-examples">
+                    <h4>Here are some examples of how to use the library in your applications.</h4>
+
+                    <h3>Simple Icons</h3>
+
+                    <h3>Chaining</h3>
+                    <h4>The methods can be chained together to create dynamic icons</h4>
+                    <div class="example">
+                        <p class="icon">{{ FA::icon('shopping-cart')->flipVertical()->x3() }}</p>
+                        <pre class="prettyprint">icon('shopping-cart')->flipVertical()->x3();</pre>
+                    </div>
+                    <div class="example">
+                        <p class="icon">{{ FA::icon('cutlery')->rotate270()->x5() }}</p>
+                        <pre class="prettyprint">icon('cutlery')->rotate270()->x5();</pre>
+                    </div>
+                    <div class="example">
+                        <p class="icon" style="background-color:#ccc;">{{ FA::icon('truck')->inverse()->x4() }}</p>
+                        <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
+                        <p>(the grey background is just so you can see the inverse effect)</p>
+                    </div>
+    <div style="clear:both;"></div>
+                    <h3>Stacks</h3>
+                    <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>
+                    <pre class="prettyprint">stack('ban')->on('scissors');</pre>
+                    <p class="icon">{{ FA::stack('ban')->on('scissors') }}</p>
+                    <h4>You can also chain modification methods inbetween to make fancy stacks</h4>
+                    <pre class="prettyprint">stack('ban')->x3()->on('scissors')->inverse();</pre>
+                    <p class="icon">{{ FA::stack('ban')->x3()->on('scissors')->inverse() }}</p>
+
+                    <h3>Collection</h3>
+                    <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
+                    <pre class="prettyprint">icon('cog')->store('savedIcon1'); //Store Icons
+echo collection('savedIcon1'); //Retrieve within template or HTML</pre>
+                    <p class="icon">{{ FA::icon('cog') }}</p>
+                </div>
+                <div class="tab-pane fade in" id="generic-examples">
+                </div>
+            </div>
         </div><!--/container-->
     </body>
 </html>

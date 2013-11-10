@@ -185,14 +185,6 @@ class FontAwesome {
         return $this;
     }
 
-    public function x6($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-6x';
-
-        return $this;
-    }
-
     public function inverse($icon = '')
     {
         $this->_setIcon($icon);
