@@ -7,7 +7,7 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet" />
         <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet" />
-        {{ FA::cdnLink() }}
+        {{ FA::css() }}
         <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=php&skin=sunburst"></script>
         <style type="text/css" rel="stylesheet">
             #wrap {
@@ -205,7 +205,7 @@ flipVertical($iconLabel);   \\ Vertically Flipped</pre>
                     <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
                     <p>(the grey background is just so you can see the inverse effect)</p>
                 </div>
-
+<div style="clear:both;"></div>
                 <h3>Stacks</h3>
                 <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>
                 <pre class="prettyprint">stack('ban')->on('scissors');</pre>
@@ -213,6 +213,12 @@ flipVertical($iconLabel);   \\ Vertically Flipped</pre>
                 <h4>You can also chain modification methods inbetween to make fancy stacks</h4>
                 <pre class="prettyprint">stack('ban')->x3()->on('scissors')->inverse();</pre>
                 <p class="icon">{{ FA::stack('ban')->x3()->on('scissors')->inverse() }}</p>
+
+                <h3>Collection</h3>
+                <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
+                <pre class="prettyprint">icon('cog')->store('savedIcon1'); //Store Icons
+echo collection('savedIcon1'); //Retrieve within template or HTML</pre>
+                <p class="icon">{{ FA::icon('cog') }}</p>
         </div><!--/container-->
     </body>
 </html>

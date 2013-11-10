@@ -68,7 +68,7 @@ class FontAwesome {
      *
      * @return string HTML link element
      */
-    public static function cdnLink()
+    public static function css()
     {
         return self::CDN_LINK;
     }

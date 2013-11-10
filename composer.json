@@ -5,7 +5,9 @@
     "authors": [
         {
             "name": "Kevin Hill",
-            "email": "kevinkhill@gmail.com"
+            "email": "kevinkhill@gmail.com",
+            "homepage": "http://khilldesigns.com",
+            "role": "Developer"
         }
     ],
     "require": {

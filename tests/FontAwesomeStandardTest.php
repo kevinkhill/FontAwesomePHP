@@ -13,7 +13,7 @@ class FontAwesomeStandardTest extends \PHPUnit_Framework_TestCase {
     {
         $this->expectOutputString('<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">');
 
-        echo FontAwesome::cdnLink();
+        echo FontAwesome::css();
     }
 
     public function testStandardIconOutputThroughConstructor()

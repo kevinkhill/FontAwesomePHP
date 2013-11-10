@@ -36,6 +36,14 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
         $this->fa->icon('star')->store($badLabels);
     }
 
+    /**
+     * @expectedException Khill\Fontawesome\Exceptions\CollectionIconException
+     */
+    public function testRetrieveStoredIconMethodCollectionIconException()
+    {
+        $this->fa->collection('iDontExist');
+    }
+
 
     public function notStringProvider()
     {
