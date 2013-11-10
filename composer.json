@@ -1,6 +1,7 @@
 {
     "name": "khill/fontawesomephp",
     "description": "PHP wrapper library for the fantastic FontAwesome icon set.",
+    "license": "MIT",
     "authors": [
         {
             "name": "Kevin Hill",
