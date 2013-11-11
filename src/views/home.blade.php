@@ -29,8 +29,8 @@
                 display:inline;
             }
             .note {
-                color:#b4bcc2;
-                font-size:smaller;
+                color:#7b8a8b;
+                font-size:10pt;
             }
             .anchor {
                 position: reletive;
@@ -228,13 +228,58 @@ x5($iconLabel);
                         <pre>fixedWidth($iconLabel);</pre>
                         <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
                         <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
-                        <p>Example: <span class="note">(Laravel alias in blade template show, but can be called from instansiated FontAwesome object</span></p>
+                        <p>Example: <span class="note">(Laravel alias within blade template shown) </span></p>
                         <pre>&lt;ul class="nav nav-pills nav-stacked"&gt;
     &lt;li class="active"&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('home') &#125;&#125; Home&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('flask') &#125;&#125; Science&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('group') &#125;&#125; Connect&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href="#"&gt;&#123;&#123; FA::fixedWidth('upload') &#125;&#125; Upload&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</pre>
+                    </div>
+                </div><br />
+
+                <h3>List Icons:</h3>
+                <h4></h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                    </div>
+                </div><br />
+
+                <h3>Bordered & Pulled Icons:</h3>
+                <h4></h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                    </div>
+                </div><br />
+
+                <h3>Spinning Icons:</h3>
+                <h4></h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                    </div>
+                </div><br />
+
+                <h3>Rotated & Flipped Icons:</h3>
+                <h4></h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                    </div>
+                </div><br />
+
+                <h3>Stacked Icons:</h3>
+                <h4></h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                    </div>
+                    <div class="col-md-9 col-sm-8">
                     </div>
                 </div><br />
 
@@ -253,7 +298,9 @@ x5($iconLabel);
                     <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
                     <p>(the grey background is just so you can see the inverse effect)</p>
                 </div>
+
 <div style="clear:both;"></div>
+
                 <h3>Stacks</h3>
                 <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>
                 <pre class="prettyprint">stack('ban')->on('scissors');</pre>
