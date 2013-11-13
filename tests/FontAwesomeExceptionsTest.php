@@ -13,7 +13,7 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
      * @dataProvider notStringProvider
      * @expectedException Khill\Fontawesome\Exceptions\BadLabelException
      */
-    public function testIconMethodBadLabelException($badLabels)
+    public function testIconMethodThrowsBadLabelException($badLabels)
     {
         $this->fa->icon($badLabels);
     }
@@ -22,7 +22,7 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
      * @dataProvider notStringProvider
      * @expectedException Khill\Fontawesome\Exceptions\BadLabelException
      */
-    public function testAddClassMethodBadLabelException($badLabels)
+    public function testAddClassMethodThrowsBadLabelException($badLabels)
     {
         $this->fa->icon('star')->addClass($badLabels);
     }
@@ -31,7 +31,7 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
      * @dataProvider notStringProvider
      * @expectedException Khill\Fontawesome\Exceptions\BadLabelException
      */
-    public function testStoreIconMethodBadLabelException($badLabels)
+    public function testStoreIconMethodThrowsBadLabelException($badLabels)
     {
         $this->fa->icon('star')->store($badLabels);
     }
@@ -39,9 +39,17 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
     /**
      * @expectedException Khill\Fontawesome\Exceptions\CollectionIconException
      */
-    public function testRetrieveStoredIconMethodCollectionIconException()
+    public function testRetrieveStoredIconMethodThrowsCollectionIconException()
     {
         $this->fa->collection('iDontExist');
+    }
+
+    /**
+     * @expectedException Khill\Fontawesome\Exceptions\IncompleteStackException
+     */
+    public function testCallingOnMethodBeforeStackMethodThrowsIncompleteStackException()
+    {
+        $this->fa->on('twitter');
     }
 
 

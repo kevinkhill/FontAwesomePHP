@@ -2,6 +2,7 @@
 
 use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
+use Khill\Fontawesome\Exceptions\IncompleteStackException;
 
 class FontAwesome {
 
@@ -369,12 +370,18 @@ class FontAwesome {
      * 
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @throws Khill\Fontawesome\Exceptions\IncompleteStackException If The on() method was called without the stack() method
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
     public function on($icon)
     {
-        $this->stackTop = $this->_buildIcon();
-        $this->_setIcon($icon);
+        if($this->stacking === true)
+        {
+            $this->stackTop = $this->_buildIcon();
+            $this->_setIcon($icon);
+        } else {
+            throw new IncompleteStackException('Error: Stacks must be started with the stack() method.');
+        }
 
         return $this;
     }
