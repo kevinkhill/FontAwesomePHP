@@ -39,6 +39,13 @@ class FontAwesome {
     public $collection = array();
 
     /**
+     * Status of stacking or regular icon
+     *
+     * @var boolean
+     */
+    private $stacking = false;
+
+    /**
      * Stores top icon in a stack
      *
      * @var string
@@ -56,7 +63,7 @@ class FontAwesome {
      * Assigns the name to the icon
      *
      * @param  string $icon Icon label
-     * @return FontAwesome FontAwesome object
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
     public function __construct($icon = '')
     {
@@ -88,6 +95,12 @@ class FontAwesome {
         }
     }
 
+    /**
+     * Stores icon to be rendered later
+     * 
+     * @param  string $label Label of icon to save in collection
+     * @return void
+     */
     public function store($label)
     {
         if(is_string($label))
@@ -103,6 +116,12 @@ class FontAwesome {
         }
     }
 
+    /**
+     * Retrieve icon from collection
+     * 
+     * @param  string $label Icon label used in store method
+     * @return void
+     */
     public function collection($label)
     {
         if(is_string($label))
@@ -118,6 +137,12 @@ class FontAwesome {
         }
     }
 
+    /**
+     * Sets which icon to use
+     * 
+     * @param  string $icon Icon label, ommiting fa- prefix
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function icon($icon)
     {
         $this->_setIcon($icon);
@@ -125,6 +150,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Adds extra classes to icon or stack
+     * 
+     * @param string $class CSS class
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function addClass($class)
     {
         if(is_string($class))
@@ -137,6 +169,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be a fixed width
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function fixedWidth($icon = '')
     {
         $this->_setIcon($icon);
@@ -145,6 +184,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be larger
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function lg($icon = '')
     {
         $this->_setIcon($icon);
@@ -153,6 +199,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be 2 times larger
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function x2($icon = '')
     {
         $this->_setIcon($icon);
@@ -161,6 +214,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be 3 times larger
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function x3($icon = '')
     {
         $this->_setIcon($icon);
@@ -169,6 +229,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be 4 times larger
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function x4($icon = '')
     {
         $this->_setIcon($icon);
@@ -177,6 +244,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be 5 times larger
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function x5($icon = '')
     {
         $this->_setIcon($icon);
@@ -185,6 +259,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be inverted in color
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function inverse($icon = '')
     {
         $this->_setIcon($icon);
@@ -193,6 +274,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be rotated 90 degrees
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function rotate90($icon = '')
     {
         $this->_setIcon($icon);
@@ -201,6 +289,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be rotated 180 degrees
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function rotate180($icon = '')
     {
         $this->_setIcon($icon);
@@ -209,6 +304,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be rotated 270 degrees
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function rotate270($icon = '')
     {
         $this->_setIcon($icon);
@@ -217,6 +319,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be flipped horizontally
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function flipHorizontal($icon = '')
     {
         $this->_setIcon($icon);
@@ -225,6 +334,13 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the icon or stack to be flipped vertically
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function flipVertical($icon = '')
     {
         $this->_setIcon($icon);
@@ -233,13 +349,28 @@ class FontAwesome {
         return $this;
     }
 
+    /**
+     * Sets the top icon to be used in a stack
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function stack($icon)
     {
+        $this->stacking = true;
         $this->_setIcon($icon);
 
         return $this;
     }
 
+    /**
+     * Sets the bottom icon to be used in a stack
+     * 
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
     public function on($icon)
     {
         $this->stackTop = $this->_buildIcon();
@@ -249,6 +380,10 @@ class FontAwesome {
     }
 
 
+
+/*******************************************
+ *            PRIVATE METHODS              *
+ *******************************************/
     private function _setIcon($icon)
     {
         if(is_string($icon))

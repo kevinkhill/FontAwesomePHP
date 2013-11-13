@@ -275,11 +275,16 @@ x5($iconLabel);
                 </div><br />
 
                 <h3>Stacked Icons:</h3>
-                <h4></h4>
+                <h4>Stacking icons is simple, just chain the methods together using the following syntax.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
+                        {{ FA::stack('ban')->on('scissors') }}<br />
+                        {{ FA::stack('fighter-jet')->on('square-o')->x3()->rotate90() }}
                     </div>
                     <div class="col-md-9 col-sm-8">
+                        <pre>stack('ban')->on('scissors');</pre>
+                        <h5>You can also chain modification methods make fancy stacks</h5>
+                        <pre>stack('fighter-jet')->on('square-o')->x3()->rotate90();</pre>
                     </div>
                 </div><br />
 
@@ -297,17 +302,17 @@ x5($iconLabel);
                     <p class="icon" style="background-color:#ccc;">{{ FA::icon('truck')->inverse()->x4() }}</p>
                     <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
                     <p>(the grey background is just so you can see the inverse effect)</p>
-                </div>
+                </div>  
 
-<div style="clear:both;"></div>
+
+
+
 
                 <h3>Stacks</h3>
-                <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>
-                <pre class="prettyprint">stack('ban')->on('scissors');</pre>
-                <p class="icon">{{ FA::stack('ban')->on('scissors') }}</p>
-                <h4>You can also chain modification methods inbetween to make fancy stacks</h4>
-                <pre class="prettyprint">stack('ban')->x3()->on('scissors')->inverse();</pre>
-                <p class="icon">{{ FA::stack('ban')->x3()->on('scissors')->inverse() }}</p>
+                <h4>following the syntax below</h4>
+                
+
+
 
                 <h3>Collection</h3>
                 <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
