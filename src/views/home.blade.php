@@ -278,13 +278,15 @@ x5($iconLabel);
                 <h4>Stacking icons is simple, just chain the methods together using the following syntax.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
-                        {{ FA::stack('ban')->on('scissors') }}<br />
-                        {{ FA::stack('fighter-jet')->on('square-o')->x3()->rotate90() }}
+                        {{ FA::stack('ban')->on('comments') }}<br />
+                        {{ FA::stack('fighter-jet')->on('square-o')->lg() }}<br />
+                        {{ FA::stack('twitter')->on('circle-o')->x3()->flipHorizontal() }}
                     </div>
                     <div class="col-md-9 col-sm-8">
-                        <pre>stack('ban')->on('scissors');</pre>
+                        <pre>stack('ban')->on('comments');</pre>
                         <h5>You can also chain modification methods make fancy stacks</h5>
-                        <pre>stack('fighter-jet')->on('square-o')->x3()->rotate90();</pre>
+                        <pre>stack('fighter-jet')->on('square-o')->lg();
+stack('twitter')->on('circle-o')->x3()->flipHorizontal();</pre>
                     </div>
                 </div><br />
 

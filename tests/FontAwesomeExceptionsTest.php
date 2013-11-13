@@ -52,6 +52,14 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
         $this->fa->on('twitter');
     }
 
+    /**
+     * @expectedException Khill\Fontawesome\Exceptions\IncompleteStackException
+     */
+//    public function testCallingStackMethodWithoutOnMethodThrowsIncompleteStackException()
+//    {
+//        $this->fa->stack('github');
+//    }
+
 
     public function notStringProvider()
     {

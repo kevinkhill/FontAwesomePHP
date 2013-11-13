@@ -1,11 +1,33 @@
 <?php namespace Khill\Fontawesome;
 
+/**
+* Example_Class is a sample class for demonstrating PHPDoc
+*
+* Example_Class is a class that has no real actual code, but merely
+* exists to help provide people with an understanding as to how the
+* various PHPDoc tags are used.
+*
+* Example usage:
+* if (Example_Class::example()) {
+*    print "I am an example.";
+* }
+*
+* @package  FontAwesomePHP
+* @author   Kevin Hill <kevinkhill@gmail.com>
+* @version  1.0b1
+* @access   public
+* @see      http://www.example.com/pear
+*/
+
 use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
 
 class FontAwesome {
 
+    /**
+     * HTML Link tag to the FontAwesome CDN
+     */
     const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">';
 
     /**
@@ -16,7 +38,7 @@ class FontAwesome {
     /**
      * Html string template to build the icon stack
      */
-    const STACK_HTML = '<span class="fa-stack%s">%s%s</span>';
+    const STACK_HTML = '<span class="%s">%s%s</span>';
 
     /**
      * Name of the icon
@@ -58,7 +80,14 @@ class FontAwesome {
      *
      * @var string
      */
-    public $stackBottom = '';
+    public $stackBottom = '';    
+
+    /**
+     * Classes to be applied to icon stack
+     *
+     * @var array
+     */
+    private $stackClasses = array();
 
     /**
      * Assigns the name to the icon
@@ -84,21 +113,28 @@ class FontAwesome {
     /**
      * Outputs the FontAwesome object as an HTML string
      *
+     * @access public
      * @return string HTML string
      */
     public function __toString()
     {
-        if( ! empty($this->stackTop) &&  empty($this->stackBottom))
-        {
-            return $this->_buildStack();
-        } else {
-            return $this->_buildIcon();
-        }
+//        if( ! empty($this->stackTop) &&  empty($this->stackBottom))
+//        {
+            if( ! empty($this->stackTop) &&  empty($this->stackBottom))
+            {
+                return $this->_buildStack();
+            } else {
+                return $this->_buildIcon();
+            }
+//        } else {
+//            throws new IncompleteStackException('Error: The stack is incomplete.');
+//        }
     }
 
     /**
      * Stores icon to be rendered later
      * 
+     * @access public
      * @param  string $label Label of icon to save in collection
      * @return void
      */
@@ -120,6 +156,7 @@ class FontAwesome {
     /**
      * Retrieve icon from collection
      * 
+     * @access public
      * @param  string $label Icon label used in store method
      * @return void
      */
@@ -141,6 +178,7 @@ class FontAwesome {
     /**
      * Sets which icon to use
      * 
+     * @access public
      * @param  string $icon Icon label, ommiting fa- prefix
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
@@ -154,6 +192,7 @@ class FontAwesome {
     /**
      * Adds extra classes to icon or stack
      * 
+     * @access public
      * @param string $class CSS class
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -173,6 +212,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be a fixed width
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -188,6 +228,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be larger
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -195,7 +236,13 @@ class FontAwesome {
     public function lg($icon = '')
     {
         $this->_setIcon($icon);
-        $this->classes[] = 'fa-lg';
+
+        if($this->stacking === true)
+        {
+            $this->stackClasses[] = 'fa-lg';
+        } else {
+            $this->classes[] = 'fa-lg';
+        }
 
         return $this;
     }
@@ -203,6 +250,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be 2 times larger
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -218,6 +266,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be 3 times larger
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -233,6 +282,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be 4 times larger
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -248,6 +298,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be 5 times larger
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -263,6 +314,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be inverted in color
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -278,6 +330,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be rotated 90 degrees
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -293,6 +346,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be rotated 180 degrees
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -308,6 +362,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be rotated 270 degrees
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -323,6 +378,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be flipped horizontally
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -338,6 +394,7 @@ class FontAwesome {
     /**
      * Sets the icon or stack to be flipped vertically
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -353,6 +410,7 @@ class FontAwesome {
     /**
      * Sets the top icon to be used in a stack
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
@@ -368,6 +426,7 @@ class FontAwesome {
     /**
      * Sets the bottom icon to be used in a stack
      * 
+     * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @throws Khill\Fontawesome\Exceptions\IncompleteStackException If The on() method was called without the stack() method
@@ -387,10 +446,13 @@ class FontAwesome {
     }
 
 
-
-/*******************************************
- *            PRIVATE METHODS              *
- *******************************************/
+    /**
+     * Sets icon label
+     * 
+     * @access private
+     * @param string $icon Icon label
+     * @return void
+     */
     private function _setIcon($icon)
     {
         if(is_string($icon))
@@ -404,6 +466,12 @@ class FontAwesome {
         }
     }
 
+    /**
+     * Builds the icon from the template
+     * 
+     * @access private
+     * @return void
+     */
     private function _buildIcon()
     {
         $classes = 'fa-' . $this->iconLabel;
@@ -422,23 +490,51 @@ class FontAwesome {
         return $output;
     }
 
+    /**
+     * Builds the stack from the template
+     * 
+     * @access private
+     * @return void
+     */
     private function _buildStack()
     {
+        $classes = 'fa-stack';
+
         $this->stackBottom = $this->_buildIcon();
         $this->_setStackPositions();
 
-        $output = sprintf(self::STACK_HTML, '', $this->stackTop, $this->stackBottom);
+        if( ! empty($this->stackClasses))
+        {
+            foreach($this->stackClasses as $class)
+            {
+                $classes .= ' ' . $class;
+            }
+        }
+
+        $output = sprintf(self::STACK_HTML, $classes, $this->stackTop, $this->stackBottom);
         $this->_reset(true);
 
         return $output;
     }
 
+    /**
+     * Assigns icon possitions in the stack
+     * 
+     * @access private
+     * @return void
+     */
     private function _setStackPositions()
     {
         $this->stackTop    = preg_replace('/"(.*)"/', '"\\1 fa-stack-2x"', $this->stackTop);
         $this->stackBottom = preg_replace('/"(.*)"/', '"\\1 fa-stack-1x"', $this->stackBottom);
     }
 
+    /**
+     * Resets the FontAwesome class
+     * 
+     * @access private
+     * @return void
+     */
     private function _reset($fullReset = false)
     {
         if($fullReset === true)

@@ -1,4 +1,6 @@
 /vendor
+/report
+/tmp
 composer.phar
 composer.lock
 .DS_Store
