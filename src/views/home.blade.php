@@ -280,7 +280,11 @@ x5($iconLabel);
                     <div class="col-md-3 col-sm-4">
                         {{ FA::stack('ban')->on('comments') }}<br />
                         {{ FA::stack('fighter-jet')->on('square-o')->lg() }}<br />
-                        {{ FA::stack('twitter')->on('circle-o')->x3()->flipHorizontal() }}
+                        {{ FA::stack('twitter')->on('circle-o')->x3()->flipVertical() }}<br />
+<span class="fa-stack fa-2x">
+<i class="fa fa-square-o fa-stack-2x"></i>
+<i class="fa fa-twitter fa-stack-1x fa-rotate270"></i>
+</span>
                     </div>
                     <div class="col-md-9 col-sm-8">
                         <pre>stack('ban')->on('comments');</pre>
