@@ -417,8 +417,8 @@ class FontAwesome {
      */
     public function stack($icon)
     {
-        $this->stacking = true;
         $this->_setIcon($icon);
+        $this->stacking = true;
 
         return $this;
     }
