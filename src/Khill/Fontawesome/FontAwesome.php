@@ -1,22 +1,13 @@
 <?php namespace Khill\Fontawesome;
 
 /**
-* Example_Class is a sample class for demonstrating PHPDoc
-*
-* Example_Class is a class that has no real actual code, but merely
-* exists to help provide people with an understanding as to how the
-* various PHPDoc tags are used.
-*
-* Example usage:
-* if (Example_Class::example()) {
-*    print "I am an example.";
-* }
+* FontAwesomePHP is a library that wraps the FontAwesome icon set into easy to use php methods
 *
 * @package  FontAwesomePHP
 * @author   Kevin Hill <kevinkhill@gmail.com>
 * @version  1.0b1
 * @access   public
-* @see      http://www.example.com/pear
+* @see      http://kevinkhill.github.io/FontAwesomePHP
 */
 
 use Khill\Fontawesome\Exceptions\BadLabelException;
@@ -90,6 +81,16 @@ class FontAwesome {
     private $stackClasses = array();
 
     /**
+     * HTML link to the FontAwesome CSS file through the bootstrapcdn
+     *
+     * @return string HTML link element
+     */
+    public static function css()
+    {
+        return self::CDN_LINK;
+    }
+    
+    /**
      * Assigns the name to the icon
      *
      * @param  string $icon Icon label
@@ -98,16 +99,6 @@ class FontAwesome {
     public function __construct($icon = '')
     {
         $this->_setIcon($icon);
-    }
-
-    /**
-     * HTML link to the FontAwesome CSS file through the bootstrapcdn
-     *
-     * @return string HTML link element
-     */
-    public static function css()
-    {
-        return self::CDN_LINK;
     }
 
     /**
@@ -140,16 +131,21 @@ class FontAwesome {
      */
     public function store($label)
     {
-        if(is_string($label))
+        if(empty($this->iconLabel))
         {
-            if( ! empty($label))
-            {
-                $this->collection[$label] = $this->_buildIcon();
-            } else {
-                throw new BadLabelException('Error: Cannot store icon into collection with an empty label.');
-            }
+            throw new CollectionIconException('There was no icon defined to store.');
         } else {
-            throw new BadLabelException('Error: Collection icon label must be a string.');
+            if(is_string($label))
+            {
+                if( ! empty($label))
+                {
+                    $this->collection[$label] = $this->_buildIcon();
+                } else {
+                    throw new BadLabelException('Cannot store icon into collection with an empty label.');
+                }
+            } else {
+                throw new BadLabelException('Collection icon label must be a string.');
+            }
         }
     }
 
@@ -168,10 +164,10 @@ class FontAwesome {
             {
                 return $this->collection[$label];
             } else {
-                throw new CollectionIconException('Error: Collection icon "$label" does not exist.');
+                throw new CollectionIconException('Collection icon "' . $label . '" does not exist.');
             }
         } else {
-            throw new BadLabelException('Error: Collection icon label must be a string.');
+            throw new BadLabelException('Collection icon label must be a string.');
         }
     }
 
@@ -203,7 +199,7 @@ class FontAwesome {
         {
             $this->classes[] = $class;
         } else {
-            throw new BadLabelException('Error: Additional classes must be a string.');
+            throw new BadLabelException('Additional classes must be a string.');
         }
 
         return $this;
@@ -408,6 +404,22 @@ class FontAwesome {
     }
 
     /**
+     * Sets the icon to spin
+     * 
+     * @access public
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function spin($icon = '')
+    {
+        $this->_setIcon($icon);
+        $this->classes[] = 'fa-spin';
+
+        return $this;
+    }
+
+    /**
      * Sets the top icon to be used in a stack
      * 
      * @access public
@@ -439,7 +451,7 @@ class FontAwesome {
             $this->stackTop = $this->_buildIcon();
             $this->_setIcon($icon);
         } else {
-            throw new IncompleteStackException('Error: Stacks must be started with the stack() method.');
+            throw new IncompleteStackException('Stacks must be started with the stack() method.');
         }
 
         return $this;
@@ -462,7 +474,7 @@ class FontAwesome {
                 $this->iconLabel = $icon;
             }
         } else {
-            throw new BadLabelException('Error: Icon label must be a string.');
+            throw new BadLabelException('Icon label must be a string.');
         }
     }
 

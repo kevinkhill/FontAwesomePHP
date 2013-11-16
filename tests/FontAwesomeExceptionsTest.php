@@ -1,5 +1,9 @@
 <?php namespace Khill\Fontawesome;
 
+use Khill\Fontawesome\Exceptions\BadLabelException;
+use Khill\Fontawesome\Exceptions\CollectionIconException;
+use Khill\Fontawesome\Exceptions\IncompleteStackException;
+
 class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
 
     public $fa;
@@ -39,6 +43,14 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
     /**
      * @expectedException Khill\Fontawesome\Exceptions\CollectionIconException
      */
+    public function testStoredIncompleteIconThrowsCollectionIconException()
+    {
+        $this->fa->store('iDontExist');
+    }
+
+    /**
+     * @expectedException Khill\Fontawesome\Exceptions\CollectionIconException
+     */
     public function testRetrieveStoredIconMethodThrowsCollectionIconException()
     {
         $this->fa->collection('iDontExist');
@@ -52,14 +64,44 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
         $this->fa->on('twitter');
     }
 
-    /**
-     * @expectedException Khill\Fontawesome\Exceptions\IncompleteStackException
-     */
 //    public function testCallingStackMethodWithoutOnMethodThrowsIncompleteStackException()
 //    {
 //        $this->fa->stack('github');
 //    }
 
+
+    public function testBadLabelExceptionOutput()
+    {
+        $this->expectOutputString('Khill\Fontawesome\Exceptions\BadLabelException: [ERROR] Icon label must be a string.'."\n");
+
+        try {
+            $this->fa->icon(2);            
+        } catch(BadLabelException $e) {
+            echo $e;
+        }
+    }
+
+    public function testCollectionIconExceptionOutput()
+    {
+        $this->expectOutputString('Khill\Fontawesome\Exceptions\CollectionIconException: [ERROR] Collection icon "test" does not exist.'."\n");
+
+        try {
+            $this->fa->collection('test');            
+        } catch(CollectionIconException $e) {
+            echo $e;
+        }
+    }
+
+    public function testIncompleteStackExceptionOutput()
+    {
+        $this->expectOutputString('Khill\Fontawesome\Exceptions\IncompleteStackException: [ERROR] Stacks must be started with the stack() method.'."\n");
+
+        try {
+            $this->fa->on('test');
+        } catch(IncompleteStackException $e) {
+            echo $e;
+        }
+    }
 
     public function notStringProvider()
     {

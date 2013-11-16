@@ -127,7 +127,7 @@
                         <pre class="prettyprint">'Khill\Fontawesome\FontAwesomeServiceProvider'</pre>
 
                         <h4>Last, add the link in your view's page header to the FontAwesome CSS file, provided by <a href="http://www.bootstrapcdn.com/">BootstrapCDN</a>:</h4>
-                        <pre class="prettyprint">FontAwesome::css() // Or FA:css() if you want to use the alias</pre>
+                        <pre class="prettyprint">FontAwesome::css() // Or FA::css() if you want to use the alias</pre>
                     </div>
                     <div class="tab-pane fade" id="manual-install">
                         <h1><small>Manually</small></h1>
@@ -160,13 +160,17 @@ assets/fonts/FontAwesome.otf</pre>
                     <div class="tab-pane fade in active" id="laravel-usage">
                         <h1><small>The Laravel Way</small></h1>
                         <h4>Since we love Laravel, and making life easy, we took care of aliasing the library with a facade, so calls are simple:</h4>
-                        {{ FA::icon('star') }}<pre class="prettyprint">echo FA::icon('star');</pre>
+                        <pre class="prettyprint">echo FA::icon('star');</pre>
+                        <p>will output the icon html for you</p>
+                        <pre class="prettyprint">&lt;i class="fa fa-star"&gt;&lt;/i&gt;</pre>
                     </div>
                     <div class="tab-pane fade in" id="generic-usage">
                         <h1><small>Generic PHP</small></h1>
                         <h4>If you are using this library in a different framework, then create a new instance of FontAwesome, and call from the object:</h4>
-                {{ FA::icon('star') }}<pre class="prettyprint">$fa = new FontAwesome;
+                        <pre class="prettyprint">$fa = new FontAwesome;
 echo $fa->icon('star');</pre>
+                        <p>will output the icon html for you</p>
+                        <pre class="prettyprint">&lt;i class="fa fa-star"&gt;&lt;/i&gt;</pre>
                     </div>
                 </div>
 
@@ -257,11 +261,13 @@ x5($iconLabel);
                 </div><br />
 
                 <h3>Spinning Icons:</h3>
-                <h4></h4>
+                <h4>Animate any icon to spin with this method.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
+                        {{ FA::spin('question-circle') }} spin('question-circle')
                     </div>
                     <div class="col-md-9 col-sm-8">
+                        <pre>spin('question-circle')</pre>
                     </div>
                 </div><br />
 
@@ -281,9 +287,9 @@ x5($iconLabel);
                         {{ FA::stack('ban')->on('comments') }}<br />
                         {{ FA::stack('fighter-jet')->on('square-o')->lg() }}<br />
                         {{ FA::stack('twitter')->on('circle-o')->x3()->flipVertical() }}<br />
-<span class="fa-stack fa-2x">
+<span class="fa-stack fa-4x">
 <i class="fa fa-square-o fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x fa-rotate270"></i>
+<i class="fa fa-twitter fa-stack-1x"></i>
 </span>
                     </div>
                     <div class="col-md-9 col-sm-8">
@@ -296,84 +302,35 @@ stack('twitter')->on('circle-o')->x3()->flipHorizontal();</pre>
 
                 <h3>Chaining</h3>
                 <h4>The methods can be chained together to create dynamic icons</h4>
-                <div class="example">
-                    <p class="icon">{{ FA::icon('shopping-cart')->flipVertical()->x3() }}</p>
-                    <pre class="prettyprint">icon('shopping-cart')->flipVertical()->x3();</pre>
-                </div>
-                <div class="example">
-                    <p class="icon">{{ FA::icon('cutlery')->rotate270()->x5() }}</p>
-                    <pre class="prettyprint">icon('cutlery')->rotate270()->x5();</pre>
-                </div>
-                <div class="example">
-                    <p class="icon" style="background-color:#ccc;">{{ FA::icon('truck')->inverse()->x4() }}</p>
-                    <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
-                    <p>(the grey background is just so you can see the inverse effect)</p>
-                </div>  
-
-
-
-
-
-                <h3>Stacks</h3>
-                <h4>following the syntax below</h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        {{ FA::x3('shopping-cart')->flipVertical() }}<br />
+                        {{ FA::rotate270('cutlery')->x5() }}<br />
+                        <div style="background-color:#bbb;padding:5px;width:80px;">{{ FA::icon('truck')->x4()->inverse() }}</div>
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                        <pre>x3('shopping-cart')->flipVertical();</pre>
+                        <pre>rotate270('cutlery')->x5();</pre>
+                        <pre>icon('truck')->x4()->inverse();
+//the grey background is just so you can see the inverse effect</pre>
+                    </div>
+                </div><br />
                 
 
 
 
                 <h3>Collection</h3>
                 <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
-                <pre class="prettyprint">icon('cog')->store('savedIcon1'); //Store Icons
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        {{ FA::x3('cog') }}
+                    </div>
+                    <div class="col-md-9 col-sm-8">
+                        <pre>x3('cog')->store('savedIcon1'); //Store Icons
 echo collection('savedIcon1'); //Retrieve within template or HTML</pre>
-                <p class="icon">{{ FA::icon('cog') }}</p>
-            </div>
-
-            <a name="examples">&nbsp;</a>
-            <div class="underline">
-                <h1>Examples</h1>
-            </div>
-            <ul class="nav nav-pills">
-                <li class="active"><a href="#laravel-examples" data-toggle="tab">Laravel</a></li>
-                <li><a href="#generic-examples" data-toggle="tab">Generic</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade in active" id="laravel-examples">
-                    <h4>Here are some examples of how to use the library in your applications.</h4>
-
-                    <h3>Simple Icons</h3>
-
-                    <h3>Chaining</h3>
-                    <h4>The methods can be chained together to create dynamic icons</h4>
-                    <div class="example">
-                        <p class="icon">{{ FA::icon('shopping-cart')->flipVertical()->x3() }}</p>
-                        <pre class="prettyprint">icon('shopping-cart')->flipVertical()->x3();</pre>
                     </div>
-                    <div class="example">
-                        <p class="icon">{{ FA::icon('cutlery')->rotate270()->x5() }}</p>
-                        <pre class="prettyprint">icon('cutlery')->rotate270()->x5();</pre>
-                    </div>
-                    <div class="example">
-                        <p class="icon" style="background-color:#ccc;">{{ FA::icon('truck')->inverse()->x4() }}</p>
-                        <pre class="prettyprint">icon('truck')->inverse()->x4();</pre>
-                        <p>(the grey background is just so you can see the inverse effect)</p>
-                    </div>
-    <div style="clear:both;"></div>
-                    <h3>Stacks</h3>
-                    <h4>Stacking icons is simple, chain the methods together following the syntax below</h4>
-                    <pre class="prettyprint">stack('ban')->on('scissors');</pre>
-                    <p class="icon">{{ FA::stack('ban')->on('scissors') }}</p>
-                    <h4>You can also chain modification methods inbetween to make fancy stacks</h4>
-                    <pre class="prettyprint">stack('ban')->x3()->on('scissors')->inverse();</pre>
-                    <p class="icon">{{ FA::stack('ban')->x3()->on('scissors')->inverse() }}</p>
+                </div><br />
 
-                    <h3>Collection</h3>
-                    <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
-                    <pre class="prettyprint">icon('cog')->store('savedIcon1'); //Store Icons
-echo collection('savedIcon1'); //Retrieve within template or HTML</pre>
-                    <p class="icon">{{ FA::icon('cog') }}</p>
-                </div>
-                <div class="tab-pane fade in" id="generic-examples">
-                </div>
-            </div>
         </div><!--/container-->
     </body>
 </html>

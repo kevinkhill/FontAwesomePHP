@@ -30,6 +30,13 @@ class FontAwesomeTest extends \PHPUnit_Framework_TestCase {
         echo $this->fa->icon('star');
     }
 
+    public function testStandardIconWithAdditionalClassOutputThroughIconMethod()
+    {
+        $this->expectOutputString('<i class="fa fa-star frameworkIcon"></i>');
+
+        echo $this->fa->icon('star')->addClass('frameworkIcon');
+    }
+
     public function testFixedWidthIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-star fa-fw"></i>');
@@ -196,6 +203,20 @@ class FontAwesomeTest extends \PHPUnit_Framework_TestCase {
         $this->expectOutputString('<i class="fa fa-star fa-flip-vertical"></i>');
 
         echo $this->fa->icon('star')->flipVertical();
+    }
+
+    public function testSpinningIconOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-question-circle fa-spin"></i>');
+
+        echo $this->fa->spin('question-circle');
+    }
+
+    public function testSpinningIconOutputThroughInstanceChain()
+    {
+        $this->expectOutputString('<i class="fa fa-question-circle fa-spin"></i>');
+
+        echo $this->fa->icon('question-circle')->spin();
     }
 
 }
