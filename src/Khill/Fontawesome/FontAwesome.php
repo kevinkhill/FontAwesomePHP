@@ -89,7 +89,7 @@ class FontAwesome {
     {
         return self::CDN_LINK;
     }
-    
+
     /**
      * Assigns the name to the icon
      *
@@ -105,7 +105,7 @@ class FontAwesome {
      * Outputs the FontAwesome object as an HTML string
      *
      * @access public
-     * @return string HTML string
+     * @return string HTML string of icon or stack
      */
     public function __toString()
     {
@@ -127,6 +127,8 @@ class FontAwesome {
      * 
      * @access public
      * @param  string $label Label of icon to save in collection
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $label is not a string
+     * @throws Khill\Fontawesome\Exceptions\CollectionIconException If store() method called without defining an icon
      * @return void
      */
     public function store($label)
@@ -154,7 +156,9 @@ class FontAwesome {
      * 
      * @access public
      * @param  string $label Icon label used in store method
-     * @return void
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $label is not a string
+     * @throws Khill\Fontawesome\Exceptions\CollectionIconException If icon $label is not set
+     * @return string HTML icon string
      */
     public function collection($label)
     {
@@ -176,6 +180,7 @@ class FontAwesome {
      * 
      * @access public
      * @param  string $icon Icon label, ommiting fa- prefix
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
     public function icon($icon)
