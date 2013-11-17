@@ -83,6 +83,7 @@ class FontAwesome {
     /**
      * HTML link to the FontAwesome CSS file through the bootstrapcdn
      *
+     * @see http://www.bootstrapcdn.com/
      * @return string HTML link element
      */
     public static function css()
@@ -420,6 +421,54 @@ class FontAwesome {
     {
         $this->_setIcon($icon);
         $this->classes[] = 'fa-spin';
+
+        return $this;
+    }
+
+    /**
+     * Sets a border around the icon
+     * 
+     * @access public
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function border($icon = '')
+    {
+        $this->_setIcon($icon);
+        $this->classes[] = 'fa-border';
+
+        return $this;
+    }
+
+    /**
+     * Pulls the icon to the left
+     * 
+     * @access public
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function left($icon = '')
+    {
+        $this->_setIcon($icon);
+        $this->classes[] = 'pull-left';
+
+        return $this;
+    }
+
+    /**
+     * Pulls the icon to the left
+     * 
+     * @access public
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function right($icon = '')
+    {
+        $this->_setIcon($icon);
+        $this->classes[] = 'pull-right';
 
         return $this;
     }

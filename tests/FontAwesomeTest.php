@@ -121,6 +121,34 @@ class FontAwesomeTest extends \PHPUnit_Framework_TestCase {
         echo $this->fa->icon('star')->x5();
     }
 
+    public function testPulledLeftIconOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-star pull-left"></i>');
+
+        echo $this->fa->left('star');
+    }
+
+    public function testPulledLeftIconOutputThroughInstanceChain()
+    {
+        $this->expectOutputString('<i class="fa fa-star pull-left"></i>');
+
+        echo $this->fa->icon('star')->left();
+    }
+
+    public function testPulledRightIconOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-star pull-right"></i>');
+
+        echo $this->fa->right('star');
+    }
+
+    public function testPulledRightIconOutputThroughInstanceChain()
+    {
+        $this->expectOutputString('<i class="fa fa-star pull-right"></i>');
+
+        echo $this->fa->icon('star')->right();
+    }
+
     public function testInverseIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-star fa-inverse"></i>');

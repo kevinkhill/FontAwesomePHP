@@ -255,8 +255,15 @@ x5($iconLabel);
                 <h4></h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
+                        {{ FA::border('github') }} border('github')<br />
+                        {{ FA::left('camera') }} left('camera')<br />
+                        {{ FA::right('cloud') }} right('cloud')<br />
                     </div>
                     <div class="col-md-9 col-sm-8">
+                        <pre>border('github');
+left('camera');
+right('cloud');
+</pre>
                     </div>
                 </div><br />
 
@@ -305,19 +312,18 @@ stack('twitter')->on('circle-o')->x3()->flipHorizontal();</pre>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
                         {{ FA::x3('shopping-cart')->flipVertical() }}<br />
-                        {{ FA::rotate270('cutlery')->x5() }}<br />
+                        {{ FA::rotate270('cutlery')->x3() }}<br />
                         <div style="background-color:#bbb;padding:5px;width:80px;">{{ FA::icon('truck')->x4()->inverse() }}</div>
+                        {{ FA::right('gavel')->border()->x2() }}
                     </div>
                     <div class="col-md-9 col-sm-8">
                         <pre>x3('shopping-cart')->flipVertical();</pre>
-                        <pre>rotate270('cutlery')->x5();</pre>
+                        <pre>rotate270('cutlery')->x3();</pre>
                         <pre>icon('truck')->x4()->inverse();
 //the grey background is just so you can see the inverse effect</pre>
+                        <pre>right('gavel')->border()->x2();</pre>
                     </div>
                 </div><br />
-                
-
-
 
                 <h3>Collection</h3>
                 <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
