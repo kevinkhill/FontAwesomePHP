@@ -1,4 +1,6 @@
-FontAwesomePHP [![Build Status](https://travis-ci.org/kevinkhill/FontAwesomePHP.png?branch=master)](https://travis-ci.org/kevinkhill/FontAwesomePHP)
+FontAwesomePHP  
+[![Build Status](https://travis-ci.org/kevinkhill/FontAwesomePHP.png?branch=master)](https://travis-ci.org/kevinkhill/FontAwesomePHP)  
+[![Coverage Status](https://coveralls.io/repos/kevinkhill/FontAwesomePHP/badge.png)](https://coveralls.io/r/kevinkhill/FontAwesomePHP)
 ==============
 
 A PHP wrapper library for the fantastic FontAwesome icon set. Designed for Laravel, but will work with any PHP project.

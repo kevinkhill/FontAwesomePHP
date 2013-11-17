@@ -13,6 +13,16 @@ before_script:
   - composer self-update
   - composer install
 
-email: kevinkhill@gmail.com
+notifications:
+  email:
+    recipients:
+      - kevinkhill@gmail.com
+    on_success: change # default: change
+    on_failure: always # default: always
 
-script: phpunit
+script:
+  - mkdir log
+  - phpunit
+
+after_script:
+  - php vendor/bin/coveralls
