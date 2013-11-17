@@ -242,7 +242,7 @@ x5($iconLabel);
                 </div><br />
 
                 <h3>List Icons:</h3>
-                <h4></h4>
+                <h4>Easily replace default bullets in unordered lists.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
                     </div>
