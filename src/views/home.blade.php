@@ -17,7 +17,7 @@
                 top: 0;
                 right: 0;
                 border: 0;
-                z-index: 1000;
+                z-index: 9999;
             }
             em {
                 color:#65B042;
@@ -74,13 +74,13 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="#api">
-                            {{ FA::fixedWidth('cogs') }} Api
+                        <a href="#examples">
+                            {{ FA::fixedWidth('book') }} Examples
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="#examples">
-                            {{ FA::fixedWidth('book') }} Examples
+                        <a href="">
+                            {{ FA::fixedWidth('cogs') }} Api
                         </a>
                     </li>
                     <li class="dropdown">
@@ -92,20 +92,20 @@
             </div>
         </nav>
 
-        <a href="https://github.com/kevinkhill/LavaCharts" id="forkMe">
-            <img src="/packages/khill/fontawesome/images/forkme.png" alt="Fork me on GitHub">
+        <a href="https://github.com/kevinkhill/FontAwesomePHP" id="forkMe">
+            <img alt="Fork me on GitHub" src="data:image/png;base64,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" />
         </a>
 
         <div class="container" id="wrap">
             <div class="jumbotron">
                 <h1>Font Awesome for PHP</h1>
-                <p>A composer ready package designed to integrate the fantastic <a href="http://fontawesome.io/">Font Awesome</a> icon set into your PHP project.</p>
-                <p>Created with Laravel in mind, a ServiceProvider and Facade have been included as well.</p>
+                <p>{{ FA::icon('plane') }} A composer ready package designed to integrate the fantastic <a href="http://fontawesome.io/">Font Awesome</a> icon set into your PHP projects through an easy to use interface.</p>
+                <p>Created with Laravel in mind, a ServiceProvider and Facade have been included as well. {{ FA::icon('thumbs-up') }}</p>
+                <p>{{ FA::icon('smile-o') }} Don't worry though, the library will work in any PHP application, via composer or manually.</p>
             </div>
 
-            <br /><br />
-
             <a class="anchor" name="install">&nbsp;</a>
+            <br /><br />
             <div class="underline">
                 <h1>Installation</h1>
             </div>
@@ -146,9 +146,8 @@ assets/fonts/FontAwesome.otf</pre>
                 </div><!--/install tabs-->
 
 
-            <br /><br /><br />
-
-            <a name="usage"></a>
+            <a name="usage">&nbsp;</a>
+            <br /><br />
             <div class="underline">
                 <h1>Usage</h1>
             </div>
@@ -174,11 +173,11 @@ echo $fa->icon('star');</pre>
                     </div>
                 </div>
 
-            <br /><br /><br />
 
-            <a name="api">&nbsp;</a>
+            <a name="examples">&nbsp;</a>
+            <br /><br />
             <div class="underline">
-                <h1>Api</h1>
+                <h1>Examples</h1>
             </div>
                 <h4>All of the methods of the API correspond with how Font Awesome  is used, to make FontAwesomePHP intuitive and easy to use. We've also thrown in a few extra features.</h4><br />
 
@@ -264,6 +263,8 @@ x5($iconLabel);
 left('camera');
 right('cloud');
 </pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
                 </div><br />
 
@@ -275,15 +276,29 @@ right('cloud');
                     </div>
                     <div class="col-md-9 col-sm-8">
                         <pre>spin('question-circle')</pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
                 </div><br />
 
                 <h3>Rotated & Flipped Icons:</h3>
-                <h4></h4>
+                <h4>Any icon can be flipped and rotated with these following methods.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
+                        {{ FA::rotate90('pencil') }} rotate90('pencil')<br />
+                        {{ FA::rotate180('leaf') }} rotate180('leaf')<br />
+                        {{ FA::rotate270('gamepad') }} rotate270('gamepad')<br />
+                        {{ FA::flipHorizontal('signal') }} flipHorizontal('signal')<br />
+                        {{ FA::flipVertical('tags') }} flipVertical('tags')
                     </div>
                     <div class="col-md-9 col-sm-8">
+                        <pre>rotate90('pencil');
+rotate180('leaf');
+rotate270('gamepad');
+flipHorizontal('signal');
+flipVertical('tags');</pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
                 </div><br />
 
@@ -302,8 +317,10 @@ right('cloud');
                     <div class="col-md-9 col-sm-8">
                         <pre>stack('ban')->on('comments');</pre>
                         <h5>You can also chain on size modification methods</h5>
-                        <pre>stack('fighter-jet')->on('square-o')->lg();<br />
+                        <pre>stack('fighter-jet')->on('square-o')->lg();
 stack('twitter')->on('circle-o')->x3();</pre>
+                        <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
                 </div><br />
 
@@ -322,6 +339,7 @@ stack('twitter')->on('circle-o')->x3();</pre>
                         <pre>icon('truck')->x4()->inverse();
 //the grey background is just so you can see the inverse effect</pre>
                         <pre>right('gavel')->border()->x2();</pre>
+                        <h4><strong>returns</strong> <em>FontAwesome</em> All of the methods return the FontAwesome object so that they can be chained together. The magic method __toString() will output the HTML once you echo or print the object.</h4>
                     </div>
                 </div><br />
 
