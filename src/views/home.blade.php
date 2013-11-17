@@ -292,18 +292,18 @@ right('cloud');
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
                         {{ FA::stack('ban')->on('comments') }}<br />
-                        {{ FA::stack('fighter-jet')->on('square-o')->lg() }}<br />
-                        {{ FA::stack('twitter')->on('circle-o')->x3()->flipVertical() }}<br />
+                        {{ FA::stack('square-o')->on('fighter-jet') }}<br />
+                        {{ FA::stack('twitter')->on('circle-o') }}<br />
 <span class="fa-stack fa-4x">
 <i class="fa fa-square-o fa-stack-2x"></i>
-<i class="fa fa-twitter fa-stack-1x"></i>
+<i class="fa fa-fighter-jet fa-stack-1x"></i>
 </span>
                     </div>
                     <div class="col-md-9 col-sm-8">
                         <pre>stack('ban')->on('comments');</pre>
-                        <h5>You can also chain modification methods make fancy stacks</h5>
-                        <pre>stack('fighter-jet')->on('square-o')->lg();
-stack('twitter')->on('circle-o')->x3()->flipHorizontal();</pre>
+                        <h5>You can also chain on size modification methods</h5>
+                        <pre>stack('fighter-jet')->on('square-o')->lg();<br />
+stack('twitter')->on('circle-o')->x3();</pre>
                     </div>
                 </div><br />
 

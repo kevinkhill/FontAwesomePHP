@@ -114,13 +114,16 @@ class FontAwesome {
 //        {
             if( ! empty($this->stackTop) &&  empty($this->stackBottom))
             {
-                return $this->_buildStack();
+                $output = $this->_buildStack();
             } else {
-                return $this->_buildIcon();
+                $output = $this->_buildIcon();
             }
 //        } else {
 //            throws new IncompleteStackException('Error: The stack is incomplete.');
 //        }
+        $this->_reset();
+        
+        return $output;
     }
 
     /**
@@ -550,10 +553,7 @@ class FontAwesome {
             }
         }
 
-        $output = sprintf(self::ICON_HTML, $classes);
-        $this->_reset();
-
-        return $output;
+        return sprintf(self::ICON_HTML, $classes);
     }
 
     /**
@@ -577,10 +577,7 @@ class FontAwesome {
             }
         }
 
-        $output = sprintf(self::STACK_HTML, $classes, $this->stackTop, $this->stackBottom);
-        $this->_reset(true);
-
-        return $output;
+        return sprintf(self::STACK_HTML, $classes, $this->stackTop, $this->stackBottom);
     }
 
     /**
@@ -601,18 +598,13 @@ class FontAwesome {
      * @access private
      * @return void
      */
-    private function _reset($fullReset = false)
+    private function _reset()
     {
-        if($fullReset === true)
-        {
-            $this->iconLabel  = '';
-            $this->stackTop   = '';
-            $this->iconBottom = '';
-            $this->classes    = array();
-        } else {
-            $this->iconLabel = '';
-            $this->classes   = array();
-        }
+        $this->iconLabel  = '';
+        $this->stackTop   = '';
+        $this->iconBottom = '';
+        $this->stacking   = false;
+        $this->classes    = array();
     }
 
 }
