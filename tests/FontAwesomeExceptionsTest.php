@@ -23,7 +23,7 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @dataProvider notStringProvider
+     * @dataProvider notStringOrArrayProvider
      * @expectedException Khill\Fontawesome\Exceptions\BadLabelException
      */
     public function testAddClassMethodThrowsBadLabelException($badLabels)
@@ -63,12 +63,12 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
     {
         $this->fa->on('twitter');
     }
-
-//    public function testCallingStackMethodWithoutOnMethodThrowsIncompleteStackException()
-//    {
-//        $this->fa->stack('github');
-//    }
-
+/*
+    public function testCallingStackMethodWithoutOnMethodThrowsIncompleteStackException()
+    {
+        echo $this->fa->stack('github');
+    }
+*/
 
     public function testBadLabelExceptionOutput()
     {
@@ -111,6 +111,18 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
             array(1.0),
             array(array()),
             array(array('test')),
+            array(new \stdClass()),
+            array(function(){})
+        );
+    }
+
+    public function notStringOrArrayProvider()
+    {
+        return array(
+            array(true),
+            array(1),
+            array(1.0),
+            array(array()),
             array(new \stdClass()),
             array(function(){})
         );

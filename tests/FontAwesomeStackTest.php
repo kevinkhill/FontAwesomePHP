@@ -59,4 +59,18 @@ class FontAwesomeStackTest extends \PHPUnit_Framework_TestCase {
         echo $this->fa->stack('twitter')->on('circle-o');
     }
 
+    public function testExtraClassStackedIconsOutput()
+    {
+        $this->expectOutputString('<span class="fa-stack fancyClass"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
+
+        echo $this->fa->stack('ban')->on('magic')->addClass('fancyClass');
+    }
+
+    public function testExtraClassesFromArrayStackedIconsOutput()
+    {
+        $this->expectOutputString('<span class="fa-stack fancyClass1 fancyClass2"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
+
+        echo $this->fa->stack('ban')->on('magic')->addClass(array('fancyClass1', 'fancyClass2'));
+    }
+
 }

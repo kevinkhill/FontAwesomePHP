@@ -53,32 +53,18 @@ class FontAwesome {
     public $collection = array();
 
     /**
+     * Stores icon stack
+     *
+     * @var string
+     */
+    public $stack;
+
+    /**
      * Status of stacking or regular icon
      *
      * @var boolean
      */
     private $stacking = false;
-
-    /**
-     * Stores top icon in a stack
-     *
-     * @var string
-     */
-    public $stackTop = '';
-
-    /**
-     * Stores bottom icon in a stack
-     *
-     * @var string
-     */
-    public $stackBottom = '';    
-
-    /**
-     * Classes to be applied to icon stack
-     *
-     * @var array
-     */
-    private $stackClasses = array();
 
     /**
      * HTML link to the FontAwesome CSS file through the bootstrapcdn
@@ -112,9 +98,9 @@ class FontAwesome {
     {
 //        if( ! empty($this->stackTop) &&  empty($this->stackBottom))
 //        {
-            if( ! empty($this->stackTop) &&  empty($this->stackBottom))
+            if(is_a($this->stack, 'Khill\Fontawesome\FontAwesomeStack'))
             {
-                $output = $this->_buildStack();
+                $output = $this->stack->output();
             } else {
                 $output = $this->_buildIcon();
             }
@@ -204,11 +190,13 @@ class FontAwesome {
      */
     public function addClass($class)
     {
-        if(is_string($class))
+        if(is_array($class) && count($class) > 0)
         {
-            $this->classes[] = $class;
+            foreach($class as $c) {
+                $this->_addClass($c);
+            }
         } else {
-            throw new BadLabelException('Additional classes must be a string.');
+            $this->_addClass($class);
         }
 
         return $this;
@@ -241,14 +229,8 @@ class FontAwesome {
     public function lg($icon = '')
     {
         $this->_setIcon($icon);
-
-        if($this->stacking === true)
-        {
-            $this->stackClasses[] = 'fa-lg';
-        } else {
-            $this->classes[] = 'fa-lg';
-        }
-
+        $this->_addClass('fa-lg');
+        
         return $this;
     }
 
@@ -263,7 +245,7 @@ class FontAwesome {
     public function x2($icon = '')
     {
         $this->_setIcon($icon);
-        $this->classes[] = 'fa-2x';
+        $this->_addClass('fa-2x');
 
         return $this;
     }
@@ -279,7 +261,7 @@ class FontAwesome {
     public function x3($icon = '')
     {
         $this->_setIcon($icon);
-        $this->classes[] = 'fa-3x';
+        $this->_addClass('fa-3x');
 
         return $this;
     }
@@ -295,7 +277,7 @@ class FontAwesome {
     public function x4($icon = '')
     {
         $this->_setIcon($icon);
-        $this->classes[] = 'fa-4x';
+        $this->_addClass('fa-4x');
 
         return $this;
     }
@@ -311,7 +293,7 @@ class FontAwesome {
     public function x5($icon = '')
     {
         $this->_setIcon($icon);
-        $this->classes[] = 'fa-5x';
+        $this->_addClass('fa-5x');
 
         return $this;
     }
@@ -491,15 +473,21 @@ class FontAwesome {
      * 
      * @access public
      * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a non empty string
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
     public function stack($icon)
     {
-        $this->_setIcon($icon);
-        $this->stacking = true;
+        if(is_string($icon) && ! empty($icon))
+        {
+            $this->stacking = true;
+            $this->stack = new FontAwesomeStack();
+            $this->stack->setTopIcon($icon);
 
-        return $this;
+            return $this;
+        } else {
+            throw new BadLabelException('Icon label must be a non empty string.');
+        }
     }
 
     /**
@@ -507,7 +495,7 @@ class FontAwesome {
      * 
      * @access public
      * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a non empty string
      * @throws Khill\Fontawesome\Exceptions\IncompleteStackException If The on() method was called without the stack() method
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
@@ -515,13 +503,17 @@ class FontAwesome {
     {
         if($this->stacking === true)
         {
-            $this->stackTop = $this->_buildIcon();
-            $this->_setIcon($icon);
+            if(is_string($icon) && ! empty($icon))
+            {
+                $this->stack->setBottomIcon($icon);
+
+                return $this;
+            } else {
+                throw new BadLabelException('Icon label must be a non empty string.');
+            }
         } else {
             throw new IncompleteStackException('Stacks must be started with the stack() method.');
         }
-
-        return $this;
     }
 
 
@@ -567,39 +559,24 @@ class FontAwesome {
     }
 
     /**
-     * Builds the stack from the template
+     * Adds classes to icon or stack object
      * 
      * @access private
      * @return void
      */
-    private function _buildStack()
+    private function _addClass($class)
     {
-        $classes = 'fa-stack';
-
-        $this->stackBottom = $this->_buildIcon();
-        $this->_setStackPositions();
-
-        if( ! empty($this->stackClasses))
+        if(is_string($class) && ! empty($class))
         {
-            foreach($this->stackClasses as $class)
+            if($this->stacking === true)
             {
-                $classes .= ' ' . $class;
+                $this->stack->addClass($class);
+            } else {
+                $this->classes[] = $class;
             }
+        } else {
+            throw new BadLabelException('Additional classes must be non empty strings.');
         }
-
-        return sprintf(self::STACK_HTML, $classes, $this->stackTop, $this->stackBottom);
-    }
-
-    /**
-     * Assigns icon possitions in the stack
-     * 
-     * @access private
-     * @return void
-     */
-    private function _setStackPositions()
-    {
-        $this->stackTop    = preg_replace('/"(.*)"/', '"\\1 fa-stack-2x"', $this->stackTop);
-        $this->stackBottom = preg_replace('/"(.*)"/', '"\\1 fa-stack-1x"', $this->stackBottom);
     }
 
     /**
