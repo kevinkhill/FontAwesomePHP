@@ -67,6 +67,13 @@ class FontAwesome {
     private $stacking = false;
 
     /**
+     * Stores unordered list
+     *
+     * @var string
+     */
+    public $list;
+
+    /**
      * HTML link to the FontAwesome CSS file through the bootstrapcdn
      *
      * @see http://www.bootstrapcdn.com/
@@ -96,17 +103,15 @@ class FontAwesome {
      */
     public function __toString()
     {
-//        if( ! empty($this->stackTop) &&  empty($this->stackBottom))
-//        {
-            if(is_a($this->stack, 'Khill\Fontawesome\FontAwesomeStack'))
-            {
-                $output = $this->stack->output();
-            } else {
-                $output = $this->_buildIcon();
-            }
-//        } else {
-//            throws new IncompleteStackException('Error: The stack is incomplete.');
-//        }
+        if(is_a($this->stack, 'Khill\Fontawesome\FontAwesomeStack'))
+        {
+            $output = $this->stack->output();
+        } elseif(is_a($this->list, 'Khill\Fontawesome\FontAwesomeList')) {
+            $output = $this->list->output();
+        } else {
+            $output = $this->_buildIcon();
+        }
+
         $this->_reset();
         
         return $output;
@@ -458,13 +463,45 @@ class FontAwesome {
         return $this;
     }
 
-    public function ul($classes)
+    /**
+     * Builds unordered list with icons
+     * 
+     * @param  string $iconLabel Default icon used in list (optional)
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function ul($iconLabel)
     {
+        $this->list = new FontAwesomeList();
+
+        if(is_string($iconLabel) && ! empty($iconLabel))
+        {
+            $this->list->setDefaultIcon($iconLabel);   
+        } elseif(is_array($iconLabel) && count($iconLabel) > 0) {
+            $this->list->setListItems($iconLabel);
+        } else {
+            throw new Exception('tmp');
+        }
+
         return $this;
     }
 
-    public function li()
+    /**
+     * Adds items to unordered list with icons
+     * 
+     * @param  string|array $iconLine Adds a line or lines to the unordered list
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function li($iconLine)
     {
+        if(is_string($iconLine) && ! empty($iconLine))
+        {
+            $this->list->addItem($iconLine);
+        } elseif(is_array($iconLabel) && count($iconLabel) > 0){
+            $this->list->addItems($iconLine);
+        } else {
+            throw new Exception('tmp');
+        }
+
         return $this;
     }
 
@@ -590,6 +627,8 @@ class FontAwesome {
         $this->iconLabel  = '';
         $this->stackTop   = '';
         $this->iconBottom = '';
+        $this->list       = null;
+        $this->stack      = null;
         $this->stacking   = false;
         $this->classes    = array();
     }

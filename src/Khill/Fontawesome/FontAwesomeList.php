@@ -27,6 +27,11 @@ class FontAwesomeList {
     const LI_HTML = '<li>%s%s</li>';
 
     /**
+     * Html string template to build the icon
+     */
+    const ICON_HTML = '<i class="fa %s"></i>';
+
+    /**
      * Classes to be applied to the list
      *
      * @var array
@@ -34,11 +39,25 @@ class FontAwesomeList {
     private $classes = array();
 
     /**
+     * Lines in the list
+     *
+     * @var array
+     */
+    private $lines = array();
+
+    /**
      * Name of the icon to apply to entire list
      *
      * @var string
      */
     private $iconLabel = '';
+
+    /**
+     * Full list
+     *
+     * @var array
+     */
+    private $fullList = array();
 
     /**
      * Assigns the name to the icon
@@ -57,37 +76,23 @@ class FontAwesomeList {
      * @access public
      * @return string HTML string of icon or stack
      */
-    public function __toString()
+    public function output()
     {
-//        if( ! empty($this->stackTop) &&  empty($this->stackBottom))
-//        {
-            if( ! empty($this->stackTop) &&  empty($this->stackBottom))
-            {
-                $output = $this->_buildStack();
-            } else {
-                $output = $this->_buildIcon();
-            }
-//        } else {
-//            throws new IncompleteStackException('Error: The stack is incomplete.');
-//        }
-        $this->_reset();
-        
-        return $output;
-    }
+        $listItems = '';
 
-    /**
-     * Sets which icon to use
-     * 
-     * @access public
-     * @param  string $icon Icon label, ommiting fa- prefix
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function icon($icon)
-    {
-        $this->_setIcon($icon);
-        
-        return $this;
+        foreach($this->lines as $line)
+        {
+            if(isset($this->defaultIcon))
+            {
+                $icon = $this->_buildIcon($this->defaultIcon);
+            } else {
+
+            }
+            
+            $listItems .= sprintf(self::LI_HTML, $icon, $line);
+        }
+
+        return sprintf(self::UL_HTML, $listItems);
     }
 
     /**
@@ -110,52 +115,48 @@ class FontAwesomeList {
         return $this;
     }
 
-    public function ul()
+    public function addItem($line)
     {
-        return $this;
-    }
-
-    public function li()
-    {
-        return $this;
-    }
-
-    /**
-     * Sets the top icon to be used in a stack
-     * 
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function stack($icon)
-    {
-        $this->_setIcon($icon);
-        $this->stacking = true;
-
-        return $this;
-    }
-
-    /**
-     * Sets the bottom icon to be used in a stack
-     * 
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @throws Khill\Fontawesome\Exceptions\IncompleteStackException If The on() method was called without the stack() method
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function on($icon)
-    {
-        if($this->stacking === true)
+        if(is_string($line))
         {
-            $this->stackTop = $this->_buildIcon();
-            $this->_setIcon($icon);
+            $this->lines[] = $line;
         } else {
-            throw new IncompleteStackException('Stacks must be started with the stack() method.');
+            throw new BadLabelException('List items must be a string.');
         }
 
         return $this;
+    }
+
+
+    public function addItems($lineArray)
+    {
+        if(is_array($lineArray))
+        {
+            foreach($lineArray as $line)
+            {
+                $this->addItem($line);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets the default icon to be used in the list
+     * 
+     * @access public
+     * @param  string $icon Icon label
+     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     */
+    public function setDefaultIcon($icon)
+    {
+        $this->_setIcon($icon);
+    }
+
+    public function setListItems($listItems)
+    {
+        $this->listItems = $listItems;
     }
 
 
@@ -172,7 +173,7 @@ class FontAwesomeList {
         {
             if( ! empty($icon))
             {
-                $this->iconLabel = $icon;
+                $this->defaultIcon = $icon;
             }
         } else {
             throw new BadLabelException('Icon label must be a string.');
@@ -185,10 +186,10 @@ class FontAwesomeList {
      * @access private
      * @return void
      */
-    private function _buildIcon()
+    private function _buildIcon($iconLabel)
     {
-        $classes = 'fa-' . $this->iconLabel;
-
+        $classes = 'fa-' . $iconLabel;
+/*
         if( ! empty($this->classes))
         {
             foreach($this->classes as $class)
@@ -196,7 +197,7 @@ class FontAwesomeList {
                 $classes .= ' ' . $class;
             }
         }
-
+*/
         return sprintf(self::ICON_HTML, $classes);
     }
 

@@ -9,6 +9,9 @@
         <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet" />
         {{ FA::css() }}
         <style type="text/css" rel="stylesheet">
+            body {
+                background-color:#DACCFF;
+            }
             #wrap {
                 padding-top: 100px;
             }
@@ -79,13 +82,18 @@
                         </a>
                     </li>
                     <li class="dropdown">
+                        <a href="#collection">
+                            {{ FA::fixedWidth('briefcase') }} Collection
+                        </a>
+                    </li>
+                    <li class="dropdown">
                         <a href="">
                             {{ FA::fixedWidth('cogs') }} Api
                         </a>
                     </li>
                     <li class="dropdown">
                         <a href="#">
-                            {{ FA::fixedWidth('download') }} Download v1.0b
+                            {{ FA::fixedWidth('download') }} Download v0.9b1
                         </a>
                     </li>
                 </ul>
@@ -272,10 +280,12 @@ right('cloud');
                 <h4>Animate any icon to spin with this method.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
-                        {{ FA::spin('question-circle') }} spin('question-circle')
+                        {{ FA::spin('question-circle') }} spin('question-circle')<br />
+                        {{ FA::spin('refresh') }} spin('refresh')
                     </div>
                     <div class="col-md-9 col-sm-8">
-                        <pre>spin('question-circle')</pre>
+                        <pre>spin('question-circle')
+spin('refresh')</pre>
                         <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
                         <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
@@ -306,19 +316,15 @@ flipVertical('tags');</pre>
                 <h4>Stacking icons is simple, just chain the methods together using the following syntax.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
-                        {{ FA::stack('ban')->on('comments') }}<br />
-                        {{ FA::stack('square-o')->on('fighter-jet') }}<br />
-                        {{ FA::stack('twitter')->on('circle-o') }}<br />
-<span class="fa-stack fa-4x">
-<i class="fa fa-square-o fa-stack-2x"></i>
-<i class="fa fa-fighter-jet fa-stack-1x"></i>
-</span>
+                        {{ FA::stack('ban')->on('comments') }}<br />stack('ban')->on('comments')<br />
+                        {{ FA::stack('square-o')->on('gavel')->lg() }}<br />stack('square-o')->on('gavel')->lg()<br />
+                        {{ FA::stack('circle-o')->on('twitter')->x3() }}<br />stack('circle-o')->on('twitter')->x3()
                     </div>
                     <div class="col-md-9 col-sm-8">
                         <pre>stack('ban')->on('comments');</pre>
                         <h5>You can also chain on size modification methods</h5>
-                        <pre>stack('fighter-jet')->on('square-o')->lg();
-stack('twitter')->on('circle-o')->x3();</pre>
+                        <pre>stack('square-o')->on('gavel')->lg();
+stack('circle-o')->on('twitter')->x3();</pre>
                         <h4><strong>param</strong> $iconLabel <em>string</em> The name of the icon to display <span class="note">(omit the prefix "fa-")</span></h4>
                         <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
@@ -328,22 +334,26 @@ stack('twitter')->on('circle-o')->x3();</pre>
                 <h4>The methods can be chained together to create dynamic icons</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
-                        {{ FA::x3('shopping-cart')->flipVertical() }}<br />
-                        {{ FA::rotate270('cutlery')->x3() }}<br />
-                        <div style="background-color:#bbb;padding:5px;width:80px;">{{ FA::icon('truck')->x4()->inverse() }}</div>
-                        {{ FA::right('gavel')->border()->x2() }}
+                        {{ FA::x3('shopping-cart')->flipVertical() }}<br />FA::x3('shopping-cart')->flipVertical()<br />
+                        {{ FA::rotate270('cutlery')->x3() }}<br />FA::rotate270('cutlery')->x3()<br />
+                        {{ FA::icon('truck')->x4()->inverse() }}<br />FA::icon('truck')->x4()->inverse()<br />
+                        {{ FA::right('hospital')->border()->x2() }}<br />FA::right('hospital')->border()->x2()
                     </div>
                     <div class="col-md-9 col-sm-8">
                         <pre>x3('shopping-cart')->flipVertical();</pre>
                         <pre>rotate270('cutlery')->x3();</pre>
-                        <pre>icon('truck')->x4()->inverse();
-//the grey background is just so you can see the inverse effect</pre>
-                        <pre>right('gavel')->border()->x2();</pre>
+                        <pre>icon('truck')->x4()->inverse();</pre>
+                        <pre>right('hospital')->border()->x2();</pre>
                         <h4><strong>returns</strong> <em>FontAwesome</em> All of the methods return the FontAwesome object so that they can be chained together. The magic method __toString() will output the HTML once you echo or print the object.</h4>
                     </div>
                 </div><br />
 
-                <h3>Collection</h3>
+
+            <a name="collection">&nbsp;</a>
+            <br /><br />
+            <div class="underline">
+                <h1>Collection</h1>
+            </div>
                 <h4>Icons can be stored into a collection to later be recalled from within a view.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
