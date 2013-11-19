@@ -3,6 +3,7 @@
 use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
+use Khill\Fontawesome\Exceptions\IncompleteListException;
 
 class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
 
@@ -69,6 +70,14 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
         echo $this->fa->stack('github');
     }
 */
+
+    /**
+     * @expectedException Khill\Fontawesome\Exceptions\IncompleteListException
+     */
+    public function testListWithNoDefaultIconThrowsIncompleteListException()
+    {
+        $this->fa->ul()->li('List item one.');
+    }
 
     public function testBadLabelExceptionOutput()
     {

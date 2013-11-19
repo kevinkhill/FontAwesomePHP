@@ -27,7 +27,7 @@ class FontAwesomeListTest extends \PHPUnit_Framework_TestCase {
                       ->li('This is my fourth item');
     }
 
-    public function testArrayListSingleIconListIconOutput()
+    public function testArrayItemsSingleIconListIconOutput()
     {
         $listItems = array(
             'This is my first item',
@@ -48,7 +48,7 @@ class FontAwesomeListTest extends \PHPUnit_Framework_TestCase {
         echo $this->fa->ul('square')->li($listItems);
     }
 
-    public function testArrayListMultiIconIconOutput()
+    public function testMultipleIconArrayItemsListOutput()
     {
         $listItems = array(
             'magic' => 'This is my first item',

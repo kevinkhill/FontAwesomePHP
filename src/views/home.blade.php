@@ -93,7 +93,7 @@
                     </li>
                     <li class="dropdown">
                         <a href="#">
-                            {{ FA::fixedWidth('download') }} Download v0.9b1
+                            {{ FA::fixedWidth('download') }} Download v1.0
                         </a>
                     </li>
                 </ul>
@@ -250,11 +250,33 @@ x5($iconLabel);
                 </div><br />
 
                 <h3>List Icons:</h3>
-                <h4>Easily replace default bullets in unordered lists.</h4>
+                <h4>Easily replace default bullets in unordered lists, or assign multiple icons per line.</h4>
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
+                        {{ FA::ul('square')->li('list item one')->li('list item two')->li('list item three') }}<br />
+                        {{
+                            FA::ul(array(
+                                'magic' => 'This is my first item',
+                                'music' => 'This is my second item',
+                                'road'  => 'This is my third item'
+                            ));
+                        }}
                     </div>
                     <div class="col-md-9 col-sm-8">
+                        <pre>ul('square')->li('list item one')
+            ->li('list item two')
+            ->li('list item three')</pre>
+                        <h4>ul() <strong>param</strong> $defaultIcon <em>string</em> The name of the icon to use in list <span class="note">(omit the prefix "fa-")</span></h4>
+                        <h4><strong>returns</strong> <em>FontAwesome</em></h4>
+                        <h4>li() <strong>param</strong> $listItem <em>string|array</em> Items to add to list, either line by line, or array of lines.</h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
+                        <pre>ul(array(
+    'magic' => 'This is my first item',
+    'music' => 'This is my second item',
+    'road'  => 'This is my third item'
+));</pre>
+                        <h4>ul() <strong>param</strong> $completeList <em>string</em> Associative array of icon => line pairs</h4>
+                        <h4><strong>returns</strong> <em>string</em> Icon HTML</h4>
                     </div>
                 </div><br />
 

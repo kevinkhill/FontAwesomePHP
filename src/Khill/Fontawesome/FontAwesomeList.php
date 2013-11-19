@@ -74,22 +74,32 @@ class FontAwesomeList {
      * Outputs the FontAwesomeList object as an HTML string
      *
      * @access public
-     * @return string HTML string of icon or stack
+     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If No default icon was setempty string
+     * @return string HTML string of list
      */
     public function output()
     {
         $listItems = '';
 
-        foreach($this->lines as $line)
+        if(is_array($this->fullList) && count($this->fullList) > 0)
         {
-            if(isset($this->defaultIcon))
+            foreach($this->fullList as $icon => $line)
             {
-                $icon = $this->_buildIcon($this->defaultIcon);
-            } else {
-
+                $lineIcon = $this->_buildIcon($icon);
+                $listItems .= sprintf(self::LI_HTML, $lineIcon, $line);
             }
-            
-            $listItems .= sprintf(self::LI_HTML, $icon, $line);
+        } else {
+            foreach($this->lines as $line)
+            {
+                if(isset($this->defaultIcon))
+                {
+                    $icon = $this->_buildIcon($this->defaultIcon);
+                } else {
+                    throw new IncompleteListException('No default icon was defined.');
+                }
+                
+                $listItems .= sprintf(self::LI_HTML, $icon, $line);
+            }
         }
 
         return sprintf(self::UL_HTML, $listItems);
@@ -100,8 +110,8 @@ class FontAwesomeList {
      * 
      * @access public
      * @param string $class CSS class
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $class is not a non empty string
+     * @return Khill\Fontawesome\FontAwesomeList FontAwesomeList object
      */
     public function addClass($class)
     {
@@ -109,25 +119,40 @@ class FontAwesomeList {
         {
             $this->classes[] = $class;
         } else {
-            throw new BadLabelException('Additional classes must be a string.');
+            throw new BadLabelException('Additional classes must be a non empty string.');
         }
 
         return $this;
     }
 
+    /**
+     * Add an item to the list
+     * 
+     * @access public
+     * @param  string $line Line to add to the list
+     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $line is not a non empty string
+     * @return Khill\Fontawesome\FontAwesomeList FontAwesomeList object
+     */
     public function addItem($line)
     {
         if(is_string($line))
         {
             $this->lines[] = $line;
         } else {
-            throw new BadLabelException('List items must be a string.');
+            throw new IncompleteListException('List item must be a non empty string.');
         }
 
         return $this;
     }
 
-
+    /**
+     * Add multiple items to list
+     * 
+     * @access public
+     * @param  string $lineArray Array of lines to add to list
+     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $lineArray is not an array
+     * @return Khill\Fontawesome\FontAwesomeList FontAwesomeList object
+     */
     public function addItems($lineArray)
     {
         if(is_array($lineArray))
@@ -136,6 +161,8 @@ class FontAwesomeList {
             {
                 $this->addItem($line);
             }
+        } else {
+            throw new IncompleteListException('You must pass an array of non empty strings.');
         }
 
         return $this;
@@ -147,16 +174,29 @@ class FontAwesomeList {
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     * @return void
      */
     public function setDefaultIcon($icon)
     {
         $this->_setIcon($icon);
     }
 
+    /**
+     * Sets the entire list with multiple icons
+     * 
+     * @access public
+     * @param  array $listItems Array of icons and list items
+     * @return void
+     */
     public function setListItems($listItems)
     {
-        $this->listItems = $listItems;
+        if(is_array($listItems) && $this->_testAssocArray($listItems))
+        {
+            $this->fullList = $listItems;            
+        } else {
+            throw new IncompleteListException('Must pass array with keys as icon names and values as lines for list.');
+        }
+
     }
 
 
@@ -223,6 +263,17 @@ class FontAwesomeList {
         }
 
         return sprintf(self::STACK_HTML, $classes, $this->stackTop, $this->stackBottom);
+    }
+
+    /**
+     * Tests if array keys are strings
+     *
+     * @param  array ARray to test
+     * @return boolean True if keys are strings, false if not
+     */
+    private function _testAssocArray($array)
+    {
+        return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 
     /**

@@ -13,6 +13,7 @@
 use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
+use Khill\Fontawesome\Exceptions\IncompleteListException;
 
 class FontAwesome {
 
@@ -469,7 +470,7 @@ class FontAwesome {
      * @param  string $iconLabel Default icon used in list (optional)
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
-    public function ul($iconLabel)
+    public function ul($iconLabel = '')
     {
         $this->list = new FontAwesomeList();
 
@@ -479,7 +480,7 @@ class FontAwesome {
         } elseif(is_array($iconLabel) && count($iconLabel) > 0) {
             $this->list->setListItems($iconLabel);
         } else {
-            throw new Exception('tmp');
+            throw new IncompleteListException('List must have a default icon or associative array with icons as keys.');
         }
 
         return $this;
@@ -491,15 +492,15 @@ class FontAwesome {
      * @param  string|array $iconLine Adds a line or lines to the unordered list
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
-    public function li($iconLine)
+    public function li($iconLine = '')
     {
         if(is_string($iconLine) && ! empty($iconLine))
         {
             $this->list->addItem($iconLine);
-        } elseif(is_array($iconLabel) && count($iconLabel) > 0){
+        } elseif(is_array($iconLine) && count($iconLine) > 0){
             $this->list->addItems($iconLine);
         } else {
-            throw new Exception('tmp');
+            throw new IncompleteListException('List must items must be a non empty string or array of strings.');
         }
 
         return $this;
