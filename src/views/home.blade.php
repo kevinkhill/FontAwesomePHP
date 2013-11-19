@@ -92,7 +92,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="#">
+                        <a href="http://github.com/kevinkhill/FontAwesomePHP/releases/tag/v1.0">
                             {{ FA::fixedWidth('download') }} Download v1.0
                         </a>
                     </li>
