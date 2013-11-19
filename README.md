@@ -3,12 +3,26 @@ FontAwesomePHP
 [![Build Status](https://travis-ci.org/kevinkhill/FontAwesomePHP.png?branch=master)](https://travis-ci.org/kevinkhill/FontAwesomePHP)
 [![Coverage Status](https://coveralls.io/repos/kevinkhill/FontAwesomePHP/badge.png)](https://coveralls.io/r/kevinkhill/FontAwesomePHP)
 
-A PHP wrapper library for the fantastic FontAwesome icon set. Designed for Laravel, but will work with any PHP project.
+A composer ready package designed to integrate the fantastic Font Awesome icon set into your PHP projects through an easy to use interface.
 
-#This is a work in progress
-##Most features work, but might change
-###API and examples page coming soon!
+Created with Laravel in mind, a ServiceProvider and Facade have been included as well. Don't worry though, the library will work in any PHP application, via composer or manually.
 
+Install
+=======
+First, add the package to your main composer.json file:
+
+"Khill\Fontawesome" : "dev-master"
+Next, run composer from the command line to download and install:
+
+composer install
+Then, if you are using Laravel, add the ServiceProvider to the service providers array in the app.php file:
+
+Skip this step if you are not using Laravel
+
+'Khill\Fontawesome\FontAwesomeServiceProvider'
+Last, add the link in your view's page header to the FontAwesome CSS file, provided by BootstrapCDN:
+
+FontAwesome::css() // Or FA::css() if you want to use the alias
   
 
 ##Like My Work?

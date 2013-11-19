@@ -87,7 +87,7 @@
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a href="">
+                        <a href="api/index.html">
                             {{ FA::fixedWidth('cogs') }} Api
                         </a>
                     </li>
