@@ -12,13 +12,13 @@ Install
 First, add the package to your main composer.json file:
 
 ```
-"Khill\Fontawesome" : "dev-master"
+"khill/fontawesome" : "1.0.x"
 ```
 
 Next, run composer from the command line to download and install:
 
 ```
-composer install
+composer update
 ```
 
 Then, if you are using Laravel, add the ServiceProvider to the service providers array in the app.php file:
@@ -31,7 +31,7 @@ Last, add the link in your view's page header to the FontAwesome CSS file, provi
 
 ```
 FontAwesome::css() // Or FA::css() if you want to use the alias
-```  
+```
 
 Examples and Api
 ================
