@@ -12,7 +12,7 @@ Install
 First, add the package to your main composer.json file:
 
 ```
-"khill/fontawesome" : "1.0.x"
+"khill/fontawesomephp" : "1.0.x"
 ```
 
 Next, run composer from the command line to download and install:
