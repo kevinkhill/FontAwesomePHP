@@ -20,7 +20,7 @@ class FontAwesome {
     /**
      * HTML Link tag to the FontAwesome CDN
      */
-    const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">';
+    const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">';
 
     /**
      * Html string template to build the icon
