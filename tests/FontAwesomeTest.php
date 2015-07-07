@@ -11,7 +11,7 @@ class FontAwesomeTest extends \PHPUnit_Framework_TestCase {
 
     public function testCdnLinkOutput()
     {
-        $this->expectOutputString('<link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">');
+        $this->expectOutputString('<link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">');
 
         echo FontAwesome::css();
     }
