@@ -5,7 +5,7 @@
 *
 * @package  FontAwesomePHP
 * @author   Kevin Hill <kevinkhill@gmail.com>
-* @version  1.0b1
+* @version  1.0.3
 * @access   public
 * @see      http://kevinkhill.github.io/FontAwesomePHP
 */
@@ -20,7 +20,7 @@ class FontAwesome {
     /**
      * HTML Link tag to the FontAwesome CDN
      */
-    const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">';
+    const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">';
 
     /**
      * Html string template to build the icon
@@ -114,13 +114,13 @@ class FontAwesome {
         }
 
         $this->_reset();
-        
+
         return $output;
     }
 
     /**
      * Stores icon to be rendered later
-     * 
+     *
      * @access public
      * @param  string $label Label of icon to save in collection
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $label is not a string
@@ -149,7 +149,7 @@ class FontAwesome {
 
     /**
      * Retrieve icon from collection
-     * 
+     *
      * @access public
      * @param  string $label Icon label used in store method
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $label is not a string
@@ -173,7 +173,7 @@ class FontAwesome {
 
     /**
      * Sets which icon to use
-     * 
+     *
      * @access public
      * @param  string $icon Icon label, ommiting fa- prefix
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -182,13 +182,13 @@ class FontAwesome {
     public function icon($icon)
     {
         $this->_setIcon($icon);
-        
+
         return $this;
     }
 
     /**
      * Adds extra classes to icon or stack
-     * 
+     *
      * @access public
      * @param string $class CSS class
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
@@ -210,7 +210,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be a fixed width
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -226,7 +226,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be larger
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -236,13 +236,13 @@ class FontAwesome {
     {
         $this->_setIcon($icon);
         $this->_addClass('fa-lg');
-        
+
         return $this;
     }
 
     /**
      * Sets the icon or stack to be 2 times larger
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -258,7 +258,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be 3 times larger
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -274,7 +274,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be 4 times larger
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -290,7 +290,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be 5 times larger
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -306,7 +306,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be inverted in color
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -322,7 +322,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be rotated 90 degrees
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -338,7 +338,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be rotated 180 degrees
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -354,7 +354,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be rotated 270 degrees
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -370,7 +370,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be flipped horizontally
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -386,7 +386,7 @@ class FontAwesome {
 
     /**
      * Sets the icon or stack to be flipped vertically
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -402,7 +402,7 @@ class FontAwesome {
 
     /**
      * Sets the icon to spin
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -418,7 +418,7 @@ class FontAwesome {
 
     /**
      * Sets a border around the icon
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -434,7 +434,7 @@ class FontAwesome {
 
     /**
      * Pulls the icon to the left
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -450,7 +450,7 @@ class FontAwesome {
 
     /**
      * Pulls the icon to the left
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -466,7 +466,7 @@ class FontAwesome {
 
     /**
      * Builds unordered list with icons
-     * 
+     *
      * @param  string $iconLabel Default icon used in list (optional)
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
@@ -476,7 +476,7 @@ class FontAwesome {
 
         if(is_string($iconLabel) && ! empty($iconLabel))
         {
-            $this->list->setDefaultIcon($iconLabel);   
+            $this->list->setDefaultIcon($iconLabel);
         } elseif(is_array($iconLabel) && count($iconLabel) > 0) {
             $this->list->setListItems($iconLabel);
         } else {
@@ -488,7 +488,7 @@ class FontAwesome {
 
     /**
      * Adds items to unordered list with icons
-     * 
+     *
      * @param  string|array $iconLine Adds a line or lines to the unordered list
      * @return Khill\Fontawesome\FontAwesome FontAwesome object
      */
@@ -508,7 +508,7 @@ class FontAwesome {
 
     /**
      * Sets the top icon to be used in a stack
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a non empty string
@@ -530,7 +530,7 @@ class FontAwesome {
 
     /**
      * Sets the bottom icon to be used in a stack
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a non empty string
@@ -557,7 +557,7 @@ class FontAwesome {
 
     /**
      * Sets icon label
-     * 
+     *
      * @access private
      * @param string $icon Icon label
      * @return void
@@ -577,7 +577,7 @@ class FontAwesome {
 
     /**
      * Builds the icon from the template
-     * 
+     *
      * @access private
      * @return void
      */
@@ -598,7 +598,7 @@ class FontAwesome {
 
     /**
      * Adds classes to icon or stack object
-     * 
+     *
      * @access private
      * @return void
      */
@@ -619,7 +619,7 @@ class FontAwesome {
 
     /**
      * Resets the FontAwesome class
-     * 
+     *
      * @access private
      * @return void
      */
