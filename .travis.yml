@@ -12,9 +12,11 @@ php:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - php: 7.0
-    - php: hhvm
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - vendor
 
 before_script:
   - composer self-update
