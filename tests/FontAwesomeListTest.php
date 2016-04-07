@@ -1,14 +1,9 @@
-<?php namespace Khill\Fontawesome;
+<?php
 
-class FontAwesomeListTest extends \PHPUnit_Framework_TestCase {
+namespace Khill\Fontawesome\Tests;
 
-    public $fa;
-
-    public function setUp()
-    {
-        $this->fa = new FontAwesome();
-    }
-
+class FontAwesomeListTest extends FontAwesomeTestCase
+{
     public function testChainedSingleIconListIconOutput()
     {
         $output  = '<ul class="fa-ul">';
@@ -68,5 +63,4 @@ class FontAwesomeListTest extends \PHPUnit_Framework_TestCase {
 
         echo $this->fa->ul($listItems);
     }
-
 }

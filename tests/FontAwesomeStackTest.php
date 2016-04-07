@@ -1,6 +1,8 @@
-<?php namespace Khill\Fontawesome;
+<?php
 
-class FontAwesomeStackTest extends \PHPUnit_Framework_TestCase {
+namespace Khill\Fontawesome\Tests;
+
+class FontAwesomeStackTest extends FontAwesomeTestCase {
 
     public $fa;
 
