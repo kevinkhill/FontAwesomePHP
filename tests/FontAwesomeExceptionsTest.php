@@ -1,19 +1,14 @@
-<?php namespace Khill\Fontawesome;
+<?php
+
+namespace Khill\Fontawesome\Tests;
 
 use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
 use Khill\Fontawesome\Exceptions\IncompleteListException;
 
-class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
-
-    public $fa;
-
-    public function setUp()
-    {
-        $this->fa = new FontAwesome();
-    }
-
+class FontAwesomeExceptionsTest extends FontAwesomeTestCase
+{
     /**
      * @dataProvider notStringProvider
      * @expectedException Khill\Fontawesome\Exceptions\BadLabelException
@@ -64,12 +59,6 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
     {
         $this->fa->on('twitter');
     }
-/*
-    public function testCallingStackMethodWithoutOnMethodThrowsIncompleteStackException()
-    {
-        echo $this->fa->stack('github');
-    }
-*/
 
     /**
      * @expectedException Khill\Fontawesome\Exceptions\IncompleteListException
@@ -84,7 +73,7 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
         $this->expectOutputString('Khill\Fontawesome\Exceptions\BadLabelException: [ERROR] Icon label must be a string.'."\n");
 
         try {
-            $this->fa->icon(2);            
+            $this->fa->icon(2);
         } catch(BadLabelException $e) {
             echo $e;
         }
@@ -95,7 +84,7 @@ class FontAwesomeExceptionsTest extends \PHPUnit_Framework_TestCase {
         $this->expectOutputString('Khill\Fontawesome\Exceptions\CollectionIconException: [ERROR] Collection icon "test" does not exist.'."\n");
 
         try {
-            $this->fa->collection('test');            
+            $this->fa->collection('test');
         } catch(CollectionIconException $e) {
             echo $e;
         }
