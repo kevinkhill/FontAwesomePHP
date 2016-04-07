@@ -1,32 +1,44 @@
-FontAwesomePHP
-==============
-[![Build Status](https://travis-ci.org/kevinkhill/FontAwesomePHP.png?branch=master)](https://travis-ci.org/kevinkhill/FontAwesomePHP)
-[![Coverage Status](https://coveralls.io/repos/kevinkhill/FontAwesomePHP/badge.png)](https://coveralls.io/r/kevinkhill/FontAwesomePHP)
+FontAwesome for PHP
+===================
+[![Total Downloads](https://img.shields.io/packagist/dt/khill/FontAwesomePHP.svg?style=plastic)](https://packagist.org/packages/khill/FontAwesomePHP)
+[![License](https://img.shields.io/packagist/l/khill/FontAwesomePHP.svg?style=plastic)](http://opensource.org/licenses/MIT)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.3-8892BF.svg?style=plastic)](https://php.net/)
+[![PayPayl](https://img.shields.io/badge/paypal-donate-yellow.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FLP6MYY3PYSFQ)
 
-A PHP wrapper library for the fantastic FontAwesome icon set. Designed for Laravel, but will work with any PHP project.
+[![Current Release](https://img.shields.io/github/release/kevinkhill/FontAwesomePHP.svg?style=plastic)](https://github.com/kevinkhill/FontAwesomePHP/releases)
+[![Build Status](https://img.shields.io/travis/kevinkhill/FontAwesomePHP/1.0.svg?style=plastic)](https://travis-ci.org/kevinkhill/FontAwesomePHP)
+[![Coverage Status](https://img.shields.io/coveralls/kevinkhill/FontAwesomePHP/1.0.svg?style=plastic)](https://coveralls.io/r/kevinkhill/FontAwesomePHP?branch=1.0)
 
-#This is a work in progress
-##Most features work, but might change
-###API and examples page coming soon!
+A composer ready package designed to integrate the fantastic Font Awesome icon set into your PHP projects through an easy to use interface.
 
-  
+Created with Laravel in mind, a ServiceProvider and Facade have been included as well. Don't worry though, the library will work in any PHP application, via composer or manually.
 
-##Like My Work?
-Feel like buying me a coffee? [Any amount donated to is greatly apprecieated :)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FLP6MYY3PYSFQ)
+Install
+=======
+First, add the package to your main composer.json file:
 
-- - -
-
-##[MIT License](http://opensource.org/licenses/MIT)
+```json
+"khill/fontawesomephp" : "1.0.*"
 ```
-Copyright (c) 2013, Kevin Hill of KHill Designs
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Next, run composer from the command line to download and install:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+```bash
+$ composer update
 ```
+
+Then, if you are using Laravel, add the ServiceProvider to the service providers array in the app.php file:
+
+```php
+'Khill\Fontawesome\FontAwesomeServiceProvider' //Skip this step if you are not using Laravel
+```
+
+Last, add the link in your view's page header to the FontAwesome CSS file, provided by BootstrapCDN:
+
+```php
+FontAwesome::css() // Or FA::css() if you want to use the alias
+```
+
+Examples and Api
+================
+Please visit [FontAwesomePHP](http://kevinkhill.github.io/FontAwesomePHP) for a complete list of features, examples and the api.

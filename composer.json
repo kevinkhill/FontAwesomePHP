@@ -6,22 +6,34 @@
         {
             "name": "Kevin Hill",
             "email": "kevinkhill@gmail.com",
-            "homepage": "http://khilldesigns.com",
             "role": "Developer"
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "3.7.*",
-        "satooshi/php-coveralls": "dev-master"
+        "php": ">=5.3.0"
     },
     "autoload": {
-        "psr-0": {
-            "Khill\\Fontawesome": "src/"
+        "psr-4": {
+            "Khill\\Fontawesome\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "require-dev": {
+        "phpunit/phpunit": "~4.8",
+        "satooshi/php-coveralls": "~1.0",
+        "symfony/yaml": "~2.0",
+        "symfony/config": "~2.0",
+        "symfony/console": "~2.0",
+        "symfony/stopwatch": "~2.0",
+        "symfony/filesystem": "~2.0",
+        "doctrine/instantiator": "1.0.4"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Khill\\Fontawesome\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit -c phpunit.xml"
+    },
+    "minimum-stability": "stable"
 }

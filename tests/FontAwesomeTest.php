@@ -1,17 +1,14 @@
-<?php namespace Khill\Fontawesome;
+<?php
 
-class FontAwesomeTest extends \PHPUnit_Framework_TestCase {
+namespace Khill\Fontawesome\Tests;
 
-    public $fa;
+use Khill\Fontawesome\FontAwesome;
 
-    public function setUp()
-    {
-        $this->fa = new FontAwesome();
-    }
-
+class FontAwesomeTest extends FontAwesomeTestCase
+{
     public function testCdnLinkOutput()
     {
-        $this->expectOutputString('<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">');
+        $this->expectOutputString('<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">');
 
         echo FontAwesome::css();
     }
