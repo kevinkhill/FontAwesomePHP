@@ -2,15 +2,8 @@
 
 namespace Khill\Fontawesome\Tests;
 
-class FontAwesomeStackTest extends FontAwesomeTestCase {
-
-    public $fa;
-
-    public function setUp()
-    {
-        $this->fa = new FontAwesome();
-    }
-
+class FontAwesomeStackTest extends FontAwesomeTestCase
+{
     public function testBasicStackedIconsOutput()
     {
         $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
@@ -74,5 +67,4 @@ class FontAwesomeStackTest extends FontAwesomeTestCase {
 
         echo $this->fa->stack('ban')->on('magic')->addClass(array('fancyClass1', 'fancyClass2'));
     }
-
 }

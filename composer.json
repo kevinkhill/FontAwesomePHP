@@ -21,7 +21,7 @@
         "phpunit/phpunit": "~4.8",
         "satooshi/php-coveralls": "dev-master"
     },
-    "autoload": {
+    "autoload-dev": {
         "psr-4": {
             "Khill\\Fontawesome\\Tests\\": "tests/"
         }

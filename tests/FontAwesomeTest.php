@@ -2,6 +2,8 @@
 
 namespace Khill\Fontawesome\Tests;
 
+use Khill\Fontawesome\FontAwesome;
+
 class FontAwesomeTest extends FontAwesomeTestCase
 {
     public function testCdnLinkOutput()
