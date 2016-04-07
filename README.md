@@ -3,7 +3,7 @@ FontAwesome for PHP
 [![Total Downloads](https://img.shields.io/packagist/dt/khill/FontAwesomePHP.svg?style=plastic)](https://packagist.org/packages/khill/FontAwesomePHP)
 [![License](https://img.shields.io/packagist/l/khill/FontAwesomePHP.svg?style=plastic)](http://opensource.org/licenses/MIT)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.3-8892BF.svg?style=plastic)](https://php.net/)
-[![PayPayl](https://img.shields.io/badge/paypal-donate-yellow.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FLP6MYY3PYSFQ))
+[![PayPayl](https://img.shields.io/badge/paypal-donate-yellow.svg?style=plastic)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FLP6MYY3PYSFQ)
 
 A composer ready package designed to integrate the fantastic Font Awesome icon set into your PHP projects through an easy to use interface.
 
