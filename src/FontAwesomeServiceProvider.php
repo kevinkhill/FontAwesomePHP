@@ -17,8 +17,6 @@ class FontAwesomeServiceProvider extends ServiceProvider
             $this->package('khill/fontawesome');
 
         }
-
-        include __DIR__.'/../../routes.php';
     }
 
     public function register()
