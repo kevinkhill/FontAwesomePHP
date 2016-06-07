@@ -74,7 +74,7 @@ class FontAwesomeExceptionsTest extends FontAwesomeTestCase
 
         try {
             $this->fa->icon(2);
-        } catch(BadLabelException $e) {
+        } catch (BadLabelException $e) {
             echo $e;
         }
     }
@@ -85,7 +85,7 @@ class FontAwesomeExceptionsTest extends FontAwesomeTestCase
 
         try {
             $this->fa->collection('test');
-        } catch(CollectionIconException $e) {
+        } catch (CollectionIconException $e) {
             echo $e;
         }
     }
@@ -96,7 +96,7 @@ class FontAwesomeExceptionsTest extends FontAwesomeTestCase
 
         try {
             $this->fa->on('test');
-        } catch(IncompleteStackException $e) {
+        } catch (IncompleteStackException $e) {
             echo $e;
         }
     }
@@ -110,7 +110,8 @@ class FontAwesomeExceptionsTest extends FontAwesomeTestCase
             array(array()),
             array(array('test')),
             array(new \stdClass()),
-            array(function(){})
+            array(function () {
+            })
         );
     }
 
@@ -122,7 +123,8 @@ class FontAwesomeExceptionsTest extends FontAwesomeTestCase
             array(1.0),
             array(array()),
             array(new \stdClass()),
-            array(function(){})
+            array(function () {
+            })
         );
     }
 }

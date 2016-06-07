@@ -11,5 +11,4 @@ class IncompleteStackException extends \Exception
     {
         return __CLASS__ . ": [ERROR] {$this->message}\n";
     }
-
 }

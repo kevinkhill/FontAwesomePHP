@@ -14,7 +14,8 @@ use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
 
-class FontAwesomeList {
+class FontAwesomeList
+{
 
     /**
      * Html string template to build the list
@@ -81,18 +82,14 @@ class FontAwesomeList {
     {
         $listItems = '';
 
-        if(is_array($this->fullList) && count($this->fullList) > 0)
-        {
-            foreach($this->fullList as $icon => $line)
-            {
+        if (is_array($this->fullList) && count($this->fullList) > 0) {
+            foreach ($this->fullList as $icon => $line) {
                 $lineIcon = $this->_buildIcon($icon);
                 $listItems .= sprintf(self::LI_HTML, $lineIcon, $line);
             }
         } else {
-            foreach($this->lines as $line)
-            {
-                if(isset($this->defaultIcon))
-                {
+            foreach ($this->lines as $line) {
+                if (isset($this->defaultIcon)) {
                     $icon = $this->_buildIcon($this->defaultIcon);
                 } else {
                     throw new IncompleteListException('No default icon was defined.');
@@ -107,7 +104,7 @@ class FontAwesomeList {
 
     /**
      * Adds extra classes to list
-     * 
+     *
      * @access public
      * @param string $class CSS class
      * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $class is not a non empty string
@@ -115,8 +112,7 @@ class FontAwesomeList {
      */
     public function addClass($class)
     {
-        if(is_string($class))
-        {
+        if (is_string($class)) {
             $this->classes[] = $class;
         } else {
             throw new BadLabelException('Additional classes must be a non empty string.');
@@ -127,7 +123,7 @@ class FontAwesomeList {
 
     /**
      * Add an item to the list
-     * 
+     *
      * @access public
      * @param  string $line Line to add to the list
      * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $line is not a non empty string
@@ -135,8 +131,7 @@ class FontAwesomeList {
      */
     public function addItem($line)
     {
-        if(is_string($line))
-        {
+        if (is_string($line)) {
             $this->lines[] = $line;
         } else {
             throw new IncompleteListException('List item must be a non empty string.');
@@ -147,7 +142,7 @@ class FontAwesomeList {
 
     /**
      * Add multiple items to list
-     * 
+     *
      * @access public
      * @param  string $lineArray Array of lines to add to list
      * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $lineArray is not an array
@@ -155,10 +150,8 @@ class FontAwesomeList {
      */
     public function addItems($lineArray)
     {
-        if(is_array($lineArray))
-        {
-            foreach($lineArray as $line)
-            {
+        if (is_array($lineArray)) {
+            foreach ($lineArray as $line) {
                 $this->addItem($line);
             }
         } else {
@@ -170,7 +163,7 @@ class FontAwesomeList {
 
     /**
      * Sets the default icon to be used in the list
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -183,16 +176,15 @@ class FontAwesomeList {
 
     /**
      * Sets the entire list with multiple icons
-     * 
+     *
      * @access public
      * @param  array $listItems Array of icons and list items
      * @return void
      */
     public function setListItems($listItems)
     {
-        if(is_array($listItems) && $this->_testAssocArray($listItems))
-        {
-            $this->fullList = $listItems;            
+        if (is_array($listItems) && $this->_testAssocArray($listItems)) {
+            $this->fullList = $listItems;
         } else {
             throw new IncompleteListException('Must pass array with keys as icon names and values as lines for list.');
         }
@@ -202,17 +194,15 @@ class FontAwesomeList {
 
     /**
      * Sets icon label
-     * 
+     *
      * @access private
      * @param string $icon Icon label
      * @return void
      */
     private function _setIcon($icon)
     {
-        if(is_string($icon))
-        {
-            if( ! empty($icon))
-            {
+        if (is_string($icon)) {
+            if (! empty($icon)) {
                 $this->defaultIcon = $icon;
             }
         } else {
@@ -222,7 +212,7 @@ class FontAwesomeList {
 
     /**
      * Builds the icon from the template
-     * 
+     *
      * @access private
      * @return void
      */
@@ -243,7 +233,7 @@ class FontAwesomeList {
 
     /**
      * Builds the stack from the template
-     * 
+     *
      * @access private
      * @return void
      */
@@ -254,10 +244,8 @@ class FontAwesomeList {
         $this->stackBottom = $this->_buildIcon();
         $this->_setStackPositions();
 
-        if( ! empty($this->stackClasses))
-        {
-            foreach($this->stackClasses as $class)
-            {
+        if (! empty($this->stackClasses)) {
+            foreach ($this->stackClasses as $class) {
                 $classes .= ' ' . $class;
             }
         }
@@ -278,7 +266,7 @@ class FontAwesomeList {
 
     /**
      * Resets the FontAwesomeList class
-     * 
+     *
      * @access private
      * @return void
      */
@@ -287,5 +275,4 @@ class FontAwesomeList {
         $this->iconLabel  = '';
         $this->classes    = array();
     }
-
 }

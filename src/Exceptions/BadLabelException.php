@@ -11,5 +11,4 @@ class BadLabelException extends \Exception
     {
         return __CLASS__ . ": [ERROR] {$this->message}\n";
     }
-
 }

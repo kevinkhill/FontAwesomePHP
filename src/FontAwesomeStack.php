@@ -14,7 +14,8 @@ use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
 
-class FontAwesomeStack {
+class FontAwesomeStack
+{
 
     /**
      * Html string template to build the icon
@@ -57,10 +58,8 @@ class FontAwesomeStack {
     {
         $classes = 'fa-stack';
 
-        if(count($this->classes) > 0)
-        {
-            foreach($this->classes as $class)
-            {
+        if (count($this->classes) > 0) {
+            foreach ($this->classes as $class) {
                 $classes .= ' ' . $class;
             }
         }
@@ -70,7 +69,7 @@ class FontAwesomeStack {
   
     /**
      * Sets the top icon to be used in a stack
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -83,7 +82,7 @@ class FontAwesomeStack {
 
     /**
      * Sets the bottom icon to be used in a stack
-     * 
+     *
      * @access public
      * @param  string $icon Icon label
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
@@ -93,11 +92,11 @@ class FontAwesomeStack {
     public function setBottomIcon($icon)
     {
         $this->bottomIcon = sprintf(self::ICON_HTML, $icon, 'fa-stack-1x');
-    } 
+    }
 
     /**
      * Add extra classes to the stack
-     * 
+     *
      * @access public
      * @param string $class CSS class
      * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
@@ -107,5 +106,4 @@ class FontAwesomeStack {
     {
         $this->classes[] = $class;
     }
-
 }

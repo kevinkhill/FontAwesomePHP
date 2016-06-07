@@ -13,21 +13,19 @@ class FontAwesomeServiceProvider extends ServiceProvider
          * If the package method exists, we're using Laravel 4
          */
         if (method_exists($this, 'package')) {
-
             $this->package('khill/fontawesome');
-
         }
     }
 
     public function register()
     {
-        $this->app['fontawesome'] = $this->app->share(function($app)
-        {
+        $this->app['fontawesome'] = $this->app->share(function ($app) {
+        
             return new FontAwesome();
         });
 
-        $this->app->booting(function()
-        {
+        $this->app->booting(function () {
+        
             $loader = AliasLoader::getInstance();
             $loader->alias('FA', 'Khill\Fontawesome\FontAwesomeFacade');
         });
@@ -37,5 +35,4 @@ class FontAwesomeServiceProvider extends ServiceProvider
     {
         return array('fontawesome');
     }
-
 }

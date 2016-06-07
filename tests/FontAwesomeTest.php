@@ -243,5 +243,4 @@ class FontAwesomeTest extends FontAwesomeTestCase
 
         echo $this->fa->icon('question-circle')->spin();
     }
-
 }
