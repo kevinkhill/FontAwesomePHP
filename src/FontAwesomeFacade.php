@@ -1,4 +1,6 @@
-<?php namespace Khill\Fontawesome;
+<?php
+
+namespace Khill\Fontawesome;
 
 use Illuminate\Support\Facades\Facade;
 

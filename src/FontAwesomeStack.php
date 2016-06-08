@@ -1,19 +1,22 @@
-<?php namespace Khill\Fontawesome;
+<?php
 
-/**
-* FontAwesomeStack builds icon stacks
-*
-* @package  FontAwesomePHP
-* @author   Kevin Hill <kevinkhill@gmail.com>
-* @version  1.0b1
-* @access   public
-* @see      http://kevinkhill.github.io/FontAwesomePHP
-*/
+namespace Khill\Fontawesome;
 
 use Khill\Fontawesome\Exceptions\BadLabelException;
 use Khill\Fontawesome\Exceptions\CollectionIconException;
 use Khill\Fontawesome\Exceptions\IncompleteStackException;
 
+/**
+ * FontAwesomeStack builds icon stacks
+ *
+ * @version   1.0.6
+ * @package   Khill\Fontawesome
+ * @author    Kevin Hill <kevinkhill@gmail.com>
+ * @copyright (c) 2016, KHill Designs
+ * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
+ * @link      http://kevinkhill.github.io/FontAwesomePHP  Official Docs Site
+ * @license   http://opensource.org/licenses/MIT          MIT
+ */
 class FontAwesomeStack
 {
 
@@ -66,7 +69,7 @@ class FontAwesomeStack
 
         return sprintf(self::STACK_HTML, $classes, $this->topIcon, $this->bottomIcon);
     }
-  
+
     /**
      * Sets the top icon to be used in a stack
      *

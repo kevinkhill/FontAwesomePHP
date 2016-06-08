@@ -230,17 +230,31 @@ class FontAwesomeTest extends FontAwesomeTestCase
         echo $this->fa->icon('star')->flipVertical();
     }
 
-    public function testSpinningIconOutput()
+    public function testSpinIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-question-circle fa-spin"></i>');
 
         echo $this->fa->spin('question-circle');
     }
 
-    public function testSpinningIconOutputThroughInstanceChain()
+    public function testSpinIconOutputThroughInstanceChain()
     {
         $this->expectOutputString('<i class="fa fa-question-circle fa-spin"></i>');
 
         echo $this->fa->icon('question-circle')->spin();
+    }
+
+    public function testBorderIconOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-trash fa-border"></i>');
+
+        echo $this->fa->border('trash');
+    }
+
+    public function testBorderIconOutputThroughInstanceChain()
+    {
+        $this->expectOutputString('<i class="fa fa-trash fa-border"></i>');
+
+        echo $this->fa->icon('trash')->border();
     }
 }

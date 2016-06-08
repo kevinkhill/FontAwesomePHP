@@ -2,8 +2,14 @@
 
 namespace Khill\Fontawesome\Tests;
 
+use Khill\Fontawesome\FontAwesome;
+
 class FontAwesomeStackTest extends FontAwesomeTestCase
 {
+    /**
+     * @covers \Khill\Fontawesome\FontAwesome::stack()
+     * @covers \Khill\Fontawesome\FontAwesome::on()
+     */
     public function testBasicStackedIconsOutput()
     {
         $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
