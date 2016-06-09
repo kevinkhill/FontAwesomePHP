@@ -4,9 +4,6 @@ namespace Khill\Fontawesome\Tests;
 
 class FontAwesomeCollectionTest extends FontAwesomeTestCase
 {
-    /**
-     * @covers \Khill\Fontawesome\FontAwesome::store()
-     */
     public function testRetrievingStoredIconFromCollectionOutput()
     {
         $this->fa->icon('cog')->store('loginIcon');
