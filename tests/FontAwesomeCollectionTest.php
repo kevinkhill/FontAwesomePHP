@@ -23,6 +23,18 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     }
 
     /**
+     * @depends testRetrievingStoredIconFromCollectionOutput
+     */
+    public function testStoringAndFetchingIconWithCustomAttributeOutput()
+    {
+        $this->fa->icon('rocket')->addAttr('title', 'Tooltips!')->store('mine');
+
+        $this->expectOutputString('<i class="fa fa-rocket" title="Tooltips!"></i>');
+
+        echo $this->fa->collection('mine');
+    }
+
+    /**
      * @expectedException \Khill\Fontawesome\Exceptions\BadLabelException
      */
     public function testStoringIconIntoCollectionWithBadLabel()

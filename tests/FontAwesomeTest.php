@@ -34,6 +34,32 @@ class FontAwesomeTest extends FontAwesomeTestCase
         echo $this->fa->icon('star')->addClass('frameworkIcon');
     }
 
+    public function testIconWithCustomAttributeOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-star fa-fw" title="Tooltips!"></i>');
+
+        echo $this->fa->fixedWidth('star')->addAttr('title', 'Tooltips!');
+    }
+
+    public function testIconWithCustomAttributesOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-rocket fa-fw" title="Tooltips!" id="my-icon"></i>');
+
+        echo $this->fa->fixedWidth('rocket')->addAttrs(array(
+            'title' => 'Tooltips!',
+            'id' => 'my-icon'
+        ));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testIconWithInvalidCustomAttribute()
+    {
+        echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
+        echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
+    }
+
     public function testFixedWidthIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-star fa-fw"></i>');

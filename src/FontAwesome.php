@@ -178,7 +178,7 @@ class FontAwesome
     public function addAttrs(array $attrs)
     {
         foreach ($attrs as $attr => $val) {
-            $this->attr($attr, $val);
+            $this->addAttr($attr, $val);
         }
 
         return $this;
