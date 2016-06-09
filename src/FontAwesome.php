@@ -156,7 +156,7 @@ class FontAwesome
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function attr($attr, $val)
+    public function addAttr($attr, $val)
     {
         if (is_string($attr) == false || is_string($val) === false) {
             throw new InvalidArgumentException();
@@ -175,7 +175,7 @@ class FontAwesome
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function attrs(array $attrs)
+    public function addAttrs(array $attrs)
     {
         foreach ($attrs as $attr => $val) {
             $this->attr($attr, $val);
