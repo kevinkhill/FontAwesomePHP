@@ -23,7 +23,7 @@ class Psr4Autoloader
      *
      * @var array
      */
-    protected $prefixes = [];
+    protected $prefixes = array();
 
     /**
      * Register loader with SPL autoloader stack.
@@ -32,7 +32,7 @@ class Psr4Autoloader
      */
     public function register()
     {
-        spl_autoload_register([$this, 'loadClass']);
+        spl_autoload_register(array($this, 'loadClass'));
     }
 
     /**
@@ -55,7 +55,7 @@ class Psr4Autoloader
 
         // initialize the namespace prefix array
         if (isset($this->prefixes[$prefix]) === false) {
-            $this->prefixes[$prefix] = [];
+            $this->prefixes[$prefix] = array();
         }
 
         // retain the base directory for the namespace prefix
