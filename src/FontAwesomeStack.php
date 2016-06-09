@@ -75,8 +75,8 @@ class FontAwesomeStack
      *
      * @access public
      * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesomeStack FontAwesomeStack object
+     * @throws \Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @return \Khill\Fontawesome\FontAwesomeStack FontAwesomeStack object
      */
     public function setTopIcon($icon)
     {

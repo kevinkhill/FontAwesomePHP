@@ -2,6 +2,7 @@
 
 namespace Khill\Fontawesome;
 
+use InvalidArgumentException;
 use Khill\Fontawesome\FontAwesomeList;
 use Khill\Fontawesome\FontAwesomeStack;
 use Khill\Fontawesome\Support\Psr4Autoloader;
@@ -36,7 +37,7 @@ class FontAwesome
     /**
      * Html string template to build the icon
      */
-    const ICON_HTML = '<i class="fa %s"></i>';
+    const ICON_HTML = '<i class="fa %s"%s></i>';
 
     /**
      * Html string template to build the icon stack
@@ -56,6 +57,13 @@ class FontAwesome
      * @var Array[string]
      */
     private $classes = array();
+
+    /**
+     * Attributes to be applied to the icon
+     *
+     * @var Array[array]
+     */
+    private $attributes = array();
 
     /**
      * Store a collection of icons
@@ -137,6 +145,43 @@ class FontAwesome
         $this->reset();
 
         return $output;
+    }
+
+    /**
+     * Adds an attribute to the icon, useful for title or id
+     *
+     * @since  1.0.6
+     * @param  string $attr Which attribute to add
+     * @param  string $val The value of the attribute
+     * @return $this
+     * @throws InvalidArgumentException
+     */
+    public function attr($attr, $val)
+    {
+        if (is_string($attr) == false || is_string($val) === false) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->attributes[$attr] = $val;
+
+        return $this;
+    }
+
+    /**
+     * Batch adds an attributes to the icon
+     *
+     * @since  1.0.6
+     * @param  array $attrs Array of attributes to add
+     * @return $this
+     * @throws InvalidArgumentException
+     */
+    public function attrs(array $attrs)
+    {
+        foreach ($attrs as $attr => $val) {
+            $this->attr($attr, $val);
+        }
+
+        return $this;
     }
 
     /**
@@ -764,6 +809,7 @@ class FontAwesome
      */
     private function output()
     {
+        $attrs = '';
         $classes = 'fa-' . $this->currentIcon;
 
         if (!empty($this->classes)) {
@@ -772,7 +818,13 @@ class FontAwesome
             }
         }
 
-        return sprintf(self::ICON_HTML, $classes);
+        if (!empty($this->attributes)) {
+            foreach ($this->attributes as $attr => $val) {
+                $attrs .= ' ' . $attr . '="' . $val . '"';
+            }
+        }
+
+        return sprintf(self::ICON_HTML, $classes, $attrs);
     }
 
     /**
