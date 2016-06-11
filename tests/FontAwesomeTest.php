@@ -1,8 +1,8 @@
 <?php
 
-namespace Khill\Fontawesome\Tests;
+namespace Khill\FontAwesome\Tests;
 
-use Khill\Fontawesome\FontAwesome;
+use Khill\FontAwesome\FontAwesome;
 
 class FontAwesomeTest extends FontAwesomeTestCase
 {
@@ -32,6 +32,32 @@ class FontAwesomeTest extends FontAwesomeTestCase
         $this->expectOutputString('<i class="fa fa-star frameworkIcon"></i>');
 
         echo $this->fa->icon('star')->addClass('frameworkIcon');
+    }
+
+    public function testIconWithCustomAttributeOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-star fa-fw" title="Tooltips!"></i>');
+
+        echo $this->fa->fixedWidth('star')->addAttr('title', 'Tooltips!');
+    }
+
+    public function testIconWithCustomAttributesOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-rocket fa-fw" title="Tooltips!" id="my-icon"></i>');
+
+        echo $this->fa->fixedWidth('rocket')->addAttrs(array(
+            'title' => 'Tooltips!',
+            'id' => 'my-icon'
+        ));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testIconWithInvalidCustomAttribute()
+    {
+        echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
+        echo $this->fa->fixedWidth('star')->addAttr('id', 9.81);
     }
 
     public function testFixedWidthIconOutput()
@@ -230,18 +256,31 @@ class FontAwesomeTest extends FontAwesomeTestCase
         echo $this->fa->icon('star')->flipVertical();
     }
 
-    public function testSpinningIconOutput()
+    public function testSpinIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-question-circle fa-spin"></i>');
 
         echo $this->fa->spin('question-circle');
     }
 
-    public function testSpinningIconOutputThroughInstanceChain()
+    public function testSpinIconOutputThroughInstanceChain()
     {
         $this->expectOutputString('<i class="fa fa-question-circle fa-spin"></i>');
 
         echo $this->fa->icon('question-circle')->spin();
     }
 
+    public function testBorderIconOutput()
+    {
+        $this->expectOutputString('<i class="fa fa-trash fa-border"></i>');
+
+        echo $this->fa->border('trash');
+    }
+
+    public function testBorderIconOutputThroughInstanceChain()
+    {
+        $this->expectOutputString('<i class="fa fa-trash fa-border"></i>');
+
+        echo $this->fa->icon('trash')->border();
+    }
 }

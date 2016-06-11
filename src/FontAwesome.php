@@ -1,31 +1,42 @@
-<?php namespace Khill\Fontawesome;
+<?php
+
+namespace Khill\FontAwesome;
+
+use InvalidArgumentException;
+use Khill\FontAwesome\FontAwesomeList;
+use Khill\FontAwesome\FontAwesomeStack;
+use Khill\FontAwesome\Support\Psr4Autoloader;
+use Khill\FontAwesome\Exceptions\BadLabelException;
+use Khill\FontAwesome\Exceptions\CollectionIconException;
+use Khill\FontAwesome\Exceptions\IncompleteListException;
 
 /**
-* FontAwesomePHP is a library that wraps the FontAwesome icon set into easy to use php methods
-*
-* @package  FontAwesomePHP
-* @author   Kevin Hill <kevinkhill@gmail.com>
-* @version  1.0.3
-* @access   public
-* @see      http://kevinkhill.github.io/FontAwesomePHP
-*/
-
-use Khill\Fontawesome\Exceptions\BadLabelException;
-use Khill\Fontawesome\Exceptions\CollectionIconException;
-use Khill\Fontawesome\Exceptions\IncompleteStackException;
-use Khill\Fontawesome\Exceptions\IncompleteListException;
-
-class FontAwesome {
+ * FontAwesomePHP is a library that wraps the FontAwesome icon set in easy to use php methods
+ *
+ * @package   Khill\FontAwesome
+ * @version   1.1.0
+ * @author    Kevin Hill <kevinkhill@gmail.com>
+ * @copyright (c) 2016, KHill Designs
+ * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
+ * @link      http://kevinkhill.github.io/FontAwesomePHP  Official Docs Site
+ * @license   http://opensource.org/licenses/MIT          MIT
+ */
+class FontAwesome extends FontAwesomeHtmlEntity
+{
+    /**
+     * FontAwesomePHP version
+     */
+    const VERSION = '1.1.0';
 
     /**
-     * HTML Link tag to the FontAwesome CDN
+     * FontAwesome Icon version
      */
-    const CDN_LINK = '<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">';
+    const FA_VERSION = '4.4.0';
 
     /**
      * Html string template to build the icon
      */
-    const ICON_HTML = '<i class="fa %s"></i>';
+    const ICON_HTML = '<i class="fa %s"%s></i>';
 
     /**
      * Html string template to build the icon stack
@@ -37,584 +48,126 @@ class FontAwesome {
      *
      * @var string
      */
-    private $iconLabel = '';
-
-    /**
-     * Classes to be applied to the icon
-     *
-     * @var array
-     */
-    private $classes = array();
+    protected $icon = null;
 
     /**
      * Store a collection of icons
      *
-     * @var array
+     * @var array[string]
      */
-    public $collection = array();
+    private $collection = array();
 
     /**
      * Stores icon stack
      *
-     * @var string
+     * @var FontAwesomeStack
      */
-    public $stack;
-
-    /**
-     * Status of stacking or regular icon
-     *
-     * @var boolean
-     */
-    private $stacking = false;
+    private $stack;
 
     /**
      * Stores unordered list
      *
      * @var string
      */
-    public $list;
+    private $list;
 
     /**
-     * HTML link to the FontAwesome CSS file through the bootstrapcdn
+     * HTML link to the FontAwesome CSS file through bootstrapcdn
      *
      * @see http://www.bootstrapcdn.com/
      * @return string HTML link element
      */
     public static function css()
     {
-        return self::CDN_LINK;
+        return '<link href="//netdna.bootstrapcdn.com/font-awesome/' .
+        self::FA_VERSION .
+        '/css/font-awesome.min.css" rel="stylesheet">';
     }
 
     /**
      * Assigns the name to the icon
      *
-     * @param  string $icon Icon label
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @throws \InvalidArgumentException
      */
-    public function __construct($icon = '')
+    public function __construct($icon = null)
     {
-        $this->_setIcon($icon);
+        if (!$this->usingComposer()) {
+            require_once(__DIR__.'/Support/Psr4Autoloader.php');
+
+            $loader = new Psr4Autoloader;
+            $loader->register();
+            $loader->addNamespace(__NAMESPACE__, __DIR__);
+        }
+
+        if ($icon !== null) {
+            $this->setIcon($icon);
+        }
     }
 
     /**
      * Outputs the FontAwesome object as an HTML string
      *
-     * @access public
      * @return string HTML string of icon or stack
      */
     public function __toString()
     {
-        if(is_a($this->stack, 'Khill\Fontawesome\FontAwesomeStack'))
-        {
+        if ($this->stack instanceof FontAwesomeStack) {
             $output = $this->stack->output();
-        } elseif(is_a($this->list, 'Khill\Fontawesome\FontAwesomeList')) {
+        } elseif ($this->list instanceof FontAwesomeList) {
             $output = $this->list->output();
         } else {
-            $output = $this->_buildIcon();
+            $output = $this->output();
         }
 
-        $this->_reset();
+        $this->reset();
 
         return $output;
     }
 
     /**
-     * Stores icon to be rendered later
-     *
-     * @access public
-     * @param  string $label Label of icon to save in collection
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $label is not a string
-     * @throws Khill\Fontawesome\Exceptions\CollectionIconException If store() method called without defining an icon
-     * @return void
-     */
-    public function store($label)
-    {
-        if(empty($this->iconLabel))
-        {
-            throw new CollectionIconException('There was no icon defined to store.');
-        } else {
-            if(is_string($label))
-            {
-                if( ! empty($label))
-                {
-                    $this->collection[$label] = $this->_buildIcon();
-                } else {
-                    throw new BadLabelException('Cannot store icon into collection with an empty label.');
-                }
-            } else {
-                throw new BadLabelException('Collection icon label must be a string.');
-            }
-        }
-    }
-
-    /**
-     * Retrieve icon from collection
-     *
-     * @access public
-     * @param  string $label Icon label used in store method
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $label is not a string
-     * @throws Khill\Fontawesome\Exceptions\CollectionIconException If icon $label is not set
-     * @return string HTML icon string
-     */
-    public function collection($label)
-    {
-        if(is_string($label))
-        {
-            if(isset($this->collection[$label]))
-            {
-                return $this->collection[$label];
-            } else {
-                throw new CollectionIconException('Collection icon "' . $label . '" does not exist.');
-            }
-        } else {
-            throw new BadLabelException('Collection icon label must be a string.');
-        }
-    }
-
-    /**
-     * Sets which icon to use
-     *
-     * @access public
-     * @param  string $icon Icon label, ommiting fa- prefix
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function icon($icon)
-    {
-        $this->_setIcon($icon);
-
-        return $this;
-    }
-
-    /**
-     * Adds extra classes to icon or stack
-     *
-     * @access public
-     * @param string $class CSS class
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function addClass($class)
-    {
-        if(is_array($class) && count($class) > 0)
-        {
-            foreach($class as $c) {
-                $this->_addClass($c);
-            }
-        } else {
-            $this->_addClass($class);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be a fixed width
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function fixedWidth($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-fw';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be larger
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function lg($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->_addClass('fa-lg');
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be 2 times larger
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function x2($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->_addClass('fa-2x');
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be 3 times larger
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function x3($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->_addClass('fa-3x');
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be 4 times larger
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function x4($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->_addClass('fa-4x');
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be 5 times larger
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function x5($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->_addClass('fa-5x');
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be inverted in color
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function inverse($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-inverse';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be rotated 90 degrees
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function rotate90($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-rotate-90';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be rotated 180 degrees
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function rotate180($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-rotate-180';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be rotated 270 degrees
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function rotate270($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-rotate-270';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be flipped horizontally
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function flipHorizontal($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-flip-horizontal';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon or stack to be flipped vertically
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function flipVertical($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-flip-vertical';
-
-        return $this;
-    }
-
-    /**
-     * Sets the icon to spin
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function spin($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-spin';
-
-        return $this;
-    }
-
-    /**
-     * Sets a border around the icon
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function border($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'fa-border';
-
-        return $this;
-    }
-
-    /**
-     * Pulls the icon to the left
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function left($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'pull-left';
-
-        return $this;
-    }
-
-    /**
-     * Pulls the icon to the left
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function right($icon = '')
-    {
-        $this->_setIcon($icon);
-        $this->classes[] = 'pull-right';
-
-        return $this;
-    }
-
-    /**
-     * Builds unordered list with icons
-     *
-     * @param  string $iconLabel Default icon used in list (optional)
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function ul($iconLabel = '')
-    {
-        $this->list = new FontAwesomeList();
-
-        if(is_string($iconLabel) && ! empty($iconLabel))
-        {
-            $this->list->setDefaultIcon($iconLabel);
-        } elseif(is_array($iconLabel) && count($iconLabel) > 0) {
-            $this->list->setListItems($iconLabel);
-        } else {
-            throw new IncompleteListException('List must have a default icon or associative array with icons as keys.');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Adds items to unordered list with icons
-     *
-     * @param  string|array $iconLine Adds a line or lines to the unordered list
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function li($iconLine = '')
-    {
-        if(is_string($iconLine) && ! empty($iconLine))
-        {
-            $this->list->addItem($iconLine);
-        } elseif(is_array($iconLine) && count($iconLine) > 0){
-            $this->list->addItems($iconLine);
-        } else {
-            throw new IncompleteListException('List must items must be a non empty string or array of strings.');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets the top icon to be used in a stack
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a non empty string
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function stack($icon)
-    {
-        if(is_string($icon) && ! empty($icon))
-        {
-            $this->stacking = true;
-            $this->stack = new FontAwesomeStack();
-            $this->stack->setTopIcon($icon);
-
-            return $this;
-        } else {
-            throw new BadLabelException('Icon label must be a non empty string.');
-        }
-    }
-
-    /**
-     * Sets the bottom icon to be used in a stack
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a non empty string
-     * @throws Khill\Fontawesome\Exceptions\IncompleteStackException If The on() method was called without the stack() method
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
-     */
-    public function on($icon)
-    {
-        if($this->stacking === true)
-        {
-            if(is_string($icon) && ! empty($icon))
-            {
-                $this->stack->setBottomIcon($icon);
-
-                return $this;
-            } else {
-                throw new BadLabelException('Icon label must be a non empty string.');
-            }
-        } else {
-            throw new IncompleteStackException('Stacks must be started with the stack() method.');
-        }
-    }
-
-
-    /**
      * Sets icon label
      *
      * @access private
-     * @param string $icon Icon label
-     * @return void
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @return self
+     * @throws \InvalidArgumentException
      */
-    private function _setIcon($icon)
+    private function setIcon($icon)
     {
-        if(is_string($icon))
-        {
-            if( ! empty($icon))
-            {
-                $this->iconLabel = $icon;
-            }
-        } else {
-            throw new BadLabelException('Icon label must be a string.');
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'The icon label must be a string.'
+            );
         }
+
+        $this->icon = $icon;
+
+        return $this;
     }
 
     /**
      * Builds the icon from the template
      *
      * @access private
-     * @return void
+     * @return string
      */
-    private function _buildIcon()
+    private function output()
     {
-        $classes = 'fa-' . $this->iconLabel;
+        $attrs   = '';
+        $classes = 'fa-' . $this->icon;
 
-        if( ! empty($this->classes))
-        {
-            foreach($this->classes as $class)
-            {
-                $classes .= ' ' . $class;
+        if (count($this->classes) > 0) {
+            $classes .= ' ' . implode(' ', $this->classes);
+        }
+
+        if (count($this->attributes) > 0) {
+            foreach ($this->attributes as $attr => $val) {
+                $attrs .= ' ' . $attr . '="' . $val . '"';
             }
         }
 
-        return sprintf(self::ICON_HTML, $classes);
-    }
-
-    /**
-     * Adds classes to icon or stack object
-     *
-     * @access private
-     * @return void
-     */
-    private function _addClass($class)
-    {
-        if(is_string($class) && ! empty($class))
-        {
-            if($this->stacking === true)
-            {
-                $this->stack->addClass($class);
-            } else {
-                $this->classes[] = $class;
-            }
-        } else {
-            throw new BadLabelException('Additional classes must be non empty strings.');
-        }
+        return sprintf(self::ICON_HTML, $classes, $attrs);
     }
 
     /**
@@ -623,15 +176,214 @@ class FontAwesome {
      * @access private
      * @return void
      */
-    private function _reset()
+    private function reset()
     {
-        $this->iconLabel  = '';
-        $this->stackTop   = '';
-        $this->iconBottom = '';
+        $this->icon       = null;
         $this->list       = null;
         $this->stack      = null;
-        $this->stacking   = false;
         $this->classes    = array();
+        $this->attributes = array();
     }
 
+    /**
+     * Checks if running in composer environment
+     *
+     * This will true if the folder 'composer' is within the path to FontAwesomePHP.
+     *
+     * @access private
+     * @since 1.1.0
+     * @return boolean
+     */
+    private function usingComposer()
+    {
+        if (strpos(realpath(__FILE__), 'composer') !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Sets which icon to use
+     *
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @return self
+     * @throws \InvalidArgumentException If $icon is not a string
+     */
+    public function icon($icon)
+    {
+        return $this->setIcon($icon);
+    }
+
+    /**
+     * Builds unordered list with icons
+     *
+     * @param  string $icon Default icon used in list (optional)
+     * @return self
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
+     */
+    public function ul($icon = null)
+    {
+        $this->list = new FontAwesomeList();
+
+        if (is_string($icon) === false && is_array($icon) === false) {
+            throw new IncompleteListException(
+               'List must have a default icon or associative array with icons as keys.'
+            );
+        }
+
+        if (is_string($icon)) {
+            $this->list->setDefaultIcon($icon);
+        }
+
+        if (is_array($icon)) {
+            $this->list->setListItems($icon);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Adds items to unordered list with icons
+     *
+     * @param  string|array[string] $icon Adds a line or lines to the unordered list
+     * @return self
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
+     */
+    public function li($icon = null)
+    {
+        if (is_string($icon) === false && is_array($icon) === false) {
+            throw new IncompleteListException(
+                'List items must be a string or array of strings.'
+            );
+        }
+
+        if (is_string($icon)) {
+            $this->list->addItem($icon);
+        }
+
+        if (is_array($icon)) {
+            $this->list->addItems($icon);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets the top icon to be used in a stack
+     *
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @return FontAwesomeStack
+     * @throws \InvalidArgumentException If $icon is not a non empty string
+     */
+    public function stack($icon, array $classes = array())
+    {
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'Icon label must be a string.'
+            );
+        }
+
+        $this->stacking = true;
+        $this->stack = new FontAwesomeStack($icon, $classes);
+
+        return $this->stack;
+    }
+
+    /**
+     * Stores icon to be rendered later and resets
+     *
+     * @param  string $label Label of icon to save in collection
+     * @return self
+     * @throws \InvalidArgumentException If $label anything but a non-empty \string
+     * @throws \Khill\FontAwesome\Exceptions\CollectionIconException If store() method called without defining an icon
+     */
+    public function store($label)
+    {
+        if ($this->icon === null) {
+            throw new CollectionIconException(
+                'There was no icon defined to store.'
+            );
+        }
+
+        if (is_string($label) === false || empty($label) === true) {
+            throw new \InvalidArgumentException(
+                'Collection icon label must be a non-empty string.'
+            );
+        }
+
+        $this->collection[$label] = $this->output();
+        $this->reset();
+
+        return $this;
+    }
+
+    /**
+     * Alias method for store()
+     *
+     * @codeCoverageIgnore
+     * @see FontAwesome::store()
+     */
+    public function save($label)
+    {
+        return $this->store($label);
+    }
+
+    /**
+     * Alias method for store()
+     *
+     * @codeCoverageIgnore
+     * @see FontAwesome::store()
+     */
+    public function set($label)
+    {
+        return $this->store($label);
+    }
+
+    /**
+     * Retrieve icon from collection
+     *
+     * @param  string $label Icon label used in store method
+     * @return string HTML icon string
+     * @throws InvalidArgumentException If $label anything but a non-empty \string
+     * @throws CollectionIconException  If icon $label is not set
+     */
+    public function collection($label)
+    {
+        if (is_string($label) === false) {
+            throw new \InvalidArgumentException(
+                'Collection icon label must be a string.'
+            );
+        }
+
+        if (isset($this->collection[$label]) === false) {
+            throw new CollectionIconException(
+                'Collection icon "' . $label . '" does not exist.'
+            );
+        }
+
+        return $this->collection[$label];
+    }
+
+    /**
+     * Alias method for collection()
+     *
+     * @codeCoverageIgnore
+     * @see FontAwesome::collection()
+     */
+    public function fetch($label)
+    {
+        return $this->collection($label);
+    }
+
+    /**
+     * Alias method for collection()
+     *
+     * @codeCoverageIgnore
+     * @see FontAwesome::collection()
+     */
+    public function get($label)
+    {
+        return $this->collection($label);
+    }
 }

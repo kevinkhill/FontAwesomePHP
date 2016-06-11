@@ -1,15 +1,8 @@
-<?php namespace Khill\Fontawesome\Exceptions;
+<?php
 
-class CollectionIconException extends \Exception
+namespace Khill\FontAwesome\Exceptions;
+
+class CollectionIconException extends \InvalidArgumentException
 {
-    public function __construct($message, $code = 1, Exception $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
-
-    public function __toString()
-    {
-        return __CLASS__ . ": [ERROR] {$this->message}\n";
-    }
-
+    //
 }
