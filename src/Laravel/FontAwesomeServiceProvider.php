@@ -40,7 +40,7 @@ class FontAwesomeServiceProvider extends ServiceProvider
         $this->app->booting(function () {
 
             $loader = AliasLoader::getInstance();
-            $loader->alias('FA', 'Khill\FontAwesome\FontAwesomeFacade');
+            $loader->alias('FA', 'Khill\FontAwesome\Laravel\FontAwesomeFacade');
         });
     }
 
