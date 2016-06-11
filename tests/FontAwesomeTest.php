@@ -1,8 +1,8 @@
 <?php
 
-namespace Khill\Fontawesome\Tests;
+namespace Khill\FontAwesome\Tests;
 
-use Khill\Fontawesome\FontAwesome;
+use Khill\FontAwesome\FontAwesome;
 
 class FontAwesomeTest extends FontAwesomeTestCase
 {
@@ -57,7 +57,7 @@ class FontAwesomeTest extends FontAwesomeTestCase
     public function testIconWithInvalidCustomAttribute()
     {
         echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
-        echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
+        echo $this->fa->fixedWidth('star')->addAttr('id', 9.81);
     }
 
     public function testFixedWidthIconOutput()

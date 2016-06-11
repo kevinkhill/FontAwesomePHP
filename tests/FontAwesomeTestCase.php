@@ -1,13 +1,13 @@
 <?php
 
-namespace Khill\Fontawesome\Tests;
+namespace Khill\FontAwesome\Tests;
 
-use Khill\Fontawesome\FontAwesome;
+use Khill\FontAwesome\FontAwesome;
 
 class FontAwesomeTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Khill\Fontawesome\FontAwesome
+     * @var \Khill\FontAwesome\FontAwesome
      */
     public $fa;
 

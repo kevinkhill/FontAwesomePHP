@@ -1,6 +1,6 @@
 <?php
 
-namespace Khill\Fontawesome\Tests;
+namespace Khill\FontAwesome\Tests;
 
 class FontAwesomeCollectionTest extends FontAwesomeTestCase
 {
@@ -35,7 +35,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     }
 
     /**
-     * @expectedException \Khill\Fontawesome\Exceptions\BadLabelException
+     * @expectedException \InvalidArgumentException
      */
     public function testStoringIconIntoCollectionWithBadLabel()
     {
@@ -43,7 +43,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     }
 
     /**
-     * @expectedException \Khill\Fontawesome\Exceptions\BadLabelException
+     * @expectedException \InvalidArgumentException
      */
     public function testRetrievingIconFromCollectionWithBadLabel()
     {

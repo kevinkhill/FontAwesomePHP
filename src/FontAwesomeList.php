@@ -1,16 +1,16 @@
 <?php
 
-namespace Khill\Fontawesome;
+namespace Khill\FontAwesome;
 
-use Khill\Fontawesome\Exceptions\BadLabelException;
-use Khill\Fontawesome\Exceptions\CollectionIconException;
-use Khill\Fontawesome\Exceptions\IncompleteStackException;
+use Khill\FontAwesome\Exceptions\BadLabelException;
+use Khill\FontAwesome\Exceptions\CollectionIconException;
+use Khill\FontAwesome\Exceptions\IncompleteStackException;
 
 /**
  * FontAwesomeList adds the ability to create unordered lists with icons
  *
- * @version   1.0.6
- * @package   Khill\Fontawesome
+ * @package   Khill\FontAwesome
+ * @version   1.1.0
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
  * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
@@ -66,7 +66,7 @@ class FontAwesomeList
      * Assigns the name to the icon
      *
      * @param  string $icon Icon label
-     * @return Khill\Fontawesome\FontAwesome FontAwesome object
+     * @return Khill\FontAwesome\FontAwesome FontAwesome object
      */
     public function __construct($icon = '')
     {
@@ -76,7 +76,7 @@ class FontAwesomeList
     /**
      * Outputs the FontAwesomeList object as an HTML string
      *
-     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If No default icon was setempty string
+     * @throws Khill\FontAwesome\Exceptions\IncompleteListException If No default icon was setempty string
      * @return string HTML string of list
      */
     public function output()
@@ -107,13 +107,13 @@ class FontAwesomeList
      * Adds extra classes to list
      *
      * @param  string $class CSS class to add to the list
-     * @throws Khill\Fontawesome\Exceptions\IncompleteListException
-     * @return Khill\Fontawesome\FontAwesomeList
+     * @throws \InvalidArgumentException
+     * @return Khill\FontAwesome\FontAwesomeList
      */
     public function addClass($class)
     {
         if (is_string($class) === false) {
-            throw new BadLabelException('Additional classes must be a non empty string.');
+            throw new \InvalidArgumentException('Additional classes must be a non empty string.');
         }
 
         $this->classes[] = $class;
@@ -125,8 +125,8 @@ class FontAwesomeList
      * Add an item to the list
      *
      * @param  string $line Line to add to the list
-     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $line is not a non empty string
-     * @return Khill\Fontawesome\FontAwesomeList
+     * @throws Khill\FontAwesome\Exceptions\IncompleteListException If $line is not a non empty string
+     * @return Khill\FontAwesome\FontAwesomeList
      */
     public function addItem($line)
     {
@@ -143,8 +143,8 @@ class FontAwesomeList
      * Add multiple items to list
      *
      * @param  string $lineArray Array of lines to add to list
-     * @throws Khill\Fontawesome\Exceptions\IncompleteListException If $lineArray is not an array
-     * @return Khill\Fontawesome\FontAwesomeList
+     * @throws Khill\FontAwesome\Exceptions\IncompleteListException If $lineArray is not an array
+     * @return Khill\FontAwesome\FontAwesomeList
      */
     public function addItems($lineArray)
     {
@@ -163,7 +163,7 @@ class FontAwesomeList
      * Sets the default icon to be used in the list
      *
      * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
+     * @throws Khill\FontAwesome\Exceptions\BadLabelException If $icon is not a string
      * @return void
      */
     public function setDefaultIcon($icon)
@@ -204,7 +204,7 @@ class FontAwesomeList
                 $this->defaultIcon = $icon;
             }
         } else {
-            throw new BadLabelException('Icon label must be a string.');
+            throw new \InvalidArgumentException('Icon label must be a string.');
         }
     }
 

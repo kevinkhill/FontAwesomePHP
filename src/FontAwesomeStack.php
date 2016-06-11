@@ -1,29 +1,25 @@
 <?php
 
-namespace Khill\Fontawesome;
-
-use Khill\Fontawesome\Exceptions\BadLabelException;
-use Khill\Fontawesome\Exceptions\CollectionIconException;
-use Khill\Fontawesome\Exceptions\IncompleteStackException;
+namespace Khill\FontAwesome;
+use Khill\FontAwesome\Exceptions\IncompleteStackException;
 
 /**
  * FontAwesomeStack builds icon stacks
  *
- * @version   1.0.6
- * @package   Khill\Fontawesome
+ * @package   Khill\FontAwesome
+ * @version   1.1.0
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
  * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
  * @link      http://kevinkhill.github.io/FontAwesomePHP  Official Docs Site
  * @license   http://opensource.org/licenses/MIT          MIT
  */
-class FontAwesomeStack
+class FontAwesomeStack extends FontAwesomeHtmlEntity
 {
-
     /**
      * Html string template to build the icon
      */
-    const ICON_HTML = '<i class="fa fa-%s %s"></i>';
+    const ICON_HTML = '<i class="fa fa-%s"></i>';
 
     /**
      * Html string template to build the icon stack
@@ -31,82 +27,92 @@ class FontAwesomeStack
     const STACK_HTML = '<span class="%s">%s%s</span>';
 
     /**
-     * Classes to be applied to the stack
-     *
-     * @var array
-     */
-    private $classes = array();
-
-    /**
-     * Stores top icon in a stack
+     * The top icon of the stack
      *
      * @var string
      */
-    public $topIcon = '';
+    private $topIcon = null;
 
     /**
-     * Stores bottom icon in a stack
+     * The bottom icon of the stack
      *
      * @var string
      */
-    public $bottomIcon = '';
+    private $bottomIcon = null;
+
+    /**
+     * FontAwesomeStack constructor.
+     *
+     * @param string $icon    The top icon of the stack
+     * @param array  $classes Extra classes to add to the top Icon
+     */
+    public function __construct($icon, array $classes = array())
+    {
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'Icon label must be a string.'
+            );
+        }
+
+        $iconClasses = $icon . ' fa-stack-2x';
+
+        if (count($classes) > 0) {
+            foreach ($classes as $class) {
+                $iconClasses .= ' ' . $this->classMapper($class);
+            }
+        }
+
+        $this->topIcon = sprintf(self::ICON_HTML, $iconClasses);
+    }
+
+
+    /**
+     * Finishes the stack after created by the main FontAwesome class stack method
+     * creates the stack object.
+     *
+     * @param  string $icon
+     * @param  array $classes
+     * @return self
+     */
+    public function on($icon, array $classes = array())
+    {
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'Icon label must be a string.'
+            );
+        }
+
+        $iconClasses = $icon . ' fa-stack-1x';
+
+        if (count($classes) > 0) {
+            foreach ($classes as $class) {
+                $iconClasses .= ' ' . $this->classMapper($class);
+            }
+        }
+
+        $this->bottomIcon = sprintf(self::ICON_HTML, $iconClasses);
+
+        return $this;
+    }
 
     /**
      * Outputs the FontAwesome object as an HTML string
      *
-     * @access public
      * @return string HTML string of icon or stack
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteStackException
      */
     public function output()
     {
-        $classes = 'fa-stack';
-
-        if (count($this->classes) > 0) {
-            foreach ($this->classes as $class) {
-                $classes .= ' ' . $class;
-            }
+        if ($this->bottomIcon === null) {
+            throw new IncompleteStackException();
         }
 
-        return sprintf(self::STACK_HTML, $classes, $this->topIcon, $this->bottomIcon);
-    }
+        $stackClasses = 'fa-stack';
 
-    /**
-     * Sets the top icon to be used in a stack
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws \Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @return \Khill\Fontawesome\FontAwesomeStack FontAwesomeStack object
-     */
-    public function setTopIcon($icon)
-    {
-        $this->topIcon = sprintf(self::ICON_HTML, $icon, 'fa-stack-2x');
-    }
+        if (count($this->classes) > 0) {
+            $stackClasses .= ' ' . implode(' ', $this->classes);
+        }
 
-    /**
-     * Sets the bottom icon to be used in a stack
-     *
-     * @access public
-     * @param  string $icon Icon label
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $icon is not a string
-     * @throws Khill\Fontawesome\Exceptions\IncompleteStackException If The on() method was called without the stack() method
-     * @return Khill\Fontawesome\FontAwesomeStack FontAwesomeStack object
-     */
-    public function setBottomIcon($icon)
-    {
-        $this->bottomIcon = sprintf(self::ICON_HTML, $icon, 'fa-stack-1x');
-    }
-
-    /**
-     * Add extra classes to the stack
-     *
-     * @access public
-     * @param string $class CSS class
-     * @throws Khill\Fontawesome\Exceptions\BadLabelException If $class is not a string
-     * @return Khill\Fontawesome\FontAwesomeStack FontAwesomeStack object
-     */
-    public function addClass($class)
-    {
-        $this->classes[] = $class;
+        return sprintf(self::STACK_HTML, $stackClasses, $this->topIcon, $this->bottomIcon);
     }
 }

@@ -1,15 +1,11 @@
 <?php
 
-namespace Khill\Fontawesome\Tests;
+namespace Khill\FontAwesome\Tests;
 
-use Khill\Fontawesome\FontAwesome;
+use Khill\FontAwesome\FontAwesome;
 
 class FontAwesomeStackTest extends FontAwesomeTestCase
 {
-    /**
-     * @covers \Khill\Fontawesome\FontAwesome::stack()
-     * @covers \Khill\Fontawesome\FontAwesome::on()
-     */
     public function testBasicStackedIconsOutput()
     {
         $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
@@ -52,6 +48,27 @@ class FontAwesomeStackTest extends FontAwesomeTestCase
         echo $this->fa->stack('ban')->on('magic')->x5();
     }
 
+    public function testRotatingStackedIconsOutput()
+    {
+        $this->expectOutputString('<span class="fa-stack fa-rotate-90"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
+
+        echo $this->fa->stack('ban')->on('magic')->rotate90();
+    }
+
+    public function testAddingClassesToTopIconInStackOutput()
+    {
+        $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x fa-rotate-90"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
+
+        echo $this->fa->stack('ban', array('rotate90'))->on('magic');
+    }
+
+    public function testAddingClassesToBottomIconInStackOutput()
+    {
+        $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x fa-rotate-90"></i></span>');
+
+        echo $this->fa->stack('ban')->on('magic', array('rotate90'));
+    }
+
     public function testMultipleStackedIconsOutput()
     {
         $this->expectOutputString('<span class="fa-stack"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span><span class="fa-stack"><i class="fa fa-twitter fa-stack-2x"></i><i class="fa fa-circle-o fa-stack-1x"></i></span>');
@@ -71,6 +88,6 @@ class FontAwesomeStackTest extends FontAwesomeTestCase
     {
         $this->expectOutputString('<span class="fa-stack fancyClass1 fancyClass2"><i class="fa fa-ban fa-stack-2x"></i><i class="fa fa-magic fa-stack-1x"></i></span>');
 
-        echo $this->fa->stack('ban')->on('magic')->addClass(array('fancyClass1', 'fancyClass2'));
+        echo $this->fa->stack('ban')->on('magic')->addClasses(array('fancyClass1', 'fancyClass2'));
     }
 }

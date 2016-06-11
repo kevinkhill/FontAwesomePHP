@@ -1,6 +1,6 @@
 <?php
 
-namespace Khill\Fontawesome\Exceptions;
+namespace Khill\FontAwesome\Exceptions;
 
 class IncompleteStackException extends \Exception
 {

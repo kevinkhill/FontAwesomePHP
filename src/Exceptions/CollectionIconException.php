@@ -1,8 +1,8 @@
 <?php
 
-namespace Khill\Fontawesome\Exceptions;
+namespace Khill\FontAwesome\Exceptions;
 
-class CollectionIconException extends \Exception
+class CollectionIconException extends \InvalidArgumentException
 {
     //
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Khill\Fontawesome\Tests;
+namespace Khill\FontAwesome\Tests;
 
 class FontAwesomeListTest extends FontAwesomeTestCase
 {

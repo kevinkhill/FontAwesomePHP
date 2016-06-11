@@ -1,6 +1,6 @@
 <?php
 
-namespace Khill\Fontawesome;
+namespace Khill\FontAwesome\Laravel;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
@@ -8,8 +8,8 @@ use Illuminate\Foundation\AliasLoader;
 /**
  * FontAwesomePHP Laravel Service Provider
  *
- * @version   1.0.6
- * @package   Khill\Fontawesome
+ * @package   Khill\FontAwesome
+ * @version   1.1.0
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
  * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
@@ -26,7 +26,7 @@ class FontAwesomeServiceProvider extends ServiceProvider
          * If the package method exists, we're using Laravel 4
          */
         if (method_exists($this, 'package')) {
-            $this->package('khill/fontawesome');
+            $this->package('khill/fontawesomephp');
         }
     }
 
@@ -40,12 +40,12 @@ class FontAwesomeServiceProvider extends ServiceProvider
         $this->app->booting(function () {
 
             $loader = AliasLoader::getInstance();
-            $loader->alias('FA', 'Khill\Fontawesome\FontAwesomeFacade');
+            $loader->alias('FA', 'Khill\FontAwesome\FontAwesomeFacade');
         });
     }
 
     public function provides()
     {
-        return array('fontawesome');
+        return array('fontawesomephp');
     }
 }
