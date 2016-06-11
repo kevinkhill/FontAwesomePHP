@@ -5,7 +5,7 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.1/js/bootstrap.min.js"></script>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/flatly/bootstrap.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
         <style type="text/css" rel="stylesheet">
             body {
                 background-color:#DACCFF;
@@ -34,7 +34,7 @@
                 font-size:10pt;
             }
             .anchor {
-                position: reletive;
+                position: relative;
                 top: -50px;
             }
             .underline {
@@ -123,14 +123,14 @@
                     <div class="tab-pane fade in active" id="composer-install">
                         <h1><small>With Composer</small></h1>
                         <h4>First, add the package to your main composer.json file:</h4>
-                        <pre class="prettyprint">"khill/fontawesomephp" : "1.0.x"</pre>
+                        <pre class="prettyprint">"khill/fontawesomephp" : "1.1.x"</pre>
 
                         <h4>Next, run composer from the command line to download and install:</h4>
                         <pre class="prettyprint">composer update</pre>
 
                         <h4>Then, if you are using Laravel, add the ServiceProvider to the service providers array in the app.php file:</h4>
                         <p>Skip this step if you are not using Laravel</p>
-                        <pre class="prettyprint">'Khill\Fontawesome\FontAwesomeServiceProvider'</pre>
+                        <pre class="prettyprint">'Khill\FontAwesome\Laravel\FontAwesomeServiceProvider'</pre>
 
                         <h4>Last, add the link in your view's page header to the FontAwesome CSS file, provided by <a href="http://www.bootstrapcdn.com/">BootstrapCDN</a>:</h4>
                         <pre class="prettyprint">FontAwesome::css() // Or FA::css() if you want to use the alias</pre>
@@ -185,7 +185,7 @@ echo $fa-&gt;icon('star');</pre>
             <div class="underline">
                 <h1>Examples</h1>
             </div>
-                <h4>All of the methods of the API correspond with how Font Awesome  is used, to make FontAwesomePHP intuitive and easy to use. We've also thrown in a few extra features.</h4><br>
+                <h4>All of the methods of the API correspond with how Font Awesome is used, to make FontAwesomePHP intuitive and easy to use. We've also thrown in a few extra features.</h4><br>
 
                 <h3>Inline Icons:</h3>
                 <h4>Add icons anywhere with this simple syntax.</h4>
