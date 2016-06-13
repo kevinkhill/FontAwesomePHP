@@ -219,7 +219,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * Builds unordered list with icons
      *
      * @param  string $icon Default icon used in list (optional)
-     * @return self
+     * @return \Khill\FontAwesome\FontAwesomeList
      * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
     public function ul($icon = null)
@@ -240,33 +240,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
             $this->list->setListItems($icon);
         }
 
-        return $this;
-    }
-
-    /**
-     * Adds items to unordered list with icons
-     *
-     * @param  string|array[string] $icon Adds a line or lines to the unordered list
-     * @return self
-     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
-     */
-    public function li($icon = null)
-    {
-        if (is_string($icon) === false && is_array($icon) === false) {
-            throw new IncompleteListException(
-                'List items must be a string or array of strings.'
-            );
-        }
-
-        if (is_string($icon)) {
-            $this->list->addItem($icon);
-        }
-
-        if (is_array($icon)) {
-            $this->list->addItems($icon);
-        }
-
-        return $this;
+        return $this->list;
     }
 
     /**

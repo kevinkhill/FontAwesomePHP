@@ -7,35 +7,35 @@ class FontAwesomeListTest extends FontAwesomeTestCase
     public function testChainedSingleIconListIconOutput()
     {
         $output  = '<ul class="fa-ul">';
-        $output .= '<li><i class="fa fa-square"></i>This is my first item</li>';
-        $output .= '<li><i class="fa fa-square"></i>This is my second item</li>';
-        $output .= '<li><i class="fa fa-square"></i>This is my third item</li>';
-        $output .= '<li><i class="fa fa-square"></i>This is my fourth item</li>';
+        $output .= '<li><i class="fa fa-square"></i>first item</li>';
+        $output .= '<li><i class="fa fa-square"></i>second item</li>';
+        $output .= '<li><i class="fa fa-square"></i>third item</li>';
+        $output .= '<li><i class="fa fa-square"></i>fourth item</li>';
         $output .= '</ul>';
 
         $this->expectOutputString($output);
 
         echo $this->fa->ul('square')
-                      ->li('This is my first item')
-                      ->li('This is my second item')
-                      ->li('This is my third item')
-                      ->li('This is my fourth item');
+                      ->li('first item')
+                      ->li('second item')
+                      ->li('third item')
+                      ->li('fourth item');
     }
 
     public function testArrayItemsSingleIconListIconOutput()
     {
         $listItems = array(
-            'This is my first item',
-            'This is my second item',
-            'This is my third item',
-            'This is my fourth item'
+            'first item',
+            'second item',
+            'third item',
+            'fourth item'
         );
 
         $output  = '<ul class="fa-ul">';
-        $output .= '<li><i class="fa fa-square"></i>This is my first item</li>';
-        $output .= '<li><i class="fa fa-square"></i>This is my second item</li>';
-        $output .= '<li><i class="fa fa-square"></i>This is my third item</li>';
-        $output .= '<li><i class="fa fa-square"></i>This is my fourth item</li>';
+        $output .= '<li><i class="fa fa-square"></i>first item</li>';
+        $output .= '<li><i class="fa fa-square"></i>second item</li>';
+        $output .= '<li><i class="fa fa-square"></i>third item</li>';
+        $output .= '<li><i class="fa fa-square"></i>fourth item</li>';
         $output .= '</ul>';
 
         $this->expectOutputString($output);
@@ -46,17 +46,17 @@ class FontAwesomeListTest extends FontAwesomeTestCase
     public function testMultipleIconArrayItemsListOutput()
     {
         $listItems = array(
-            'magic' => 'This is my first item',
-            'music' => 'This is my second item',
-            'road'  => 'This is my third item',
-            'phone' => 'This is my fourth item'
+            'magic' => 'first item',
+            'music' => 'second item',
+            'road'  => 'third item',
+            'phone' => 'fourth item'
         );
 
         $output  = '<ul class="fa-ul">';
-        $output .= '<li><i class="fa fa-magic"></i>This is my first item</li>';
-        $output .= '<li><i class="fa fa-music"></i>This is my second item</li>';
-        $output .= '<li><i class="fa fa-road"></i>This is my third item</li>';
-        $output .= '<li><i class="fa fa-phone"></i>This is my fourth item</li>';
+        $output .= '<li><i class="fa fa-magic"></i>first item</li>';
+        $output .= '<li><i class="fa fa-music"></i>second item</li>';
+        $output .= '<li><i class="fa fa-road"></i>third item</li>';
+        $output .= '<li><i class="fa fa-phone"></i>fourth item</li>';
         $output .= '</ul>';
 
         $this->expectOutputString($output);

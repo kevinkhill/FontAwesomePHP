@@ -2,10 +2,6 @@
 
 namespace Khill\FontAwesome;
 
-use Khill\FontAwesome\Exceptions\BadLabelException;
-use Khill\FontAwesome\Exceptions\CollectionIconException;
-use Khill\FontAwesome\Exceptions\IncompleteStackException;
-
 /**
  * FontAwesomeList adds the ability to create unordered lists with icons
  *
@@ -17,7 +13,7 @@ use Khill\FontAwesome\Exceptions\IncompleteStackException;
  * @link      http://kevinkhill.github.io/FontAwesomePHP  Official Docs Site
  * @license   http://opensource.org/licenses/MIT          MIT
  */
-class FontAwesomeList
+class FontAwesomeList extends FontAwesomeHtmlEntity
 {
     /**
      * Html string template to build the list
@@ -35,16 +31,9 @@ class FontAwesomeList
     const ICON_HTML = '<i class="fa %s"></i>';
 
     /**
-     * Classes to be applied to the list
-     *
-     * @var Array[string]
-     */
-    private $classes = array();
-
-    /**
      * Lines in the list
      *
-     * @var Array[string]
+     * @var array[string]
      */
     private $lines = array();
 
@@ -66,7 +55,6 @@ class FontAwesomeList
      * Assigns the name to the icon
      *
      * @param  string $icon Icon label
-     * @return Khill\FontAwesome\FontAwesome FontAwesome object
      */
     public function __construct($icon = '')
     {
@@ -74,10 +62,36 @@ class FontAwesomeList
     }
 
     /**
+     * Adds items to unordered list with icons
+     *
+     * @param  string|array[string] $icon Adds a line or lines to the unordered list
+     * @return self
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
+     */
+    public function li($icon = null)
+    {
+        if (is_string($icon) === false && is_array($icon) === false) {
+            throw new IncompleteListException(
+                'List items must be a string or array of strings.'
+            );
+        }
+
+        if (is_string($icon)) {
+            $this->addItem($icon);
+        }
+
+        if (is_array($icon)) {
+            $this->addItems($icon);
+        }
+
+        return $this;
+    }
+
+    /**
      * Outputs the FontAwesomeList object as an HTML string
      *
-     * @throws Khill\FontAwesome\Exceptions\IncompleteListException If No default icon was setempty string
-     * @return string HTML string of list
+     * @return string
+     * @throws \Khill\FontAwesome\IncompleteListException
      */
     public function output()
     {
@@ -104,29 +118,11 @@ class FontAwesomeList
     }
 
     /**
-     * Adds extra classes to list
-     *
-     * @param  string $class CSS class to add to the list
-     * @throws \InvalidArgumentException
-     * @return Khill\FontAwesome\FontAwesomeList
-     */
-    public function addClass($class)
-    {
-        if (is_string($class) === false) {
-            throw new \InvalidArgumentException('Additional classes must be a non empty string.');
-        }
-
-        $this->classes[] = $class;
-
-        return $this;
-    }
-
-    /**
      * Add an item to the list
      *
      * @param  string $line Line to add to the list
-     * @throws Khill\FontAwesome\Exceptions\IncompleteListException If $line is not a non empty string
-     * @return Khill\FontAwesome\FontAwesomeList
+     * @return self
+     * @throws \Khill\FontAwesome\IncompleteListException If $line is not a string
      */
     public function addItem($line)
     {
@@ -142,16 +138,12 @@ class FontAwesomeList
     /**
      * Add multiple items to list
      *
-     * @param  string $lineArray Array of lines to add to list
-     * @throws Khill\FontAwesome\Exceptions\IncompleteListException If $lineArray is not an array
-     * @return Khill\FontAwesome\FontAwesomeList
+     * @param  array $lineArray Array of lines to add to list
+     * @return self
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException If $lineArray is not an array
      */
-    public function addItems($lineArray)
+    public function addItems(array $lineArray)
     {
-        if (is_array($lineArray) === false) {
-            throw new IncompleteListException('You must pass an array of strings.');
-        }
-
         foreach ($lineArray as $line) {
             $this->addItem($line);
         }
@@ -163,7 +155,7 @@ class FontAwesomeList
      * Sets the default icon to be used in the list
      *
      * @param  string $icon Icon label
-     * @throws Khill\FontAwesome\Exceptions\BadLabelException If $icon is not a string
+     * @throws \Khill\FontAwesome\Exceptions\BadLabelException If $icon is not a string
      * @return void
      */
     public function setDefaultIcon($icon)
@@ -175,7 +167,7 @@ class FontAwesomeList
      * Sets the entire list with multiple icons
      *
      * @param  array $listItems Array of icons and list items
-     * @return void
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
     public function setListItems($listItems)
     {
@@ -194,7 +186,7 @@ class FontAwesomeList
      * Sets icon label
      *
      * @access private
-     * @param string $icon Icon label
+     * @param  string $icon Icon label
      * @return void
      */
     private function setIcon($icon)
@@ -260,17 +252,5 @@ class FontAwesomeList
     private function testAssocArray($array)
     {
         return (bool) count(array_filter(array_keys($array), 'is_string'));
-    }
-
-    /**
-     * Resets the FontAwesomeList class
-     *
-     * @access private
-     * @return void
-     */
-    private function _reset()
-    {
-        $this->iconLabel  = '';
-        $this->classes    = array();
     }
 }
