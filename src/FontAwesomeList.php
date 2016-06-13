@@ -2,6 +2,8 @@
 
 namespace Khill\FontAwesome;
 
+use Khill\FontAwesome\Exceptions\IncompleteListException;
+
 /**
  * FontAwesomeList adds the ability to create unordered lists with icons
  *
@@ -35,30 +37,28 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      *
      * @var array[string]
      */
-    private $lines = array();
-
-    /**
-     * Name of the icon to apply to entire list
-     *
-     * @var string
-     */
-    private $iconLabel = '';
+    private $lines;
 
     /**
      * Full list
      *
-     * @var array
+     * @var array[string]
      */
-    private $fullList = array();
+    private $fullList;
 
     /**
      * Assigns the name to the icon
      *
-     * @param  string $icon Icon label
+     * @param string $icon Icon label
+     * @param array  $listItems
      */
-    public function __construct($icon = '')
+    public function __construct($icon, array $listItems)
     {
         $this->setIcon($icon);
+
+        if (count($listItems) > 0) {
+            $this->setListItems($listItems);
+        }
     }
 
     /**
@@ -91,7 +91,7 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      * Outputs the FontAwesomeList object as an HTML string
      *
      * @return string
-     * @throws \Khill\FontAwesome\IncompleteListException
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
     public function output()
     {
@@ -104,11 +104,7 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
             }
         } else {
             foreach ($this->lines as $line) {
-                if (isset($this->defaultIcon)) {
-                    $icon = $this->buildIcon($this->defaultIcon);
-                } else {
-                    throw new IncompleteListException('No default icon was defined.');
-                }
+                $icon = $this->buildIcon($this->icon);
 
                 $listItems .= sprintf(self::LI_HTML, $icon, $line);
             }
@@ -122,9 +118,9 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      *
      * @param  string $line Line to add to the list
      * @return self
-     * @throws \Khill\FontAwesome\IncompleteListException If $line is not a string
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    public function addItem($line)
+    private function addItem($line)
     {
         if (is_string($line) === false) {
             throw new IncompleteListException('List item must be a non empty string.');
@@ -140,9 +136,9 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      *
      * @param  array $lineArray Array of lines to add to list
      * @return self
-     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException If $lineArray is not an array
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    public function addItems(array $lineArray)
+    private function addItems(array $lineArray)
     {
         foreach ($lineArray as $line) {
             $this->addItem($line);
@@ -152,52 +148,15 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
     }
 
     /**
-     * Sets the default icon to be used in the list
-     *
-     * @param  string $icon Icon label
-     * @throws \Khill\FontAwesome\Exceptions\BadLabelException If $icon is not a string
-     * @return void
-     */
-    public function setDefaultIcon($icon)
-    {
-        $this->setIcon($icon);
-    }
-
-    /**
      * Sets the entire list with multiple icons
      *
+     * @access private
      * @param  array $listItems Array of icons and list items
      * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    public function setListItems($listItems)
+    private function setListItems(array $listItems)
     {
-        if (is_array($listItems) && $this->testAssocArray($listItems)) {
-            $this->fullList = $listItems;
-        } else {
-            throw new IncompleteListException(
-                'Must pass array with keys as icon names and values as lines for list.'
-            );
-        }
-
-    }
-
-
-    /**
-     * Sets icon label
-     *
-     * @access private
-     * @param  string $icon Icon label
-     * @return void
-     */
-    private function setIcon($icon)
-    {
-        if (is_string($icon)) {
-            if (! empty($icon)) {
-                $this->defaultIcon = $icon;
-            }
-        } else {
-            throw new \InvalidArgumentException('Icon label must be a string.');
-        }
+        $this->fullList = $listItems;
     }
 
     /**

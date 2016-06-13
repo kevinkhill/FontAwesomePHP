@@ -18,6 +18,27 @@ use Khill\FontAwesome\Exceptions\InvalidTransformationClass;
 class FontAwesomeHtmlEntity
 {
     /**
+     * Name of the icon
+     *
+     * @var string
+     */
+    protected $icon;
+
+    /**
+     * Classes to be applied
+     *
+     * @var array[string]
+     */
+    protected $classes;
+
+    /**
+     * Attributes to be applied
+     *
+     * @var array[string]
+     */
+    protected $attributes;
+
+    /**
      * FontAwesome transformation class map
      *
      * @var array
@@ -59,18 +80,25 @@ class FontAwesomeHtmlEntity
     );
 
     /**
-     * Classes to be applied
+     * Sets icon label
      *
-     * @var array[string]
+     * @access private
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @return self
+     * @throws \InvalidArgumentException
      */
-    protected $classes = array();
+    protected function setIcon($icon)
+    {
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'The icon label must be a string.'
+            );
+        }
 
-    /**
-     * Attributes to be applied
-     *
-     * @var array[string]
-     */
-    protected $attributes = array();
+        $this->icon = $icon;
+
+        return $this;
+    }
 
     /**
      * Maps method calls to their respective font awesome classes using
@@ -89,7 +117,7 @@ class FontAwesomeHtmlEntity
             return $class;
         }
 
-        throw new InvalidTransformationClass();
+        throw new InvalidTransformationClass($class);
     }
 
     /**

@@ -44,32 +44,11 @@ class FontAwesome extends FontAwesomeHtmlEntity
     const STACK_HTML = '<span class="%s">%s%s</span>';
 
     /**
-     * Name of the icon
-     *
-     * @var string
-     */
-    protected $icon = null;
-
-    /**
      * Store a collection of icons
      *
      * @var array[string]
      */
     private $collection = array();
-
-    /**
-     * Stores icon stack
-     *
-     * @var FontAwesomeStack
-     */
-    private $stack;
-
-    /**
-     * Stores unordered list
-     *
-     * @var string
-     */
-    private $list;
 
     /**
      * HTML link to the FontAwesome CSS file through bootstrapcdn
@@ -112,38 +91,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
      */
     public function __toString()
     {
-        if ($this->stack instanceof FontAwesomeStack) {
-            $output = $this->stack->output();
-        } elseif ($this->list instanceof FontAwesomeList) {
-            $output = $this->list->output();
-        } else {
-            $output = $this->output();
-        }
-
-        $this->reset();
-
-        return $output;
-    }
-
-    /**
-     * Sets icon label
-     *
-     * @access private
-     * @param  string $icon Icon label, omitting the "fa-" prefix
-     * @return self
-     * @throws \InvalidArgumentException
-     */
-    private function setIcon($icon)
-    {
-        if (is_string($icon) === false) {
-            throw new \InvalidArgumentException(
-                'The icon label must be a string.'
-            );
-        }
-
-        $this->icon = $icon;
-
-        return $this;
+        return $this->output();
     }
 
     /**
@@ -216,31 +164,45 @@ class FontAwesome extends FontAwesomeHtmlEntity
     }
 
     /**
-     * Builds unordered list with icons
+     * Begins building an unordered list with icons
      *
-     * @param  string $icon Default icon used in list (optional)
+     * When given a single, string input, the list is started with that parameter
+     * as the default icon for all items in the list. New items can be added with
+     * the li() method or as an array in the second parameter.
+     *
+     * If passed an array for the first parameter, then the list is created with
+     * the list items automatically applied. If the array has numeric, or was not
+     * explicitly defined an icon, then the default will be used. The default can
+     * be overriden by passing an icon name as the key to the value.
+     *
+     * @param  $iconsOrItems string|array[string] Default icon to use if list has non defined
+     * @param  $listItems    array[string]        Array of list items
      * @return \Khill\FontAwesome\FontAwesomeList
      * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    public function ul($icon = null)
+    public function ul($iconsOrItems, $listItems = array())
     {
-        $this->list = new FontAwesomeList();
+        $has_string_keys = function (array $array) {
+            return count(array_filter(array_keys($array), 'is_string')) > 0;
+        };
 
-        if (is_string($icon) === false && is_array($icon) === false) {
+        if (is_string($iconsOrItems) === false && is_array($iconsOrItems) === false) {
             throw new IncompleteListException(
-               'List must have a default icon or associative array with icons as keys.'
+                'The list must be started with a default icon or an array with explicitly defined icons.'
             );
         }
 
-        if (is_string($icon)) {
-            $this->list->setDefaultIcon($icon);
+        if (is_array($iconsOrItems) && $has_string_keys($iconsOrItems) === false) {
+            throw new IncompleteListException(
+                'The list array must have with explicitly defined icons since no default was given.'
+            );
         }
 
-        if (is_array($icon)) {
-            $this->list->setListItems($icon);
+        if (is_string($iconsOrItems)) {
+            return new FontAwesomeList($iconsOrItems, $listItems);
+        } else {
+            return new FontAwesomeList('', $iconsOrItems);
         }
-
-        return $this->list;
     }
 
     /**
@@ -258,10 +220,40 @@ class FontAwesome extends FontAwesomeHtmlEntity
             );
         }
 
-        $this->stacking = true;
-        $this->stack = new FontAwesomeStack($icon, $classes);
+        return new FontAwesomeStack($icon, $classes);
+    }
 
-        return $this->stack;
+    /**
+     * Builds a complete unordered list with icons
+     *
+     * If FontAwesome icon names are given for the array keys, then they will be mapped
+     * to the items.
+     *
+     * If the array has numeric indicies (no defined keys) then the
+     *
+     * @param  array $iconsAndItems Array of icons for keys and values for the list items
+     * @return \Khill\FontAwesome\FontAwesomeList
+     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
+     */
+    public function list(array $list, $defaultIcon = null)
+    {
+        $this->list = new FontAwesomeList();
+
+        if (is_string($icon) === false && is_array($icon) === false) {
+            throw new IncompleteListException(
+                'List must have a default icon or associative array with icons as keys.'
+            );
+        }
+
+        if (is_string($icon)) {
+            $this->list->setDefaultIcon($icon);
+        }
+
+        if (is_array($icon)) {
+            $this->list->setListItems($icon);
+        }
+
+        return $this->list;
     }
 
     /**
