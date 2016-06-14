@@ -222,40 +222,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
 
         return new FontAwesomeStack($icon, $classes);
     }
-
-    /**
-     * Builds a complete unordered list with icons
-     *
-     * If FontAwesome icon names are given for the array keys, then they will be mapped
-     * to the items.
-     *
-     * If the array has numeric indicies (no defined keys) then the
-     *
-     * @param  array $iconsAndItems Array of icons for keys and values for the list items
-     * @return \Khill\FontAwesome\FontAwesomeList
-     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
-     */
-    public function list(array $list, $defaultIcon = null)
-    {
-        $this->list = new FontAwesomeList();
-
-        if (is_string($icon) === false && is_array($icon) === false) {
-            throw new IncompleteListException(
-                'List must have a default icon or associative array with icons as keys.'
-            );
-        }
-
-        if (is_string($icon)) {
-            $this->list->setDefaultIcon($icon);
-        }
-
-        if (is_array($icon)) {
-            $this->list->setListItems($icon);
-        }
-
-        return $this->list;
-    }
-
+    
     /**
      * Stores icon to be rendered later and resets
      *
