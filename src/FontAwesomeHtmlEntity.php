@@ -82,7 +82,7 @@ class FontAwesomeHtmlEntity
     /**
      * Sets icon label
      *
-     * @access private
+     * @access protected
      * @param  string $icon Icon label, omitting the "fa-" prefix
      * @return self
      * @throws \InvalidArgumentException
@@ -104,6 +104,7 @@ class FontAwesomeHtmlEntity
      * Maps method calls to their respective font awesome classes using
      * the class map
      *
+     * @access protected
      * @param $class
      * @return mixed
      */
@@ -152,15 +153,15 @@ class FontAwesomeHtmlEntity
     /**
      * Adds an attribute to the icon, useful for title or id
      *
-     * @since 1.1.0
+     * @since  1.1.0
      * @param  string $attr Which attribute to add
-     * @param  string $val The value of the attribute
+     * @param  mixed  $val  The value of the attribute
      * @return self
      * @throws \InvalidArgumentException
      */
     public function addAttr($attr, $val)
     {
-        if (is_string($attr) == false || is_string($val) === false) {
+        if (! is_string($attr)) {
             throw new \InvalidArgumentException;
         }
 
@@ -172,10 +173,10 @@ class FontAwesomeHtmlEntity
     /**
      * Batch adds an attributes to the icon
      *
-     * @since 1.1.0
+     * @since  1.1.0
      * @param  array $attrs Array of attributes to add
      * @return self
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function addAttrs(array $attrs)
     {

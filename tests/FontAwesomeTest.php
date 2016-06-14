@@ -51,15 +51,6 @@ class FontAwesomeTest extends FontAwesomeTestCase
         ));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIconWithInvalidCustomAttribute()
-    {
-        echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
-        echo $this->fa->fixedWidth('star')->addAttr('id', 9.81);
-    }
-
     public function testFixedWidthIconOutput()
     {
         $this->expectOutputString('<i class="fa fa-star fa-fw"></i>');
