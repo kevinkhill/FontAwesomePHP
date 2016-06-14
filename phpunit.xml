@@ -23,7 +23,7 @@
 
     <logging>
         <log type="coverage-html"
-             target="build/log/codeCoverage"
+             target="build/log/coverage"
              charset="UTF-8"
              highlight="false"
              lowUpperBound="35"

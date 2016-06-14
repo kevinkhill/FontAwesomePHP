@@ -40,13 +40,6 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
     private $lines;
 
     /**
-     * Full list
-     *
-     * @var array[string]
-     */
-    private $fullList;
-
-    /**
      * Assigns the name to the icon
      *
      * @param string $icon Icon label
@@ -57,34 +50,51 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
         $this->setIcon($icon);
 
         if (count($listItems) > 0) {
-            $this->setListItems($listItems);
+            $this->addItems($listItems);
         }
     }
 
     /**
-     * Adds items to unordered list with icons
+     * Adds items to unordered list
      *
-     * @param  string|array[string] $icon Adds a line or lines to the unordered list
+     * If the first parameter is a string, and the second parameter is ommited,
+     * then a single item is added to the list, using the default icon.
+     *
+     * If the first parameter is a string, and the second is also a string, then
+     * the first is the icon for the item, and the second, the value of the item.
+     *
+     * If the first parameter is an array of strings, with no keys, then they are
+     * all added as list items.
+     *
+     * If the first parameter is an array of strings, with string keys, then they
+     * are added to the list with they keys being assigned as the icon. If there
+     * are some string keys and some numeric, the numeric items will be assigned
+     * the default icon.
+     *
+     * @param  string|array[string] $iconOrLine
+     * @param  string $liVal
      * @return self
      * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    public function li($icon = null)
+    public function li($iconOrLine, $liVal = null)
     {
-        if (is_string($icon) === false && is_array($icon) === false) {
+        if (! is_string($iconOrLine) && ! is_array($iconOrLine)) {
             throw new IncompleteListException(
                 'List items must be a string or array of strings.'
             );
         }
 
-        if (is_string($icon)) {
-            $this->addItem($icon);
+        if (is_string($iconOrLine) && is_null($liVal)) {
+            return $this->addItem(null, $iconOrLine);
         }
 
-        if (is_array($icon)) {
-            $this->addItems($icon);
+        if (is_string($iconOrLine) && is_string($liVal)) {
+            return $this->addItem($iconOrLine, $liVal);
         }
 
-        return $this;
+        if (is_array($iconOrLine)) {
+            return $this->addItems($iconOrLine);
+        }
     }
 
     /**
@@ -97,17 +107,10 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
     {
         $listItems = '';
 
-        if (is_array($this->fullList) && count($this->fullList) > 0) {
-            foreach ($this->fullList as $icon => $line) {
-                $lineIcon = $this->buildIcon($icon);
-                $listItems .= sprintf(self::LI_HTML, $lineIcon, $line);
-            }
-        } else {
-            foreach ($this->lines as $line) {
-                $icon = $this->buildIcon($this->icon);
+        foreach ($this->lines as $li) {
+            $icon = $this->buildIcon($li[0]);
 
-                $listItems .= sprintf(self::LI_HTML, $icon, $line);
-            }
+            $listItems .= sprintf(self::LI_HTML, $icon, $li[1]);
         }
 
         return sprintf(self::UL_HTML, $listItems);
@@ -116,17 +119,17 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
     /**
      * Add an item to the list
      *
-     * @param  string $line Line to add to the list
+     * @param  string $icon  Icon to assign the list item
+     * @param  string $liVal Value of the list item
      * @return self
-     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    private function addItem($line)
+    private function addItem($icon, $liVal)
     {
-        if (is_string($line) === false) {
-            throw new IncompleteListException('List item must be a non empty string.');
+        if ($icon === null) {
+            $this->lines[] = array($this->icon, $liVal);
+        } else {
+            $this->lines[] = array($icon, $liVal);
         }
-
-        $this->lines[] = $line;
 
         return $this;
     }
@@ -140,23 +143,13 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      */
     private function addItems(array $lineArray)
     {
-        foreach ($lineArray as $line) {
-            $this->addItem($line);
+        foreach ($lineArray as $icon => $liVal) {
+            $icon = is_string($icon) ? $icon : null;
+
+            $this->addItem($icon, $liVal);
         }
 
         return $this;
-    }
-
-    /**
-     * Sets the entire list with multiple icons
-     *
-     * @access private
-     * @param  array $listItems Array of icons and list items
-     * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
-     */
-    private function setListItems(array $listItems)
-    {
-        $this->fullList = $listItems;
     }
 
     /**
@@ -178,38 +171,5 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
         }
 */
         return sprintf(self::ICON_HTML, $classes);
-    }
-
-    /**
-     * Builds the stack from the template
-     *
-     * @access private
-     * @return void
-     */
-    private function _buildList()
-    {
-        $classes = 'fa-stack';
-
-        $this->stackBottom = $this->buildIcon();
-        $this->_setStackPositions();
-
-        if (! empty($this->stackClasses)) {
-            foreach ($this->stackClasses as $class) {
-                $classes .= ' ' . $class;
-            }
-        }
-
-        return sprintf(self::STACK_HTML, $classes, $this->stackTop, $this->stackBottom);
-    }
-
-    /**
-     * Tests if array keys are strings
-     *
-     * @param  array Array to test
-     * @return boolean True if keys are strings, false if not
-     */
-    private function testAssocArray($array)
-    {
-        return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 }
