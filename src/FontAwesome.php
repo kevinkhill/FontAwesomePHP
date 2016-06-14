@@ -83,61 +83,13 @@ class FontAwesome extends FontAwesomeHtmlEntity
             $this->setIcon($icon);
         }
     }
-
-    /**
-     * Outputs the FontAwesome object as an HTML string
-     *
-     * @return string HTML string of icon or stack
-     */
-    public function __toString()
-    {
-        return $this->output();
-    }
-
-    /**
-     * Builds the icon from the template
-     *
-     * @access private
-     * @return string
-     */
-    private function output()
-    {
-        $attrs   = '';
-        $classes = 'fa-' . $this->icon;
-
-        if (count($this->classes) > 0) {
-            $classes .= ' ' . implode(' ', $this->classes);
-        }
-
-        if (count($this->attributes) > 0) {
-            foreach ($this->attributes as $attr => $val) {
-                $attrs .= ' ' . $attr . '="' . $val . '"';
-            }
-        }
-
-        return sprintf(self::ICON_HTML, $classes, $attrs);
-    }
-
-    /**
-     * Resets the FontAwesome class
-     *
-     * @access private
-     * @return void
-     */
-    private function reset()
-    {
-        $this->icon       = null;
-        $this->list       = null;
-        $this->stack      = null;
-        $this->classes    = array();
-        $this->attributes = array();
-    }
-
+    
     /**
      * Checks if running in composer environment
      *
      * This will true if the folder 'composer' is within the path to FontAwesomePHP.
      *
+     * @codeCoverageIgnore
      * @access private
      * @since 1.1.0
      * @return boolean
@@ -222,7 +174,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
 
         return new FontAwesomeStack($icon, $classes);
     }
-    
+
     /**
      * Stores icon to be rendered later and resets
      *
@@ -246,7 +198,6 @@ class FontAwesome extends FontAwesomeHtmlEntity
         }
 
         $this->collection[$label] = $this->output();
-        $this->reset();
 
         return $this;
     }
@@ -254,7 +205,6 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * Alias method for store()
      *
-     * @codeCoverageIgnore
      * @see FontAwesome::store()
      */
     public function save($label)
@@ -265,7 +215,6 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * Alias method for store()
      *
-     * @codeCoverageIgnore
      * @see FontAwesome::store()
      */
     public function set($label)
@@ -278,7 +227,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
      *
      * @param  string $label Icon label used in store method
      * @return string HTML icon string
-     * @throws InvalidArgumentException If $label anything but a non-empty \string
+     * @throws \InvalidArgumentException If $label anything but a non-empty \string
      * @throws CollectionIconException  If icon $label is not set
      */
     public function collection($label)
@@ -301,7 +250,6 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * Alias method for collection()
      *
-     * @codeCoverageIgnore
      * @see FontAwesome::collection()
      */
     public function fetch($label)
@@ -312,11 +260,34 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * Alias method for collection()
      *
-     * @codeCoverageIgnore
      * @see FontAwesome::collection()
      */
     public function get($label)
     {
         return $this->collection($label);
+    }
+
+    /**
+     * Builds the icon from the template
+     *
+     * @access protected
+     * @return string
+     */
+    protected function output()
+    {
+        $attrs   = '';
+        $classes = 'fa-' . $this->icon;
+
+        if (count($this->classes) > 0) {
+            $classes .= ' ' . implode(' ', $this->classes);
+        }
+
+        if (count($this->attributes) > 0) {
+            foreach ($this->attributes as $attr => $val) {
+                $attrs .= ' ' . $attr . '="' . $val . '"';
+            }
+        }
+
+        return sprintf(self::ICON_HTML, $classes, $attrs);
     }
 }

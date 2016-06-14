@@ -1,13 +1,13 @@
 <?php
 
 namespace Khill\FontAwesome;
+
 use Khill\FontAwesome\Exceptions\IncompleteStackException;
 
 /**
  * FontAwesomeStack builds icon stacks
  *
  * @package   Khill\FontAwesome
- * @version   1.1.0
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
  * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
@@ -98,13 +98,15 @@ class FontAwesomeStack extends FontAwesomeHtmlEntity
     /**
      * Outputs the FontAwesome object as an HTML string
      *
+     * @access protected
      * @return string HTML string of icon or stack
      * @throws \Khill\FontAwesome\Exceptions\IncompleteStackException
      */
-    public function output()
+    protected function output()
     {
         if ($this->bottomIcon === null) {
-            throw new IncompleteStackException();
+            $this->bottomIcon = '';
+            //throw new IncompleteStackException();
         }
 
         $stackClasses = 'fa-stack';

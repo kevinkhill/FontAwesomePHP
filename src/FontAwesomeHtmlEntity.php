@@ -5,9 +5,9 @@ namespace Khill\FontAwesome;
 use Khill\FontAwesome\Exceptions\InvalidTransformationClass;
 
 /**
- * FontAwesomePHP is a library that wraps the FontAwesome icon set in easy to use php methods
+ * FontAwesomeHtmlEntity is the parent class that enables class mapping, adding
+ * additional classes, adding attributes, and outputting as a string.
  *
- * @version   1.1.0
  * @package   Khill\FontAwesome
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
@@ -101,21 +101,17 @@ class FontAwesomeHtmlEntity
     }
 
     /**
-     * Maps method calls to their respective font awesome classes using
-     * the class map
+     * Attempts to maps undefined method calls to a FontAwesome transformation
+     * class from the class map.
      *
      * @access protected
-     * @param $class
-     * @return mixed
+     * @param  string $class
+     * @return string
      */
     protected function classMapper($class)
     {
         if (array_key_exists($class, $this->CLASS_MAP)) {
             return $this->CLASS_MAP[$class];
-        }
-
-        if (in_array($class, $this->CLASS_MAP)) {
-            return $class;
         }
 
         throw new InvalidTransformationClass($class);
@@ -131,7 +127,7 @@ class FontAwesomeHtmlEntity
      */
     public function __call($name, $arguments)
     {
-        if (isset($arguments[0]) && property_exists($this, 'icon')) {
+        if (isset($arguments[0])) {
             $this->icon = $arguments[0];
         }
 
@@ -161,7 +157,7 @@ class FontAwesomeHtmlEntity
      */
     public function addAttr($attr, $val)
     {
-        if (! is_string($attr)) {
+        if (is_string($attr) === false) {
             throw new \InvalidArgumentException;
         }
 

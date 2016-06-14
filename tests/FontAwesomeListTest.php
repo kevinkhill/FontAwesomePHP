@@ -4,6 +4,26 @@ namespace Khill\FontAwesome\Tests;
 
 class FontAwesomeListTest extends FontAwesomeTestCase
 {
+    /**
+     * @expectedException \Khill\FontAwesome\Exceptions\IncompleteListException
+     */
+    public function testInvalidValuesForUlMethod()
+    {
+        $this->fa->ul(3);
+        $this->fa->ul('square', 4.5);
+    }
+
+    /**
+     * @expectedException \Khill\FontAwesome\Exceptions\IncompleteListException
+     */
+    public function testStartingListWithAndArrayOfItemsNoDefaultIcon()
+    {
+        $this->fa->ul(array(
+            'item one',
+            'item two'
+        ));
+    }
+
     public function testDefaultIconWithAddingSingleLinesOutput()
     {
         $output  = '<ul class="fa-ul">';

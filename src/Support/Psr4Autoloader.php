@@ -8,10 +8,8 @@ namespace Khill\FontAwesome\Support;
  * As implemented by PHP FIG
  *
  * @codeCoverageIgnore
- * @category Class
- * @package  FontAwesome
+ * @package  Khill\FontAwesome
  * @author   PHP-FIG
- * @since    2.4.0
  * @link     http://www.php-fig.org/psr/psr-4/examples/
  * @license  http://opensource.org/licenses/MIT MIT
  */

@@ -8,7 +8,6 @@ use Khill\FontAwesome\Exceptions\IncompleteListException;
  * FontAwesomeList adds the ability to create unordered lists with icons
  *
  * @package   Khill\FontAwesome
- * @version   1.1.0
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
  * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
@@ -78,7 +77,7 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      */
     public function li($iconOrLine, $liVal = null)
     {
-        if (! is_string($iconOrLine) && ! is_array($iconOrLine)) {
+        if (is_string($iconOrLine) === false && is_array($iconOrLine) === false) {
             throw new IncompleteListException(
                 'List items must be a string or array of strings.'
             );
@@ -103,7 +102,7 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      * @return string
      * @throws \Khill\FontAwesome\Exceptions\IncompleteListException
      */
-    public function output()
+    protected function output()
     {
         $listItems = '';
 
@@ -162,11 +161,9 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
     {
         $classes = 'fa-' . $iconLabel;
 /*
-        if( ! empty($this->classes))
-        {
-            foreach($this->classes as $class)
-            {
-                $classes .= ' ' . $class;
+        if (count($this->classes) > 0) {
+            foreach($this->classes as $class) {
+                $classes .= implode(' ', $class);
             }
         }
 */

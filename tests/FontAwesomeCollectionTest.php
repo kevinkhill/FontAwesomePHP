@@ -13,6 +13,54 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
         echo $this->fa->collection('loginIcon');
     }
 
+    /**
+     * @depends testRetrievingStoredIconFromCollectionOutput
+     */
+    public function testRetrievingStoredIconFromCollectionWithFetchAliasOutput()
+    {
+        $this->fa->icon('cog')->store('loginIcon');
+
+        $this->expectOutputString('<i class="fa fa-cog"></i>');
+
+        echo $this->fa->fetch('loginIcon');
+    }
+
+    /**
+     * @depends testRetrievingStoredIconFromCollectionOutput
+     */
+    public function testRetrievingStoredIconFromCollectionWithGetAliasOutput()
+    {
+        $this->fa->icon('cog')->store('loginIcon');
+
+        $this->expectOutputString('<i class="fa fa-cog"></i>');
+
+        echo $this->fa->get('loginIcon');
+    }
+
+    /**
+     * @depends testRetrievingStoredIconFromCollectionOutput
+     */
+    public function testRetrievingStoredIconFromCollectionStoredWithSaveAliasOutput()
+    {
+        $this->fa->icon('cog')->save('loginIcon');
+
+        $this->expectOutputString('<i class="fa fa-cog"></i>');
+
+        echo $this->fa->collection('loginIcon');
+    }
+
+    /**
+     * @depends testRetrievingStoredIconFromCollectionOutput
+     */
+    public function testRetrievingStoredIconFromCollectionStoredWithSetAliasOutput()
+    {
+        $this->fa->icon('cog')->set('loginIcon');
+
+        $this->expectOutputString('<i class="fa fa-cog"></i>');
+
+        echo $this->fa->collection('loginIcon');
+    }
+
     public function testRetrievingCustomizedStoredIconFromCollectionOutput()
     {
         $this->fa->x4('cog')->flipVertical()->store('myLabel');
@@ -50,5 +98,13 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
         $this->fa->icon('cog')->store('loginIcon');
 
         echo $this->fa->collection(4.1);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCollectionWithLabelThatDoesntExist()
+    {
+        $this->fa->collection('banana');
     }
 }

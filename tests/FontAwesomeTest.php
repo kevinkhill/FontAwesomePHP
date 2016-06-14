@@ -6,6 +6,39 @@ use Khill\FontAwesome\FontAwesome;
 
 class FontAwesomeTest extends FontAwesomeTestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testBadInputForIconOutputThroughConstructor()
+    {
+        echo new FontAwesome(12);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testIconWithInvalidCustomAttribute()
+    {
+        echo $this->fa->fixedWidth('star')->addAttr(9.81, 'Tooltips!');
+        echo $this->fa->fixedWidth('star')->addAttr('id', 9.81);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddingInvalidClass()
+    {
+        echo $this->fa->fixedWidth('star')->addClass(3.14);
+    }
+
+    /**
+     * @expectedException \Khill\FontAwesome\Exceptions\InvalidTransformationClass
+     */
+    public function testApplyingTransformationClassThatDoesntExistAsModifier()
+    {
+        echo $this->fa->upsideDown('twitter');
+    }
+    
     public function testCdnLinkOutput()
     {
         $this->expectOutputString('<link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">');
