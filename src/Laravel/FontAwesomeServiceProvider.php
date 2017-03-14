@@ -31,8 +31,7 @@ class FontAwesomeServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton('fontawesome', function($app)
-
+        $this->app->singleton('fontawesome', function($app){
             return new FontAwesome();
         });
 
