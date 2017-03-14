@@ -2,9 +2,12 @@
 
 namespace Khill\FontAwesome;
 
+require __DIR__.'/FontAwesomeHtmlEntity.php';
+
 use InvalidArgumentException;
 use Khill\FontAwesome\FontAwesomeList;
 use Khill\FontAwesome\FontAwesomeStack;
+use Khill\FontAwesome\FontAwesomeHtmlEntity;
 use Khill\FontAwesome\Support\Psr4Autoloader;
 use Khill\FontAwesome\Exceptions\BadLabelException;
 use Khill\FontAwesome\Exceptions\CollectionIconException;
@@ -26,12 +29,12 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * FontAwesomePHP version
      */
-    const VERSION = '1.1.0';
+    const VERSION = '1.1.3';
 
     /**
      * FontAwesome Icon version
      */
-    const FA_VERSION = '4.4.0';
+    const FA_VERSION = '4.7.0';
 
     /**
      * Html string template to build the icon
@@ -58,9 +61,9 @@ class FontAwesome extends FontAwesomeHtmlEntity
      */
     public static function css()
     {
-        return '<link href="//netdna.bootstrapcdn.com/font-awesome/' .
+        return '<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/' .
         self::FA_VERSION .
-        '/css/font-awesome.min.css" rel="stylesheet">';
+        '/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">';
     }
 
     /**
@@ -76,30 +79,11 @@ class FontAwesome extends FontAwesomeHtmlEntity
 
             $loader = new Psr4Autoloader;
             $loader->register();
-            $loader->addNamespace(__NAMESPACE__, __DIR__);
+            $loader->addNamespace('Khill\FontAwesome', __DIR__);
         }
 
         if ($icon !== null) {
             $this->setIcon($icon);
-        }
-    }
-    
-    /**
-     * Checks if running in composer environment
-     *
-     * This will true if the folder 'composer' is within the path to FontAwesomePHP.
-     *
-     * @codeCoverageIgnore
-     * @access private
-     * @since 1.1.0
-     * @return boolean
-     */
-    private function usingComposer()
-    {
-        if (strpos(realpath(__FILE__), 'composer') !== false) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -289,5 +273,24 @@ class FontAwesome extends FontAwesomeHtmlEntity
         }
 
         return sprintf(self::ICON_HTML, $classes, $attrs);
+    }
+
+    /**
+     * Checks if running in composer environment
+     *
+     * This will true if the folder 'composer' is within the path to FontAwesomePHP.
+     *
+     * @codeCoverageIgnore
+     * @access private
+     * @since 1.1.0
+     * @return boolean
+     */
+    private function usingComposer()
+    {
+        if (strpos(realpath(__FILE__), 'composer') !== false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

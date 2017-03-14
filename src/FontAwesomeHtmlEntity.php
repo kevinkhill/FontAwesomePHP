@@ -45,13 +45,13 @@ class FontAwesomeHtmlEntity
      */
     protected $CLASS_MAP = array(
         'lg'             => 'fa-lg',
-        'x2'             => 'fa-2x',
-        'x3'             => 'fa-3x',
-        'x4'             => 'fa-4x',
-        'x5'             => 'fa-5x',
-        'fixedWidth'     => 'fa-fw',
+        'x2'             => 'fa-2x',              // Alias
+        'x3'             => 'fa-3x',              // Alias
+        'x4'             => 'fa-4x',              // Alias
+        'x5'             => 'fa-5x',              // Alias
+        'fw'             => 'fa-fw',
         'fixed'          => 'fa-fw',              // Alias
-        'fw'             => 'fa-fw',              // Alias
+        'fixedWidth'     => 'fa-fw',              // Alias
         'spin'           => 'fa-spin',
         's'              => 'fa-spin',            // Alias
         'border'         => 'fa-border',
@@ -78,6 +78,35 @@ class FontAwesomeHtmlEntity
         'right'          => 'pull-right',
         'r'              => 'pull-right'          // Alias
     );
+
+    /**
+     * Magic method to assign transformation classes to the stack
+     *
+     * @param  string $name Method called
+     * @param  array  $arguments
+     * @return self
+     * @throws InvalidTransformationClass
+     */
+    public function __call($name, $arguments)
+    {
+        $this->classes[] = $this->classMapper($name);
+
+        if (isset($arguments[0])) {
+            $this->icon = $arguments[0];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Outputs the FontAwesome object as an HTML string
+     *
+     * @return string HTML string of icon, stack, or list
+     */
+    public function __toString()
+    {
+        return (string) $this->output();
+    }
 
     /**
      * Sets icon label
@@ -115,35 +144,6 @@ class FontAwesomeHtmlEntity
         }
 
         throw new InvalidTransformationClass($class);
-    }
-
-    /**
-     * Magic method to assign transformation classes to the stack
-     *
-     * @param  string $name Method called
-     * @param  array  $arguments
-     * @return self
-     * @throws InvalidTransformationClass
-     */
-    public function __call($name, $arguments)
-    {
-        if (isset($arguments[0])) {
-            $this->icon = $arguments[0];
-        }
-
-        $this->classes[] = $this->classMapper($name);
-
-        return $this;
-    }
-
-    /**
-     * Outputs the FontAwesome object as an HTML string
-     *
-     * @return string HTML string of icon, stack, or list
-     */
-    public function __toString()
-    {
-        return (string) $this->output();
     }
 
     /**
