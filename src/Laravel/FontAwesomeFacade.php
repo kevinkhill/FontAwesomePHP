@@ -18,6 +18,6 @@ class FontAwesomeFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'fontawesomephp';
+        return 'fontawesome';
     }
 }
