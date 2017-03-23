@@ -4,6 +4,7 @@ namespace Khill\FontAwesome\Laravel;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
+use Khill\FontAwesome\FontAwesome;
 
 /**
  * FontAwesomePHP Laravel Service Provider
