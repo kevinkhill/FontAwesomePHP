@@ -32,12 +32,11 @@ class FontAwesomeServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton('fontawesome', function($app){
+        $this->app->singleton('fontawesomephp', function($app){
             return new FontAwesome();
         });
 
         $this->app->booting(function () {
-
             $loader = AliasLoader::getInstance();
             $loader->alias('FA', 'Khill\FontAwesome\Laravel\FontAwesomeFacade');
         });
