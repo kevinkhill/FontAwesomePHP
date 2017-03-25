@@ -29,7 +29,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * FontAwesomePHP version
      */
-    const VERSION = '1.1.3';
+    const VERSION = '1.1.4';
 
     /**
      * FontAwesome Icon version
@@ -54,9 +54,9 @@ class FontAwesome extends FontAwesomeHtmlEntity
     private $collection = array();
 
     /**
-     * HTML link to the FontAwesome CSS file through bootstrapcdn
+     * HTML link to the FontAwesome CSS file through keycdn.com
      *
-     * @see http://www.bootstrapcdn.com/
+     * @see https://opensource.keycdn.com/
      * @return string HTML link element
      */
     public static function css()
@@ -88,10 +88,36 @@ class FontAwesome extends FontAwesomeHtmlEntity
     }
 
     /**
+     * Builds the icon from the template
+     *
+     * @access protected
+     * @return string
+     */
+    protected function output()
+    {
+        $attrs   = '';
+        $classes = 'fa-' . $this->icon;
+
+        if (count($this->classes) > 0) {
+            $classes .= ' ' . implode(' ', $this->classes);
+        }
+
+        if (count($this->attributes) > 0) {
+            foreach ($this->attributes as $attr => $val) {
+                $attrs .= ' ' . $attr . '="' . $val . '"';
+            }
+        }
+
+        $htmlOutput = sprintf(self::ICON_HTML, $classes, $attrs);
+
+        return $this->resetAndOutput($htmlOutput);
+    }
+
+    /**
      * Sets which icon to use
      *
      * @param  string $icon Icon label, omitting the "fa-" prefix
-     * @return self
+     * @return \Khill\FontAwesome\FontAwesomeHtmlEntity
      * @throws \InvalidArgumentException If $icon is not a string
      */
     public function icon($icon)
@@ -145,8 +171,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * Sets the top icon to be used in a stack
      *
      * @param  string $icon Icon label, omitting the "fa-" prefix
-     * @return FontAwesomeStack
-     * @throws \InvalidArgumentException If $icon is not a non empty string
+     * @param  array  $classes
+     * @return \Khill\FontAwesome\FontAwesomeStack
      */
     public function stack($icon, array $classes = array())
     {
@@ -190,6 +216,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * Alias method for store()
      *
      * @see FontAwesome::store()
+     * @param string $label
+     * @return \Khill\FontAwesome\FontAwesome
      */
     public function save($label)
     {
@@ -200,6 +228,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * Alias method for store()
      *
      * @see FontAwesome::store()
+     * @param string $label
+     * @return \Khill\FontAwesome\FontAwesome
      */
     public function set($label)
     {
@@ -235,6 +265,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * Alias method for collection()
      *
      * @see FontAwesome::collection()
+     * @param string $label
+     * @return string
      */
     public function fetch($label)
     {
@@ -245,6 +277,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * Alias method for collection()
      *
      * @see FontAwesome::collection()
+     * @param string $label
+     * @return string
      */
     public function get($label)
     {
@@ -252,27 +286,18 @@ class FontAwesome extends FontAwesomeHtmlEntity
     }
 
     /**
-     * Builds the icon from the template
+     * Outputs the current contents to the page.
      *
-     * @access protected
+     * @param string $htmlOutput
      * @return string
      */
-    protected function output()
+    private function resetAndOutput($htmlOutput)
     {
-        $attrs   = '';
-        $classes = 'fa-' . $this->icon;
+        $this->icon       = null;
+        $this->classes    = null;
+        $this->attributes = null;
 
-        if (count($this->classes) > 0) {
-            $classes .= ' ' . implode(' ', $this->classes);
-        }
-
-        if (count($this->attributes) > 0) {
-            foreach ($this->attributes as $attr => $val) {
-                $attrs .= ' ' . $attr . '="' . $val . '"';
-            }
-        }
-
-        return sprintf(self::ICON_HTML, $classes, $attrs);
+        return (string) $htmlOutput;
     }
 
     /**
