@@ -98,11 +98,11 @@ class FontAwesome extends FontAwesomeHtmlEntity
         $attrs   = '';
         $classes = 'fa-' . $this->icon;
 
-        if (count($this->classes) > 0) {
+        if (!empty($this->classes) && count($this->classes) > 0) {
             $classes .= ' ' . implode(' ', $this->classes);
         }
 
-        if (count($this->attributes) > 0) {
+        if (!empty($this->attributes) && count($this->attributes) > 0) {
             foreach ($this->attributes as $attr => $val) {
                 $attrs .= ' ' . $attr . '="' . $val . '"';
             }
