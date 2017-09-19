@@ -10,13 +10,12 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
   
 matrix:
   fast_finish: true
   include:
-  - php: '5.3'
-    dist: precise
+    - php: 5.3
+      dist: precise
 
 cache:
   directories:
@@ -25,7 +24,7 @@ cache:
 
 before_script:
   - composer self-update
-  - composer install -n --prefer-source --dev
+  - composer install
 
 notifications:
   email:
