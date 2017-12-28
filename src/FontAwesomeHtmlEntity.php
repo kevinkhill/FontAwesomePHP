@@ -29,14 +29,14 @@ class FontAwesomeHtmlEntity
      *
      * @var array[string]
      */
-    protected $classes;
+    protected $classes = array();
 
     /**
      * Attributes to be applied
      *
      * @var array[string]
      */
-    protected $attributes;
+    protected $attributes = array();
 
     /**
      * FontAwesome transformation class map
