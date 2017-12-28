@@ -36,7 +36,7 @@ class FontAwesomeList extends FontAwesomeHtmlEntity
      *
      * @var array[string]
      */
-    private $lines;
+    private $lines = [];
 
     /**
      * Assigns the name to the icon
