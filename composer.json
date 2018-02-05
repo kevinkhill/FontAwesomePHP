@@ -43,6 +43,6 @@
             "FA": "Khill\\FontAwesome\\Laravel\\FontAwesomeFacade"
           }      
         }
-    }
+    },
     "minimum-stability": "stable"
 }
