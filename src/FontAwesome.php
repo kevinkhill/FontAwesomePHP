@@ -29,7 +29,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * FontAwesomePHP version
      */
-    const VERSION = '1.1.4';
+    const VERSION = '1.1.5';
 
     /**
      * FontAwesome Icon version
