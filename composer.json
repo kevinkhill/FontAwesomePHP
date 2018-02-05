@@ -34,5 +34,15 @@
         "cs": "phpcs --standard=PSR2 src tests",
         "cbf" : "phpcbf --standard=PSR2 src tests"
     },
+    "extra": {
+        "laravel": {
+          "providers": [
+            "Khill\\FontAwesome\\Laravel\\FontAwesomeServiceProvider"
+          ],
+          "aliases": {
+            "FA": "Khill\\FontAwesome\\Laravel\\FontAwesomeFacade"
+          }      
+        }
+    }
     "minimum-stability": "stable"
 }
