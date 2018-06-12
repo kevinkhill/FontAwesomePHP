@@ -29,17 +29,17 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * FontAwesomePHP version
      */
-    const VERSION = '1.1.5';
+    const VERSION = '2.0.0';
 
     /**
      * FontAwesome Icon version
      */
-    const FA_VERSION = '4.7.0';
+    const FA_VERSION = '5.0.13';
 
     /**
      * Html string template to build the icon
      */
-    const ICON_HTML = '<i class="fa %s"%s></i>';
+    const ICON_HTML = '<i class="%s"%s%s></i>';
 
     /**
      * Html string template to build the icon stack
@@ -54,16 +54,49 @@ class FontAwesome extends FontAwesomeHtmlEntity
     private $collection = array();
 
     /**
-     * HTML link to the FontAwesome CSS file through keycdn.com
+     * HTML link to the FontAwesome CSS file through the FontAwesome CDN
      *
-     * @see https://opensource.keycdn.com/
+     * @see https://fontawesome.com/get-started/web-fonts-with-css
      * @return string HTML link element
      */
-    public static function css()
+    public static function css($pro = false)
     {
-        return '<link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/' .
-        self::FA_VERSION .
-        '/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">';
+        if($pro)
+        {
+            $url = 'pro.fontawesome.com';
+            $integrity = 'sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG';
+        }
+        else
+        {
+            $url = 'use.fontawesome.com';
+            $integrity = 'sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp';
+        }
+
+        return '<link rel="stylesheet" href="https://' . $url . '/releases/v' .
+        self::FA_VERSION . '/css/all.css" integrity="' . $integrity . '" crossorigin="anonymous">';
+    }
+
+    /**
+     * HTML link to the FontAwesome JS file through the FontAwesome CDN
+     *
+     * @see https://fontawesome.com/get-started/svg-with-js
+     * @return string HTML script tag
+     */
+    public static function js($pro = false)
+    {
+        if($pro)
+        {
+            $url = 'pro.fontawesome.com';
+            $integrity = 'sha384-d84LGg2pm9KhR4mCAs3N29GQ4OYNy+K+FBHX8WhimHpPm86c839++MDABegrZ3gn';
+        }
+        else
+        {
+            $url = 'use.fontawesome.com';
+            $integrity = 'sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe';
+        }
+
+        return '<script defer src="https://' . $url . '/releases/v' .
+        self::FA_VERSION . '/js/all.js" integrity="' . $integrity . '" crossorigin="anonymous"></script>';
     }
 
     /**
@@ -72,7 +105,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * @param  string $icon Icon label, omitting the "fa-" prefix
      * @throws \InvalidArgumentException
      */
-    public function __construct($icon = null)
+    public function __construct($icon = null, $style = 'fas')
     {
         if (!$this->usingComposer()) {
             require_once(__DIR__.'/Support/Psr4Autoloader.php');
@@ -85,6 +118,10 @@ class FontAwesome extends FontAwesomeHtmlEntity
         if ($icon !== null) {
             $this->setIcon($icon);
         }
+
+        if ($style !== null) {
+            $this->setStyle($style);
+        }
     }
 
     /**
@@ -96,7 +133,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
     protected function output()
     {
         $attrs   = '';
-        $classes = 'fa-' . $this->icon;
+        $classes = $this->style . ' fa-' . $this->icon;
+        $transforms = '';
 
         if (!empty($this->classes) && count($this->classes) > 0) {
             $classes .= ' ' . implode(' ', $this->classes);
@@ -108,9 +146,29 @@ class FontAwesome extends FontAwesomeHtmlEntity
             }
         }
 
-        $htmlOutput = sprintf(self::ICON_HTML, $classes, $attrs);
+        if (!empty($this->transforms) && count($this->transforms) > 0) {
+            $transformList = array();
+            foreach ($this->transforms as $transform) {
+                $transformList[] = implode('-', $transform);
+            }
+            $transforms = ' data-fa-transform="' . implode(' ', $transformList) . '"';
+        }
+
+        $htmlOutput = sprintf(self::ICON_HTML, $classes, $attrs, $transforms);
 
         return $this->resetAndOutput($htmlOutput);
+    }
+
+    /**
+     * Sets which style to use
+     *
+     * @param  string $style Icon style (fas, far, fal, fab)
+     * @return \Khill\FontAwesome\FontAwesomeHtmlEntity
+     * @throws \InvalidArgumentException If $style is not a string
+     */
+    public function style($style)
+    {
+        return $this->setStyle($style);
     }
 
     /**
