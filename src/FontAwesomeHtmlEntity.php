@@ -25,6 +25,13 @@ class FontAwesomeHtmlEntity
     protected $icon;
 
     /**
+     * Mask property, if set
+     *
+     * @var string
+     */
+    protected $mask;
+
+    /**
      * Classes to be applied
      *
      * @var array[string]
@@ -148,6 +155,38 @@ class FontAwesomeHtmlEntity
         }
 
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Sets mask label
+     *
+     * @access protected
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @param  string $style Style label
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    protected function setMask($icon, $style='fas')
+    {
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'The mask icon label must be a string.'
+            );
+        }
+        if (is_string($style) === false) {
+            throw new \InvalidArgumentException(
+                'The mask style label must be a string.'
+            );
+        }
+        if (!in_array($style, $this->STYLES)) {
+            throw new \InvalidArgumentException(
+                'Invalid mask style.'
+            );
+        }
+
+        $this->mask = $style." fa-".$icon;
 
         return $this;
     }
