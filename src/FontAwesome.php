@@ -6,7 +6,9 @@ require __DIR__.'/FontAwesomeHtmlEntity.php';
 
 use InvalidArgumentException;
 use Khill\FontAwesome\FontAwesomeList;
+use Khill\FontAwesome\FontAwesomeText;
 use Khill\FontAwesome\FontAwesomeStack;
+use Khill\FontAwesome\FontAwesomeLayers;
 use Khill\FontAwesome\FontAwesomeHtmlEntity;
 use Khill\FontAwesome\Support\Psr4Autoloader;
 use Khill\FontAwesome\Exceptions\BadLabelException;
@@ -122,6 +124,8 @@ class FontAwesome extends FontAwesomeHtmlEntity
         if ($style !== null) {
             $this->setStyle($style);
         }
+
+        return $this;
     }
 
     /**
@@ -188,7 +192,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
     }
 
     /**
-     * Sets which mask to use
+     * Sets which mask to use (only available with the JS SDK)
      *
      * @param  string $mask Mask label, omitting the "fa-" prefix
      * @return \Khill\FontAwesome\FontAwesomeHtmlEntity
@@ -257,6 +261,17 @@ class FontAwesome extends FontAwesomeHtmlEntity
         }
 
         return new FontAwesomeStack($icon, $classes);
+    }
+
+    /**
+     * Sets of icons to be layered together (only available with the JS SDK)
+     *
+     * @param  array  $classes list of classes to apply to the whole layered set
+     * @return \Khill\FontAwesome\FontAwesomeLayers
+     */
+    public function layers(array $classes = array())
+    {
+        return new FontAwesomeLayers($classes);
     }
 
     /**

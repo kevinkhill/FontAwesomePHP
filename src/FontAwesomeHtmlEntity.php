@@ -308,7 +308,7 @@ class FontAwesomeHtmlEntity
     }
 
     /**
-     * Adds an additional transform to the icon, stack, or list
+     * Adds an additional transform to the icon (only available with the JS SDK)
      *
      * @param  string $transform
      * @return self
@@ -345,7 +345,7 @@ class FontAwesomeHtmlEntity
     }
 
     /**
-     * Batch add additional transforms
+     * Batch add additional transforms (only available with the JS SDK)
      *
      * @param  array $transforms
      * @return self
@@ -361,7 +361,7 @@ class FontAwesomeHtmlEntity
     }
 
     /**
-     * Alias of addTransform
+     * Alias of addTransform (only available with the JS SDK)
      *
      * @param  string $transform
      * @return self
