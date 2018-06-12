@@ -55,6 +55,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
      */
     private $collection = array();
 
+
     /**
      * HTML link to the FontAwesome CSS file through the FontAwesome CDN
      *
@@ -139,6 +140,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
         $attrs   = '';
         $classes = $this->style . ' fa-' . $this->icon;
         $transforms = '';
+        $mask = '';
 
         if (!empty($this->classes) && count($this->classes) > 0) {
             $classes .= ' ' . implode(' ', $this->classes);
@@ -385,6 +387,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
         $this->icon       = null;
         $this->classes    = null;
         $this->attributes = null;
+        $this->mask       = null;
 
         return (string) $htmlOutput;
     }
