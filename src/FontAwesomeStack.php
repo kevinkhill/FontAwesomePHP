@@ -19,7 +19,7 @@ class FontAwesomeStack extends FontAwesomeHtmlEntity
     /**
      * Html string template to build the icon
      */
-    const ICON_HTML = '<i class="fa fa-%s"></i>';
+    const ICON_HTML = '<i class="%s fa-%s"></i>';
 
     /**
      * Html string template to build the icon stack
@@ -46,11 +46,21 @@ class FontAwesomeStack extends FontAwesomeHtmlEntity
      * @param string $icon    The top icon of the stack
      * @param array  $classes Extra classes to add to the top Icon
      */
-    public function __construct($icon, array $classes = array())
+    public function __construct($icon, array $classes = array(), $style='fas')
     {
         if (is_string($icon) === false) {
             throw new \InvalidArgumentException(
                 'Icon label must be a string.'
+            );
+        }
+        if (is_string($style) === false) {
+            throw new \InvalidArgumentException(
+                'The style label must be a string.'
+            );
+        }
+        if (!in_array($style, $this->STYLES)) {
+            throw new \InvalidArgumentException(
+                'Invalid style.'
             );
         }
 
@@ -62,7 +72,7 @@ class FontAwesomeStack extends FontAwesomeHtmlEntity
             }
         }
 
-        $this->topIcon = sprintf(self::ICON_HTML, $iconClasses);
+        $this->topIcon = sprintf(self::ICON_HTML, $style, $iconClasses);
     }
 
 
@@ -71,14 +81,25 @@ class FontAwesomeStack extends FontAwesomeHtmlEntity
      * creates the stack object.
      *
      * @param  string $icon
+     * @param  string $style
      * @param  array $classes
      * @return self
      */
-    public function on($icon, array $classes = array())
+    public function on($icon, array $classes = array(), $style='fas')
     {
         if (is_string($icon) === false) {
             throw new \InvalidArgumentException(
                 'Icon label must be a string.'
+            );
+        }
+        if (is_string($style) === false) {
+            throw new \InvalidArgumentException(
+                'The style label must be a string.'
+            );
+        }
+        if (!in_array($style, $this->STYLES)) {
+            throw new \InvalidArgumentException(
+                'Invalid style.'
             );
         }
 
@@ -90,7 +111,7 @@ class FontAwesomeStack extends FontAwesomeHtmlEntity
             }
         }
 
-        $this->bottomIcon = sprintf(self::ICON_HTML, $iconClasses);
+        $this->bottomIcon = sprintf(self::ICON_HTML, $style, $iconClasses);
 
         return $this;
     }
