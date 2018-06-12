@@ -7,11 +7,26 @@ use Khill\FontAwesome\FontAwesomeText;
 
 class FontAwesomeLayersTest extends FontAwesomeTestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testInvalidIconInLayer()
+    {
+        echo $this->fa->layers()->icon("circle")->icon(new FontAwesome("times"));
+    }
+
     public function testBasicLayersOutput()
     {
         $this->expectOutputString('<span class="fa-layers fa-fw"><i class="fas fa-circle"></i><i class="fas fa-times"></i></span>');
 
         echo $this->fa->layers()->icon(new FontAwesome("circle"))->icon(new FontAwesome("times"));
+    }
+
+    public function testBasicLayersWithClassOutput()
+    {
+        $this->expectOutputString('<span class="fa-layers fa-fw my-cool-layer"><i class="fas fa-circle"></i><i class="fas fa-times"></i></span>');
+        $classes = array("my-cool-layer");
+        echo $this->fa->layers($classes)->icon(new FontAwesome("circle"))->icon(new FontAwesome("times"));
     }
 
     public function testMultipleLayersWithTransformsOutput()
@@ -35,6 +50,13 @@ class FontAwesomeLayersTest extends FontAwesomeTestCase
         $this->expectOutputString('<span class="fa-layers fa-fw"><i class="fas fa-envelope"></i><span class="fa-layers-counter">1,419</span></span>');
 
         echo $this->fa->layers()->icon(new FontAwesome("envelope"))->counter("1,419");
+    }
+
+    public function testLayersWithCounterAndClassesOutput()
+    {
+        $this->expectOutputString('<span class="fa-layers fa-fw"><i class="fas fa-envelope"></i><span class="fa-layers-counter my-cool-counter">1,419</span></span>');
+
+        echo $this->fa->layers()->icon(new FontAwesome("envelope"))->counter("1,419", array("my-cool-counter"));
     }
 
     public function testLayersWithTextOutput()
