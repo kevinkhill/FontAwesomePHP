@@ -25,9 +25,9 @@ class FontAwesomeText extends FontAwesomeHtmlEntity
      *
      * @param string $text    The text to display
      */
-    public function __construct($text)
+    public function __construct($text = null)
     {
-        if (is_string($text) === false) {
+        if (!is_string($text)) {
             throw new \InvalidArgumentException(
                 'Icon text must be a string.'
             );

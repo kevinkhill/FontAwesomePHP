@@ -42,17 +42,13 @@ class FontAwesomeLayers extends FontAwesomeHtmlEntity
      */
     public function __construct($classes = array())
     {
-        if (count($classes) > 0) {
-            foreach ($classes as $class) {
-                $iconClasses .= ' ' . $this->classMapper($class);
-            }
-        }
+        $this->classes = $classes;
     }
 
 
     public function icon($icon)
     {
-        if(get_class($icon) != 'Khill\FontAwesome\FontAwesome')
+        if(!is_object($icon) || get_class($icon) != 'Khill\FontAwesome\FontAwesome')
         {
             throw new \InvalidArgumentException(
                 'Only fully-formed icon objects can be added to layers'

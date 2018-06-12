@@ -4,6 +4,15 @@ namespace Khill\FontAwesome\Tests;
 
 class FontAwesomeCollectionTest extends FontAwesomeTestCase
 {
+
+/**
+ * @expectedException \Khill\FontAwesome\Exceptions\CollectionIconException
+ */
+    public function testStoringNoIconOutput()
+    {
+        $this->fa->store('loginIcon');
+    }
+
     public function testRetrievingStoredIconFromCollectionOutput()
     {
         $this->fa->icon('cog')->store('loginIcon');

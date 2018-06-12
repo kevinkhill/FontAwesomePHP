@@ -44,6 +44,14 @@ class FontAwesomeTest extends FontAwesomeTestCase
      */
     public function testSettingInvalidStyleThroughStyleMethod()
     {
+        echo $this->fa->icon('star')->style(5);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingUnknownStyleThroughStyleMethod()
+    {
         echo $this->fa->icon('star')->style('fat');
     }
 
@@ -53,6 +61,22 @@ class FontAwesomeTest extends FontAwesomeTestCase
     public function testSettingInvalidStyleThroughConstructor()
     {
         echo new FontAwesome('star', 'fat');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingInvalidTransform()
+    {
+        echo $this->fa->icon('magic')->transform(25, 26);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingUnknownTransform()
+    {
+        echo $this->fa->icon('magic')->transform("embiggen", 100);
     }
 
     /**
@@ -69,6 +93,30 @@ class FontAwesomeTest extends FontAwesomeTestCase
     public function testSettingInvalidStringTransform()
     {
         echo $this->fa->icon('magic')->transform("flip","y");
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingInvalidMaskIcon()
+    {
+        echo $this->fa->icon('pencil')->mask(12);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingInvalidMaskStyle()
+    {
+        echo $this->fa->icon('pencil')->mask("circle", 7);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSettingUnknownMaskStyle()
+    {
+        echo $this->fa->icon('pencil')->mask("circle", "fat");
     }
 
     public function testCdnLinkOutput()
@@ -444,6 +492,13 @@ class FontAwesomeTest extends FontAwesomeTestCase
         $this->expectOutputString('<i class="fas fa-magic" data-fa-transform="flip-v flip-h"></i>');
 
         echo $this->fa->icon('magic')->transform("flip","v")->transform("flip","h");
+    }
+
+    public function testMultipleTransformsOutput()
+    {
+        $this->expectOutputString('<i class="fas fa-magic" data-fa-transform="grow-5 rotate-270"></i>');
+
+        echo $this->fa->icon('magic')->addTransforms(["grow" => 5, "rotate" => 270]);
     }
 
     public function testSimpleMaskOutput()
