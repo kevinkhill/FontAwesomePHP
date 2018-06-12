@@ -39,7 +39,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * Html string template to build the icon
      */
-    const ICON_HTML = '<i class="%s"%s%s></i>';
+    const ICON_HTML = '<i class="%s"%s%s%s></i>';
 
     /**
      * Html string template to build the icon stack
@@ -154,7 +154,11 @@ class FontAwesome extends FontAwesomeHtmlEntity
             $transforms = ' data-fa-transform="' . implode(' ', $transformList) . '"';
         }
 
-        $htmlOutput = sprintf(self::ICON_HTML, $classes, $attrs, $transforms);
+        if($this->mask) {
+            $mask = ' data-fa-mask="' . $this->mask . '"';
+        }
+
+        $htmlOutput = sprintf(self::ICON_HTML, $classes, $attrs, $transforms, $mask);
 
         return $this->resetAndOutput($htmlOutput);
     }
@@ -181,6 +185,18 @@ class FontAwesome extends FontAwesomeHtmlEntity
     public function icon($icon)
     {
         return $this->setIcon($icon);
+    }
+
+    /**
+     * Sets which mask to use
+     *
+     * @param  string $mask Mask label, omitting the "fa-" prefix
+     * @return \Khill\FontAwesome\FontAwesomeHtmlEntity
+     * @throws \InvalidArgumentException If $mask is not a string
+     */
+    public function mask($mask, $style = 'fas')
+    {
+        return $this->setMask($mask, $style);
     }
 
     /**

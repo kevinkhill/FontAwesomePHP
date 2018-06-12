@@ -123,16 +123,16 @@ class FontAwesomeTest extends FontAwesomeTestCase
 
     public function testSettingStyleThroughConstructor()
     {
-        $this->expectOutputString('<i class="fab fa-star"></i>');
+        $this->expectOutputString('<i class="far fa-star"></i>');
 
-        echo new FontAwesome('star', 'fab');
+        echo new FontAwesome('star', 'far');
     }
 
     public function testSettingStyleThroughStyleMethod()
     {
-        $this->expectOutputString('<i class="fab fa-star"></i>');
+        $this->expectOutputString('<i class="far fa-star"></i>');
 
-        echo $this->fa->icon('star')->style('fab');
+        echo $this->fa->icon('star')->style('far');
     }
 
     public function testStandardIconWithAdditionalClassOutputThroughIconMethod()
@@ -444,5 +444,26 @@ class FontAwesomeTest extends FontAwesomeTestCase
         $this->expectOutputString('<i class="fas fa-magic" data-fa-transform="flip-v flip-h"></i>');
 
         echo $this->fa->icon('magic')->transform("flip","v")->transform("flip","h");
+    }
+
+    public function testSimpleMaskOutput()
+    {
+        $this->expectOutputString('<i class="fas fa-pencil" data-fa-mask="fas fa-circle"></i>');
+
+        echo $this->fa->icon('pencil')->mask("circle");
+    }
+
+    public function testMaskWithTransformOutput()
+    {
+        $this->expectOutputString('<i class="fas fa-pencil" data-fa-transform="shrink-10 up-0.5" data-fa-mask="fas fa-circle"></i>');
+
+        echo $this->fa->icon('pencil')->transform("shrink", 10)->transform("up", 0.5)->mask("circle");
+    }
+
+    public function testMaskWithTransformAndStyleOutput()
+    {
+        $this->expectOutputString('<i class="fab fa-facebook-f" data-fa-transform="shrink-3.5 down-1.6 right-1.25" data-fa-mask="fas fa-square"></i>');
+
+        echo $this->fa->icon('facebook-f')->style("fab")->transform("shrink", 3.5)->transform("down", 1.6)->transform("right", 1.25)->mask("square");
     }
 }
