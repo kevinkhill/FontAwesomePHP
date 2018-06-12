@@ -8,7 +8,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     {
         $this->fa->icon('cog')->store('loginIcon');
 
-        $this->expectOutputString('<i class="fa fa-cog"></i>');
+        $this->expectOutputString('<i class="fas fa-cog"></i>');
 
         echo $this->fa->collection('loginIcon');
     }
@@ -20,7 +20,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     {
         $this->fa->icon('cog')->store('loginIcon');
 
-        $this->expectOutputString('<i class="fa fa-cog"></i>');
+        $this->expectOutputString('<i class="fas fa-cog"></i>');
 
         echo $this->fa->fetch('loginIcon');
     }
@@ -32,7 +32,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     {
         $this->fa->icon('cog')->store('loginIcon');
 
-        $this->expectOutputString('<i class="fa fa-cog"></i>');
+        $this->expectOutputString('<i class="fas fa-cog"></i>');
 
         echo $this->fa->get('loginIcon');
     }
@@ -44,7 +44,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     {
         $this->fa->icon('cog')->save('loginIcon');
 
-        $this->expectOutputString('<i class="fa fa-cog"></i>');
+        $this->expectOutputString('<i class="fas fa-cog"></i>');
 
         echo $this->fa->collection('loginIcon');
     }
@@ -56,16 +56,16 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     {
         $this->fa->icon('cog')->set('loginIcon');
 
-        $this->expectOutputString('<i class="fa fa-cog"></i>');
+        $this->expectOutputString('<i class="fas fa-cog"></i>');
 
         echo $this->fa->collection('loginIcon');
     }
 
     public function testRetrievingCustomizedStoredIconFromCollectionOutput()
     {
-        $this->fa->x4('cog')->flipVertical()->store('myLabel');
+        $this->fa->style('far')->x4('cog')->flipVertical()->store('myLabel');
 
-        $this->expectOutputString('<i class="fa fa-cog fa-4x fa-flip-vertical"></i>');
+        $this->expectOutputString('<i class="far fa-cog fa-4x fa-flip-vertical"></i>');
 
         echo $this->fa->collection('myLabel');
     }
@@ -77,7 +77,7 @@ class FontAwesomeCollectionTest extends FontAwesomeTestCase
     {
         $this->fa->icon('rocket')->addAttr('title', 'Tooltips!')->store('mine');
 
-        $this->expectOutputString('<i class="fa fa-rocket" title="Tooltips!"></i>');
+        $this->expectOutputString('<i class="fas fa-rocket" title="Tooltips!"></i>');
 
         echo $this->fa->collection('mine');
     }
