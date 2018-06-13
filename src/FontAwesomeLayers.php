@@ -33,7 +33,7 @@ class FontAwesomeLayers extends FontAwesomeHtmlEntity
      *
      * @var string
      */
-    private $layers = [];
+    private $layers = array();
 
     /**
      * FontAwesomeLayers constructor.
