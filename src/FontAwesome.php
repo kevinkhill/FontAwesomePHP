@@ -388,6 +388,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
         $this->classes    = null;
         $this->attributes = null;
         $this->mask       = null;
+        $this->style       = null;
 
         return (string) $htmlOutput;
     }

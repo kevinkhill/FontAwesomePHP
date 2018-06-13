@@ -498,7 +498,7 @@ class FontAwesomeTest extends FontAwesomeTestCase
     {
         $this->expectOutputString('<i class="fas fa-magic" data-fa-transform="grow-5 rotate-270"></i>');
 
-        echo $this->fa->icon('magic')->addTransforms(["grow" => 5, "rotate" => 270]);
+        echo $this->fa->icon('magic')->addTransforms(array("grow" => 5, "rotate" => 270));
     }
 
     public function testSimpleMaskOutput()
