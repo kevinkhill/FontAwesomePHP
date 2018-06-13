@@ -339,7 +339,7 @@ class FontAwesomeHtmlEntity
             );
         }
 
-        $this->transforms[] = [$transform, $value];
+        $this->transforms[] = array($transform, $value);
 
         return $this;
     }
