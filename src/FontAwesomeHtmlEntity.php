@@ -25,6 +25,13 @@ class FontAwesomeHtmlEntity
     protected $icon;
 
     /**
+     * Mask property, if set
+     *
+     * @var string
+     */
+    protected $mask;
+
+    /**
      * Classes to be applied
      *
      * @var array[string]
@@ -80,6 +87,29 @@ class FontAwesomeHtmlEntity
     );
 
     /**
+     * FontAwesome transformation properties
+     *
+     * @var array
+     */
+    protected $VALID_TRANSFORMS = array(
+        'shrink'        =>  'numeric',
+        'grow'          =>  'numeric',
+        'up'            =>  'numeric',
+        'down'          =>  'numeric',
+        'right'         =>  'numeric',
+        'left'          =>  'numeric',
+        'rotate'        =>  'numeric',
+        'flip'          =>  array('v', 'h')
+    );
+
+    /**
+     * List of valid FontAwesome styles
+     *
+     * @var array[string]
+     */
+    protected $STYLES = array('fas','far','fal','fab');
+
+    /**
      * Magic method to assign transformation classes to the stack
      *
      * @param  string $name Method called
@@ -125,6 +155,64 @@ class FontAwesomeHtmlEntity
         }
 
         $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Sets mask label
+     *
+     * @access protected
+     * @param  string $icon Icon label, omitting the "fa-" prefix
+     * @param  string $style Style label
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    protected function setMask($icon, $style='fas')
+    {
+        if (is_string($icon) === false) {
+            throw new \InvalidArgumentException(
+                'The mask icon label must be a string.'
+            );
+        }
+        if (is_string($style) === false) {
+            throw new \InvalidArgumentException(
+                'The mask style label must be a string.'
+            );
+        }
+        if (!in_array($style, $this->STYLES)) {
+            throw new \InvalidArgumentException(
+                'Invalid mask style.'
+            );
+        }
+
+        $this->mask = $style." fa-".$icon;
+
+        return $this;
+    }
+
+    /**
+     * Sets style label
+     *
+     * @access protected
+     * @param  string $style Font Awesome style ('fas', 'far', 'fal', 'fab')
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    protected function setStyle($style)
+    {
+        if (is_string($style) === false) {
+            throw new \InvalidArgumentException(
+                'The style label must be a string.'
+            );
+        }
+        if (!in_array($style, $this->STYLES)) {
+            throw new \InvalidArgumentException(
+                'Invalid style.'
+            );
+        }
+
+        $this->style = $style;
 
         return $this;
     }
@@ -204,7 +292,7 @@ class FontAwesomeHtmlEntity
     }
 
     /**
-     * Batch add an additional classes
+     * Batch add additional classes
      *
      * @param  array $classes
      * @return self
@@ -217,5 +305,70 @@ class FontAwesomeHtmlEntity
         }
 
         return $this;
+    }
+
+    /**
+     * Adds an additional transform to the icon (only available with the JS SDK)
+     *
+     * @param  string $transform
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    public function addTransform($transform, $value)
+    {
+        if (is_string($transform) === false) {
+            throw new \InvalidArgumentException(
+                'Additional transforms must be non empty strings.'
+            );
+        }
+        if (!array_key_exists($transform, $this->VALID_TRANSFORMS)) {
+            throw new \InvalidArgumentException(
+                'Invalid transform.'
+            );
+        }
+        if($this->VALID_TRANSFORMS[$transform] == 'numeric' && !is_numeric($value))
+        {
+            throw new \InvalidArgumentException(
+                'Transform '.$transform.' must have a numeric value.'
+            );
+        }
+        if(is_array($this->VALID_TRANSFORMS[$transform]) && !in_array($value, $this->VALID_TRANSFORMS[$transform]))
+        {
+            throw new \InvalidArgumentException(
+                'Transform '.$transform.' has an invalid value.'
+            );
+        }
+
+        $this->transforms[] = array($transform, $value);
+
+        return $this;
+    }
+
+    /**
+     * Batch add additional transforms (only available with the JS SDK)
+     *
+     * @param  array $transforms
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    public function addTransforms(array $transforms)
+    {
+        foreach ($transforms as $transform => $value) {
+            $this->addTransform($transform, $value);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Alias of addTransform (only available with the JS SDK)
+     *
+     * @param  string $transform
+     * @return self
+     * @throws \InvalidArgumentException
+     */
+    public function transform($transform, $value)
+    {
+        return $this->addTransform($transform, $value);
     }
 }

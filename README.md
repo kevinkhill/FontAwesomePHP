@@ -18,7 +18,7 @@ Install
 First, add the package to your main composer.json file:
 
 ```json
-"khill/fontawesomephp" : "1.1.*"
+"khill/fontawesomephp" : "2.0.*"
 ```
 
 Next, run composer from the command line to download and install:
@@ -32,10 +32,21 @@ If you are using Laravel, add the ServiceProvider to the service providers array
 'Khill\FontAwesome\Laravel\FontAwesomeServiceProvider'
 ```
 
-Last, add the link in your view's page header to the FontAwesome CSS file, provided by BootstrapCDN:
+Last, add the link in your view's page header to the FontAwesome CSS or JS file, provided by the FontAwesome CDN:
 
 ```php
 FontAwesome::css() // Or FA::css() if you want to use the alias
+```
+
+```php
+FontAwesome::js() // Or FA::js() if you want to use the alias
+```
+
+If you have a FontAwesome Pro license, add `true` to the CDN methods to request
+the Pro assets (make sure you've [whitelisted your domains](https://fontawesome.com/account/services) first):
+
+```php
+FontAwesome::js(true) // Or FA::js(true) if you want to use the alias
 ```
 
 Examples and Api
