@@ -49,6 +49,11 @@ class FontAwesome extends FontAwesomeHtmlEntity
     const STACK_HTML = '<span class="%s">%s%s</span>';
 
     /**
+     * Default icon style, used if one isn't explicitly set
+     */
+    const DEFAULT_STYLE = 'fas';
+
+    /**
      * Store a collection of icons
      *
      * @var array[string]
@@ -108,7 +113,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
      * @param  string $icon Icon label, omitting the "fa-" prefix
      * @throws \InvalidArgumentException
      */
-    public function __construct($icon = null, $style = 'fas')
+    public function __construct($icon = null, $style = null)
     {
         if (!$this->usingComposer()) {
             require_once(__DIR__.'/Support/Psr4Autoloader.php');
@@ -118,12 +123,10 @@ class FontAwesome extends FontAwesomeHtmlEntity
             $loader->addNamespace('Khill\FontAwesome', __DIR__);
         }
 
+        $this->setStyle(!is_null($style) ? $style : self::DEFAULT_STYLE);
+
         if ($icon !== null) {
             $this->setIcon($icon);
-        }
-
-        if ($style !== null) {
-            $this->setStyle($style);
         }
 
         return $this;
@@ -388,7 +391,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
         $this->classes    = null;
         $this->attributes = null;
         $this->mask       = null;
-        $this->style       = null;
+        $this->style      = self::DEFAULT_STYLE;
 
         return (string) $htmlOutput;
     }
