@@ -19,7 +19,7 @@ use Khill\FontAwesome\Exceptions\IncompleteListException;
  * FontAwesomePHP is a library that wraps the FontAwesome icon set in easy to use php methods
  *
  * @package   Khill\FontAwesome
- * @version   1.1.0
+ * @version   2.1.0
  * @author    Kevin Hill <kevinkhill@gmail.com>
  * @copyright (c) 2016, KHill Designs
  * @link      http://github.com/kevinkhill/FontAwesomePHP GitHub Repository Page
@@ -36,7 +36,7 @@ class FontAwesome extends FontAwesomeHtmlEntity
     /**
      * FontAwesome Icon version
      */
-    const FA_VERSION = '5.0.13';
+    const FA_VERSION = '5.8.1';
 
     /**
      * Html string template to build the icon
@@ -67,12 +67,12 @@ class FontAwesome extends FontAwesomeHtmlEntity
         if($pro)
         {
             $url = 'pro.fontawesome.com';
-            $integrity = 'sha384-oi8o31xSQq8S0RpBcb4FaLB8LJi9AT8oIdmS1QldR8Ui7KUQjNAnDlJjp55Ba8FG';
+            $integrity = 'sha384-Bx4pytHkyTDy3aJKjGkGoHPt3tvv6zlwwjc3iqN7ktaiEMLDPqLSZYts2OjKcBx1';
         }
         else
         {
             $url = 'use.fontawesome.com';
-            $integrity = 'sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp';
+            $integrity = 'sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf';
         }
 
         return '<link rel="stylesheet" href="https://' . $url . '/releases/v' .
@@ -90,12 +90,12 @@ class FontAwesome extends FontAwesomeHtmlEntity
         if($pro)
         {
             $url = 'pro.fontawesome.com';
-            $integrity = 'sha384-d84LGg2pm9KhR4mCAs3N29GQ4OYNy+K+FBHX8WhimHpPm86c839++MDABegrZ3gn';
+            $integrity = 'sha384-GBwm0s/0wYcqnK/JmrCoRqWYIWzFiGEucsfFqkB76Ouii5+d4R31vWHPQtfhv55b';
         }
         else
         {
             $url = 'use.fontawesome.com';
-            $integrity = 'sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe';
+            $integrity = 'sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ';
         }
 
         return '<script defer src="https://' . $url . '/releases/v' .
